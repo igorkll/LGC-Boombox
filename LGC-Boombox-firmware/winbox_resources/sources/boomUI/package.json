@@ -1,0 +1,16 @@
+{
+  "name": "boomui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^37.3.0",
+    "electron-packager": "^17.1.2"
+  }
+}
