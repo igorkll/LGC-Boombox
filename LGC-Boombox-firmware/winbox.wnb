@@ -5,7 +5,7 @@
   "WinboxDescription": "",
   "OemKey": "",
   "UseOemKey": false,
-  "ProgramName": null,
+  "ProgramName": "boomUI-win32-x64/boomUI.exe",
   "ProgramArgs": "",
   "RawCommand": "",
   "WebSite": "",
@@ -38,7 +38,21 @@
   "winmountedEvent": "",
   "pythonVersion": null,
   "downloadEnabled": false,
-  "buildEnabled": false,
+  "buildEnabled": true,
   "DownloadItems": [],
-  "BuildItems": []
+  "BuildItems": [
+    {
+      "name": "boomUI",
+      "type": 3,
+      "subdirectory": "",
+      "subdirectory_enabled": false,
+      "msbuild_path": "",
+      "msbuild_configuration": "Release",
+      "cmake_path": "",
+      "cmake_configuration": "Release",
+      "cargo_path": "",
+      "custom_path": "boomUI",
+      "custom_command": "npx electron-packager . boomUI --platform=win32 --arch=%3 --out=%2"
+    }
+  ]
 }
