@@ -1,5 +1,7 @@
 const body = document.body;
 
+// wallpaper
+
 function applyWallpaper(path) {
     body.style.backgroundImage = `url('${path}')`;
 }
