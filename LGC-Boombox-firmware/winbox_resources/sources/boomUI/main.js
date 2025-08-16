@@ -1,27 +1,26 @@
 const { app, BrowserWindow } = require('electron');
 
-function createWindow() {
+app.whenReady().then(() => {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
+        fullscreen: true,
+        frame: false,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
 
     win.loadFile('index.html');
-}
 
-app.whenReady().then(createWindow);
-
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+    win.webContents.on("before-input-event", (event, input) => {
+        if (input.key === "F11") {
+            event.preventDefault();
+        }
+    });
 });
 
-app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
-    }
+app.on('window-all-closed', () => {
+    app.quit();
 });
