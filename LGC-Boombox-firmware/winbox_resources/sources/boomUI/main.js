@@ -2,17 +2,15 @@ const { app, BrowserWindow } = require('electron');
 
 app.whenReady().then(() => {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
         fullscreen: true,
-        frame: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         }
     });
 
-    win.loadFile('index.html');
+    win.loadFile('main.html');
+    win.setMenu(null);
 
     win.webContents.on("before-input-event", (event, input) => {
         if (input.key === "F11") {
