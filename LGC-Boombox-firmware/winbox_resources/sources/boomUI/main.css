@@ -2,3 +2,16 @@
   user-select: none;
   -webkit-user-select: none;
 }
+
+body {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    color: rgb(255, 255, 255);
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

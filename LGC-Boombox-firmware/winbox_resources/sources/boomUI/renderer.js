@@ -1,0 +1,26 @@
+const body = document.body;
+
+function applyWallpaper(path) {
+    body.style.backgroundImage = `url('${path}')`;
+}
+
+function setWallpaper(path) {
+    applyWallpaper(path)
+    localStorage.setItem('wallpaper', path);
+}
+
+applyWallpaper(localStorage.getItem('wallpaper') || "wallpapers/2.jpg");
+
+
+
+document.getElementById('test1').addEventListener('click', () => {
+    setWallpaper("wallpapers/1.jpg");
+});
+
+document.getElementById('test2').addEventListener('click', () => {
+    setWallpaper("wallpapers/2.jpg");
+});
+
+document.getElementById('test3').addEventListener('click', () => {
+    setWallpaper("wallpapers/3.jpg");
+});

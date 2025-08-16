@@ -17,6 +17,8 @@ app.whenReady().then(() => {
             event.preventDefault();
         }
     });
+
+    win.webContents.openDevTools();
 });
 
 app.on('window-all-closed', () => {
