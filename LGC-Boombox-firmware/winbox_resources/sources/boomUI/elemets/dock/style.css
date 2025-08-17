@@ -20,5 +20,5 @@
 }
 
 .dock-item:hover {
-    transform: scale(1.2) translate(0px, -0.5vh);
+    transform: scale(1.2) translate(0px, -2vh);
 }

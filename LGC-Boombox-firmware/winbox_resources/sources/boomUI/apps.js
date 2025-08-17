@@ -26,13 +26,3 @@ function addApp(name) {
 
 addApp("settings")
 addApp("music")
-addApp("settings")
-addApp("music")
-addApp("settings")
-addApp("music")
-addApp("settings")
-addApp("music")
-addApp("settings")
-addApp("music")
-addApp("settings")
-addApp("music")
