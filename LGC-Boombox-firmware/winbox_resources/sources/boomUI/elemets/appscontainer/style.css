@@ -1,5 +1,4 @@
 .appscontainer {
-    display: flex;
-    justify-content: start;
-    align-items: start;
+    flex-grow: 1;
+    align-self: stretch;
 }
