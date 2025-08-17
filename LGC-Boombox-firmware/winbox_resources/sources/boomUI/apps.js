@@ -22,6 +22,13 @@ function addApp(name) {
             appscontainer.appendChild(appContainer);
         })
         .catch(err => console.error(err));
+
+    const script = document.createElement('script');
+    script.src = `apps/${name}/app.js`;
+    script.type = 'text/javascript';
+    script.onload = () => {};
+    script.onerror = () => console.error(`failed to load "${name}" script`);
+    document.head.appendChild(script);
 }
 
 addApp("settings")
