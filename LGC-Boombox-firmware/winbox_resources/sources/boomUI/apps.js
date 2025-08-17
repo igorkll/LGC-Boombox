@@ -1,6 +1,10 @@
 let appslist = document.getElementById('appslist');
 let appscontainer = document.getElementById('appscontainer');
 
+function openApp(name) {
+
+}
+
 function addApp(name) {
     let appIcon = document.createElement('img');
     appIcon.id = `${name}_icon`;
