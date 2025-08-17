@@ -4,18 +4,21 @@
   -webkit-user-drag: none;
 }
 
-body {
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    margin: 0;
-    color: rgb(255, 255, 255);
-    font-family: Arial, sans-serif;
 
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    background-size: cover;
+    background-position: center;
+
+    height: 100vh;
+    margin: 0;
+
+    color: rgb(255, 255, 255);
+    font-family: Arial, sans-serif;
 }
 
 .spacerX {
