@@ -2,18 +2,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5%;
-    padding: 0px 0.5vh;
+    height: 10%;
+    padding: 0px 1vh;
 
-    border-radius: 1vh;
+    border-radius: 3vh;
     background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(0.5vh);
+    backdrop-filter: blur(1vh);
 
-    box-shadow: 0 0 0.5vh 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1vh 0px rgba(0, 0, 0, 0.5);
 }
 
 .dock-item {
-    margin: 0.5vh;
+    margin: 1vh;
     height: 80%;
     cursor: pointer;
     transition: transform 0.2s;
