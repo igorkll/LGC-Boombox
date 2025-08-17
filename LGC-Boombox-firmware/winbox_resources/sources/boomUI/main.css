@@ -17,3 +17,11 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.spacerX {
+    margin-left: auto;
+}
+
+.spacerY {
+    margin-top: auto;
+}
