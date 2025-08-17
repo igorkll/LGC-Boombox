@@ -20,15 +20,15 @@ function addApp(name) {
             appContainer.classList.add('app');
             appContainer.innerHTML += html;
             appscontainer.appendChild(appContainer);
+
+            const script = document.createElement('script');
+            script.src = `apps/${name}/app.js`;
+            script.type = 'text/javascript';
+            script.onload = () => {};
+            script.onerror = () => console.error(`failed to load "${name}" script`);
+            document.head.appendChild(script);
         })
         .catch(err => console.error(err));
-
-    const script = document.createElement('script');
-    script.src = `apps/${name}/app.js`;
-    script.type = 'text/javascript';
-    script.onload = () => {};
-    script.onerror = () => console.error(`failed to load "${name}" script`);
-    document.head.appendChild(script);
 }
 
 addApp("settings")
