@@ -26,14 +26,3 @@ document.getElementById('test2').addEventListener('click', () => {
 document.getElementById('test3').addEventListener('click', () => {
     setWallpaper("wallpapers/3.jpg");
 });
-
-// event - hover
-const el = document.querySelector('.element');
-
-el.addEventListener('touchstart', () => {
-  el.classList.add('hover');
-}, { passive: true });
-
-el.addEventListener('touchend', () => {
-  el.classList.remove('hover');
-});
