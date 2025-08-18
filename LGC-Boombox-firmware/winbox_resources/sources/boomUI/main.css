@@ -1,3 +1,9 @@
+:root {
+    --padding: 2vh;
+    --dock-margin: 2vh;
+    --dock-size: 15vh;
+}
+
 * {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -17,7 +23,7 @@ body {
     width: 100vw;
     height: 100vh;
     margin: 0;
-    padding: 0.5vh;
+    padding: var(--padding);
     box-sizing: border-box;
     overflow: hidden;
 
@@ -31,4 +37,12 @@ body {
 
 .spacerY {
     margin-top: auto;
+}
+
+.soap {
+    border-radius: 5vh;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4vh);
+
+    box-shadow: 0 0 1vh 0px rgba(0, 0, 0, 1);
 }

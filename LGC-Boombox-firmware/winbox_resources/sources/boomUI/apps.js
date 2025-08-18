@@ -25,6 +25,7 @@ function addApp(name) {
         .then(html => {
             let appContainer = document.createElement('div');
             appContainer.id = `${name}_container`;
+            appContainer.classList.add('soap');
             appContainer.classList.add('app');
             appContainer.innerHTML += html;
             appContainer.style.display = 'none';

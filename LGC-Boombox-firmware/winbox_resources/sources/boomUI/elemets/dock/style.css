@@ -2,15 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
-    padding: 1vh 1vh;
-    gap: 1vh;
-
-    border-radius: 3vh;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(1vh);
-
-    box-shadow: 0 0 1vh 0px rgba(0, 0, 0, 0.5);
+    height: var(--dock-size);
+    padding: var(--dock-margin) var(--dock-margin);
+    gap: var(--dock-margin);
 }
 
 .dock-item {
