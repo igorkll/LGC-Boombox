@@ -5,7 +5,7 @@
   "WinboxDescription": "",
   "OemKey": "",
   "UseOemKey": false,
-  "ProgramName": "boomUI-win32-x64/boomUI.exe",
+  "ProgramName": "boomUI.exe",
   "ProgramArgs": "",
   "RawCommand": "",
   "WebSite": "",
@@ -15,6 +15,11 @@
   "PostInstall_user_reg": null,
   "WebSessionTimeout": 0,
   "ScreenTimeout": 0,
+  "StandbyTimeout": 0,
+  "HibernateTimeout": 0,
+  "ScreenTimeout_dc": 0,
+  "StandbyTimeout_dc": 0,
+  "HibernateTimeout_dc": 0,
   "Architecture": "x64",
   "ProgramType": 0,
   "LaunchMode": 0,
@@ -22,7 +27,11 @@
     "Integrate vc redist",
     "Disable boot circle",
     "Disable boot messages",
-    "Disable boot logo"
+    "Disable boot logo",
+    "completely remove explorer.exe",
+    "completely remove system audio/images",
+    "removal of the subsystem SysWOW64",
+    "removing UWP apps"
   ],
   "CustomBootLogo": null,
   "AddVirtualDisplay": false,
@@ -43,7 +52,7 @@
   "BuildItems": [
     {
       "name": "boomUI",
-      "type": 3,
+      "type": 4,
       "subdirectory": "",
       "subdirectory_enabled": false,
       "msbuild_path": "",
@@ -51,8 +60,13 @@
       "cmake_path": "",
       "cmake_configuration": "Release",
       "cargo_path": "",
-      "custom_path": "boomUI",
-      "custom_command": "npx electron-packager . boomUI --platform=win32 --arch=%3 --out=%2"
+      "custom_path": "",
+      "custom_command": "",
+      "electron_packager_path": "boomUI\\package.json",
+      "electron_packager_name": "boomUI"
     }
-  ]
+  ],
+  "forceIot": false,
+  "dc_use": false,
+  "enable_hibernation": false
 }
