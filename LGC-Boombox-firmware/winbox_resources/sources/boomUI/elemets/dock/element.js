@@ -15,7 +15,7 @@ function changeElementState(element, touch) {
         if (!element.classList.contains('active')) {
             element.classList.add('dock-item-hover');
         }
-    } else {
+    } else if (true) {
         element.classList.remove('dock-item-hover');
     }
 }
@@ -38,12 +38,8 @@ function checkTouchs(event) {
 
         if (touch) {
             capturedElements.push(element);
-            if (!element.classList.contains('active')) {
-                element.classList.add('dock-item-hover');
-            }
-        } else {
-            element.classList.remove('dock-item-hover');
         }
+        changeElementState(element, touch);
     });
 }
 
@@ -63,7 +59,7 @@ document.addEventListener('touchend', (event) => {
 });
 
 document.querySelectorAll('.dock-item').forEach(element => {
-    element.addEventListener('pointerdown', (event) => {
+    element.addEventListener('pointerup', (event) => {
         if (event.pointerType === 'mouse') {
             sendTouchEvent(element);
         }

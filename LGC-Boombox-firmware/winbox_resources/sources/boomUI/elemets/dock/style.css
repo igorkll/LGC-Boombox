@@ -16,9 +16,9 @@
 .dock-item {
     height: 100%;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.15s ease-in;
 }
 
 .dock-item-hover {
-    transform: scale(1.2) translate(0px, -2vh);
+    transform: scale(1.15) translate(0px, -2vh);
 }
