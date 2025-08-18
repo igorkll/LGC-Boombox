@@ -4,6 +4,7 @@
     align-items: center;
     height: 10%;
     padding: 0px 1vh;
+    gap: 1vh;
 
     border-radius: 3vh;
     background-color: rgba(255, 255, 255, 0.2);
@@ -13,7 +14,6 @@
 }
 
 .dock-item {
-    margin: 1vh;
     height: 80%;
     cursor: pointer;
     transition: transform 0.2s;
