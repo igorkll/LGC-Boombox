@@ -1,3 +1,5 @@
+let capturedElements = []
+
 function isTouchingElement(touch, element) {
     const rect = element.getBoundingClientRect();
     return (
@@ -18,7 +20,13 @@ function changeElementState(element, touch) {
     }
 }
 
+function sendTouchEvent(element) {
+    element.dispatchEvent(new CustomEvent('custom_click'));
+}
+
 function checkTouchs(event) {
+    capturedElements = []
+
     document.querySelectorAll('.dock-item').forEach(element => {
         let touch = false;
         for (let i = 0; i < event.touches.length; i++) {
@@ -29,6 +37,7 @@ function checkTouchs(event) {
         }
 
         if (touch) {
+            capturedElements.push(element);
             if (!element.classList.contains('active')) {
                 element.classList.add('dock-item-hover');
             }
@@ -47,12 +56,20 @@ document.addEventListener('touchmove', (event) => {
 });
 
 document.addEventListener('touchend', (event) => {
+    for (let i = 0; i < capturedElements.length; i++) {
+        sendTouchEvent(capturedElements[i]);
+    }
     checkTouchs(event);
 });
 
 document.querySelectorAll('.dock-item').forEach(element => {
+    element.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse') {
+            sendTouchEvent(element);
+        }
+    });
+
     element.addEventListener('pointerenter', (event) => {
-        console.log(event.pointerType);
         if (event.pointerType === 'mouse') {
             changeElementState(element, true);
         }

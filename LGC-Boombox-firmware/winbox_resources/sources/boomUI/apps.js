@@ -15,7 +15,7 @@ function addApp(name) {
     appIcon.id = `${name}_icon`;
     appIcon.src = `apps/${name}/icon.png`;
     appIcon.classList.add('dock-item');
-    appIcon.addEventListener('click', () => {
+    appIcon.addEventListener('custom_click', () => {
         openApp(name);
     })
     appslist.appendChild(appIcon);
