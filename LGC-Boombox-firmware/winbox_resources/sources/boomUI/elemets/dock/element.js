@@ -51,11 +51,16 @@ document.addEventListener('touchend', (event) => {
 });
 
 document.querySelectorAll('.dock-item').forEach(element => {
-    element.addEventListener('mouseenter', (event) => {
-        changeElementState(element, true);
+    element.addEventListener('pointerenter', (event) => {
+        console.log(event.pointerType);
+        if (event.pointerType === 'mouse') {
+            changeElementState(element, true);
+        }
     });
 
-    element.addEventListener('mouseleave', (event) => {
-        changeElementState(element, false);
+    element.addEventListener('pointerleave', (event) => {
+        if (event.pointerType === 'mouse') {
+            changeElementState(element, false);
+        }
     });
 });
