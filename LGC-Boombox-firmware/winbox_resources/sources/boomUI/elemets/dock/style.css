@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 10%;
-    padding: 0px 1vh;
+    padding: 1vh 1vh;
     gap: 1vh;
 
     border-radius: 3vh;
@@ -14,7 +14,7 @@
 }
 
 .dock-item {
-    height: 80%;
+    height: 100%;
     cursor: pointer;
     transition: transform 0.2s;
 }
