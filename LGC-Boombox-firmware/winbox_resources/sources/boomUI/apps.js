@@ -1,3 +1,5 @@
+let defaultApp = 'settings';
+
 let appslist = document.getElementById('appslist');
 let appscontainer = document.getElementById('appscontainer');
 
@@ -34,6 +36,10 @@ function addApp(name) {
             script.onload = () => {};
             script.onerror = () => console.error(`failed to load "${name}" script`);
             document.head.appendChild(script);
+
+            if (name === defaultApp) {
+                openApp("settings");
+            }
         })
         .catch(err => console.error(err));
 }
