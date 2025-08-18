@@ -19,6 +19,6 @@
     transition: transform 0.2s;
 }
 
-.dock-item:hover {
+.dock-item-hover {
     transform: scale(1.2) translate(0px, -2vh);
 }
