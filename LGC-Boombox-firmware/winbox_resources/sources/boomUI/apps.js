@@ -1,4 +1,4 @@
-let defaultApp = 'settings';
+let defaultApp = 'visualization';
 
 let appslist = document.getElementById('appslist');
 let appscontainer = document.getElementById('appscontainer');
@@ -50,7 +50,7 @@ function addApp(name) {
             document.head.appendChild(script);
 
             if (name === defaultApp) {
-                openApp("settings");
+                openApp(name);
             }
         })
         .catch(err => console.error(err));

@@ -1,4 +1,6 @@
 ﻿using CommandLine;
+using InTheHand.Net.Bluetooth;
+using InTheHand.Net.Sockets;
 using Windows.Devices.Enumeration;
 using Windows.Media.Audio;
 
@@ -44,7 +46,8 @@ class Program
         var deviceSelector = AudioPlaybackConnection.GetDeviceSelector();
         var devices = await DeviceInformation.FindAllAsync(deviceSelector);
 
-        return devices.FirstOrDefault();
+        return devices.FirstOrDefault(device =>
+            device.IsEnabled);
     }
 
     private static async Task ConnectToDevice(DeviceInformation device)
