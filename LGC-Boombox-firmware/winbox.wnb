@@ -63,6 +63,21 @@
       "custom_command": "",
       "electron_packager_path": "boomUI\\package.json",
       "electron_packager_name": "boomUI"
+    },
+    {
+      "name": "A2DPSink",
+      "type": 0,
+      "subdirectory": "",
+      "subdirectory_enabled": false,
+      "msbuild_path": "A2DPSink\\A2DPSink.sln",
+      "msbuild_configuration": "Release",
+      "cmake_path": "",
+      "cmake_configuration": "Release",
+      "cargo_path": "",
+      "custom_path": "",
+      "custom_command": "",
+      "electron_packager_path": "",
+      "electron_packager_name": "electron_app"
     }
   ],
   "forceIot": false,
