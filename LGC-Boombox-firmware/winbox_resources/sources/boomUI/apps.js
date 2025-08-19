@@ -8,6 +8,17 @@ function openApp(name) {
         const child = appscontainer.children[i];
         child.style.display = `${name}_container` === child.id ? 'flex' : 'none';
     }
+
+    for (let i = 0; i < appslist.children.length; i++) {
+        const child = appslist.children[i];
+        if (`${name}_icon` === child.id) {
+            if (!child.classList.contains('dock-item-active')) {
+                child.classList.add('dock-item-active');
+            }
+        } else {
+            child.classList.remove('dock-item-active');
+        }
+    }
 }
 
 function addApp(name) {
@@ -45,5 +56,6 @@ function addApp(name) {
         .catch(err => console.error(err));
 }
 
+addApp("visualization")
 addApp("settings")
 addApp("music")

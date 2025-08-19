@@ -12,10 +12,10 @@ function isTouchingElement(touch, element) {
 
 function changeElementState(element, touch) {
     if (touch) {
-        if (!element.classList.contains('active')) {
+        if (!element.classList.contains('dock-item-hover')) {
             element.classList.add('dock-item-hover');
         }
-    } else if (true) {
+    } else {
         element.classList.remove('dock-item-hover');
     }
 }
