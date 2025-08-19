@@ -12,9 +12,15 @@
     
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: center;
     flex-direction: row;
 
     margin: 4vh;
     gap: 4vh;
+}
+
+.visualization_inline_container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
 }
