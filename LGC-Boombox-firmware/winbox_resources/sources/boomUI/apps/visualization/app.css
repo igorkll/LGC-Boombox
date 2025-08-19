@@ -24,3 +24,10 @@
     justify-content: center;
     align-items: end;
 }
+
+.visualization_indicator {
+    width: 100%;
+    height: 100%;
+    background-color: var(--c);
+    box-shadow: 0 0 50vh 10vh var(--c);
+}
