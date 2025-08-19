@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const portAudio = require('naudiodon');
 
 app.whenReady().then(() => {
     const win = new BrowserWindow({
@@ -19,6 +20,23 @@ app.whenReady().then(() => {
     });
 
     win.webContents.openDevTools();
+
+    console.log(portAudio.getDevices());
+
+    const ai = new portAudio.AudioInput({
+        channelCount: 2,
+        sampleFormat: portAudio.SampleFormat16Bit,
+        sampleRate: 44100,
+        deviceId: 1,
+        closeOnError: true
+    });
+
+    ai.on('data', (chunk) => {
+        console.log('PCM data length:', chunk.length);
+        mainWindow.webContents.send('audio-data', chunk);
+    });
+
+    ai.start();
 });
 
 app.on('window-all-closed', () => {

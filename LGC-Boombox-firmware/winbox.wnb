@@ -30,7 +30,8 @@
     "completely remove explorer.exe",
     "completely remove system audio/images",
     "removing UWP apps",
-    "removal of the subsystem SysWOW64"
+    "removal of the subsystem SysWOW64",
+    "Integrate net 8.0.17"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
@@ -70,6 +71,21 @@
       "subdirectory": "",
       "subdirectory_enabled": false,
       "msbuild_path": "A2DPSink\\A2DPSink.sln",
+      "msbuild_configuration": "Release",
+      "cmake_path": "",
+      "cmake_configuration": "Release",
+      "cargo_path": "",
+      "custom_path": "",
+      "custom_command": "",
+      "electron_packager_path": "",
+      "electron_packager_name": "electron_app"
+    },
+    {
+      "name": "AudioCapture",
+      "type": 0,
+      "subdirectory": "",
+      "subdirectory_enabled": false,
+      "msbuild_path": "AudioCapture\\AudioCapture.sln",
       "msbuild_configuration": "Release",
       "cmake_path": "",
       "cmake_configuration": "Release",
