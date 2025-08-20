@@ -1,17 +1,26 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
-using NWaves.Features;
-using NWaves.Signals;
+using NWaves.Audio;
 using NWaves.Transforms;
+using NWaves.Windows;
 using System;
-using System.Data;
-using System.Linq;
-using System.Numerics;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using WaveFormat = NAudio.Wave.WaveFormat;
 
 class Program
 {
-    static int fftSize = 1024;
+    const int FftSize = 1024;       // степень двойки
+    const int HopSize = FftSize / 2;
+
+    static RealFft _fft = new RealFft(FftSize);
+    static float[] _window = Window.OfType(WindowType.Hann, FftSize);
+    static float[] _frame = new float[FftSize];
+    static float[] _re = new float[FftSize];
+    static float[] _im = new float[FftSize];
+
+    // скользящий буфер моно-сэмплов (after downmix)
+    static List<float> _monoBuffer = new List<float>(FftSize * 4);
 
     static void Main()
     {
@@ -20,50 +29,96 @@ class Program
 
         Console.WriteLine($"Using device: {device.FriendlyName}");
 
-        using (var capture = new WasapiLoopbackCapture(device))
+        using var capture = new WasapiLoopbackCapture(device);
+        Console.WriteLine($"Capture format: {capture.WaveFormat.Encoding}, {capture.WaveFormat.SampleRate} Hz, {capture.WaveFormat.Channels} ch, {capture.WaveFormat.BitsPerSample} bit");
+
+        capture.DataAvailable += (s, data) =>
         {
-            capture.DataAvailable += (s, a) =>
-            {
-                DiscreteSignal spectrum = getSpectrum(a.Buffer, a.BytesRecorded, capture.WaveFormat.SampleRate);
+            getWaves(data.Buffer, capture.WaveFormat);
+        };
 
-                int sampleRate = capture.WaveFormat.SampleRate;
-                for (int i = 0; i < spectrum.Length; i++)
-                {
-                    double freq = i * (double)sampleRate / fftSize;
-                    double amplitude = spectrum[i];
-                    Console.WriteLine($"{freq:F0} Hz : {amplitude:F4}");
-                }
+        capture.RecordingStopped += (s, a) => Console.WriteLine("Recording stopped");
 
-                Console.WriteLine("-----");
-            };
-
-            capture.RecordingStopped += (s, a) =>
-            {
-                Console.WriteLine("Recording stopped");
-            };
-
-            capture.StartRecording();
-            Console.WriteLine("Press Enter to stop...");
-            Console.ReadLine();
-            capture.StopRecording();
-        }
+        capture.StartRecording();
+        Console.WriteLine("Press Enter to stop...");
+        Console.ReadLine();
+        capture.StopRecording();
     }
 
-    static DiscreteSignal getSpectrum(byte[] inputBuffer, int inputBufferSize, int sampleRate)
+    static float[]? getWaves(byte[] buffer, WaveFormat waveFormat)
     {
-        float[] samples = new float[inputBufferSize / 2];
-        for (int i = 0; i < samples.Length; i++)
+        int channels = waveFormat.Channels;
+
+        if (waveFormat.Encoding == WaveFormatEncoding.IeeeFloat && waveFormat.BitsPerSample == 32)
         {
-            short sample16 = BitConverter.ToInt16(inputBuffer, i * 2);
-            samples[i] = sample16 / 32768f;
+            int floatCount = buffer.Length / 4;
+            unsafe
+            {
+                fixed (byte* pBytes = buffer)
+                {
+                    float* pFloats = (float*)pBytes;
+
+                    int samplesPerChannel = floatCount / channels;
+                    for (int i = 0; i < samplesPerChannel; i++)
+                    {
+                        float sum = 0f;
+                        int baseIdx = i * channels;
+                        for (int ch = 0; ch < channels; ch++)
+                            sum += pFloats[baseIdx + ch];
+
+                        _monoBuffer.Add(sum / channels);
+                    }
+                }
+            }
+        }
+        else if (waveFormat.Encoding == WaveFormatEncoding.Pcm && waveFormat.BitsPerSample == 16)
+        {
+            int totalSamples = buffer.Length / 2;
+            int samplesPerChannel = totalSamples / channels;
+            for (int i = 0; i < samplesPerChannel; i++)
+            {
+                int baseByte = i * channels * 2;
+                int sum = 0;
+                for (int ch = 0; ch < channels; ch++)
+                {
+                    short s16 = BitConverter.ToInt16(buffer, baseByte + ch * 2);
+                    sum += s16;
+                }
+                _monoBuffer.Add((sum / (float)channels) / 32768f);
+            }
+        }
+        else
+        {
+            return null;
         }
 
-        int len = Math.Min(fftSize, samples.Length);
-        float[] buffer = new float[fftSize];
-        Array.Copy(samples, buffer, len);
+        // Обрабатываем, пока хватает сэмплов на один кадр
+        while (_monoBuffer.Count >= FftSize)
+        {
+            // копируем FftSize сэмплов в кадр
+            for (int i = 0; i < FftSize; i++)
+                _frame[i] = _monoBuffer[i] * _window[i];
 
-        DiscreteSignal signal = new DiscreteSignal(sampleRate, buffer);
-        Fft fft = new Fft(fftSize);
-        return fft.PowerSpectrum(signal);
+            // FFT
+            Array.Clear(_re, 0, _re.Length);
+            Array.Clear(_im, 0, _im.Length);
+            _fft.Direct(_frame, _re, _im);
+
+            // посчитаем несколько первых бинов для демонстрации
+            int sampleRate = waveFormat.SampleRate;
+            int binsToPrint = 20;
+            for (int k = 0; k < binsToPrint; k++)
+            {
+                double freq = (double)sampleRate / FftSize * k;
+                double mag = Math.Sqrt(_re[k] * _re[k] + _im[k] * _im[k]);
+                Console.WriteLine($"{freq,7:0} Hz : {mag:0.0000}");
+            }
+            Console.WriteLine("-----");
+
+            // сдвигаем буфер на HopSize
+            _monoBuffer.RemoveRange(0, HopSize);
+        }
+
+        return [];
     }
 }
