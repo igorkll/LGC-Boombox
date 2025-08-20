@@ -1,3 +1,4 @@
+{
 const body = document.body;
 
 // wallpaper
@@ -12,3 +13,4 @@ function setWallpaper(path) {
 }
 
 applyWallpaper(localStorage.getItem('wallpaper') || "wallpapers/2.jpg");
+}

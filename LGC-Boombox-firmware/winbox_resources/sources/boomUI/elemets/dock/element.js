@@ -1,3 +1,4 @@
+{
 let capturedElements = []
 let elementsTriggerTime = []
 let elementsDelay = []
@@ -97,3 +98,4 @@ setInterval(() => {
         }
     }
 }, 50);
+}

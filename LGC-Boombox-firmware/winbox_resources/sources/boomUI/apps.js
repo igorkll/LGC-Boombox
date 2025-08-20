@@ -1,3 +1,4 @@
+{
 let defaultApp = 'visualization';
 
 let appslist = document.getElementById('appslist');
@@ -58,3 +59,4 @@ function addApp(name) {
 addApp("music")
 addApp("visualization")
 addApp("settings")
+}

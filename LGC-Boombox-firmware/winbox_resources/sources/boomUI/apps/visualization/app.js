@@ -1,3 +1,4 @@
+{
 const { ipcRenderer } = require('electron');
 
 ipcRenderer.on('waves', (event, waves) => {
@@ -6,3 +7,4 @@ ipcRenderer.on('waves', (event, waves) => {
         document.getElementById(`visualization_light_${i}`).style.height = `${waves[i] * 100}%`;
     }
 });
+}

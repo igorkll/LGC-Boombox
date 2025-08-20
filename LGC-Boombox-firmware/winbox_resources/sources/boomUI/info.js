@@ -1,3 +1,4 @@
+{
 function updateDateTime() {
     const now = new Date();
     
@@ -23,3 +24,4 @@ function updateDateTime() {
 updateDateTime();
 
 setInterval(updateDateTime, 1000);
+}
