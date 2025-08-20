@@ -93,10 +93,10 @@ class Program
         }
         else
         {
-            return null;
+            return new float[bandsCount];
         }
 
-        float[]? bands = null;
+        float[]? bands = new float[bandsCount];
 
         // Обрабатываем, пока хватает сэмплов на один кадр
         while (_monoBuffer.Count >= FftSize)
@@ -122,8 +122,6 @@ class Program
             if (binsInRange <= 0) return null;
 
             int binsPerBand = Math.Max(1, binsInRange / bandsCount);
-
-            bands = new float[bandsCount];
 
             float maxVal = 0;
 
