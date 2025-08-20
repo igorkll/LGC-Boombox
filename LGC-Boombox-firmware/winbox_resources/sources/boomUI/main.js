@@ -38,7 +38,7 @@ app.whenReady().then(() => {
     });
 
     server.listen('\\\\.\\pipe\\LGCBoombox_AudioCapture', () => {
-        exec(`"${path.join(__dirname, "AudioCapture/AudioCapture.exe")}"`);
+        exec(`"${path.join(__dirname, "../../AudioCapture/AudioCapture.exe")}"`);
         console.log(`pipe created: LGCBoombox_AudioCapture`);
     });
 });
