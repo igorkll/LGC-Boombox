@@ -20,26 +20,31 @@ class Program
         using var capture = new WasapiLoopbackCapture(device);
         //Console.WriteLine($"Capture format: {capture.WaveFormat.Encoding}, {capture.WaveFormat.SampleRate} Hz, {capture.WaveFormat.Channels} ch, {capture.WaveFormat.BitsPerSample} bit");
 
-        // named pipes
-        var server = new NamedPipeServerStream("LGCBoombox_AudioCapture", PipeDirection.Out);
-        server.WaitForConnection();
-
-        var writer = new StreamWriter(server) { AutoFlush = true };
-
-        capture.DataAvailable += (s, data) =>
+        while (true)
         {
-            float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 4000, 7);
-            //debugWaves(waves);
+            using var server = new NamedPipeServerStream("LGCBoombox_AudioCapture", PipeDirection.Out);
+            server.WaitForConnection();
 
-            string json = JsonSerializer.Serialize(waves);
-            writer.WriteLineAsync(json);
-        };
+            var writer = new StreamWriter(server) { AutoFlush = true };
 
-        capture.RecordingStopped += (s, a) => { };
+            capture.DataAvailable += (s, data) =>
+            {
+                float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 4000, 7);
+                string json = JsonSerializer.Serialize(waves);
+                writer.WriteLineAsync(json);
+            };
 
-        capture.StartRecording();
-        Task.Delay(-1).Wait();
-        capture.StopRecording();
+            capture.RecordingStopped += (s, a) => { };
+
+            capture.StartRecording();
+            while (server.IsConnected)
+            {
+                Thread.Sleep(100);
+            }
+            capture.StopRecording();
+
+            server.Close();
+        }
     }
 
 
