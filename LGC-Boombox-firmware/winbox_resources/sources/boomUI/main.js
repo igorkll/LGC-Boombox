@@ -25,8 +25,6 @@ app.whenReady().then(() => {
 
     // ------------------------- AudioCapture
     const server = net.createServer((client) => {
-        console.log('Клиент подключился!');
-
         client.on('data', (data) => {
             const messages = data.toString().split('\n').filter(Boolean);
             messages.forEach(msg => {
