@@ -53,8 +53,8 @@
     {
       "name": "boomUI",
       "type": 4,
-      "subdirectory": "boomUI",
-      "subdirectory_enabled": true,
+      "subdirectory": "",
+      "subdirectory_enabled": false,
       "msbuild_path": "",
       "msbuild_configuration": "Release",
       "cmake_path": "",

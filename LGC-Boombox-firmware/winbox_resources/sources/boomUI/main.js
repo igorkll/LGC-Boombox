@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const { exec } = require('child_process');
 const net = require('net');
+const path = require('path');
 
 app.whenReady().then(() => {
     const win = new BrowserWindow({
@@ -22,6 +24,8 @@ app.whenReady().then(() => {
     win.webContents.openDevTools();
 
     // ------------------------- AudioCapture
+    exec(`"${path.join(__dirname, "AudioCapture/AudioCapture.exe")}"`);
+    
     const client = net.connect('\\\\.\\pipe\\LGCBoombox_AudioCapture');
 
     client.on('data', (data) => {
