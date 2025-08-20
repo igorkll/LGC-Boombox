@@ -21,7 +21,9 @@ app.whenReady().then(() => {
         }
     });
 
-    win.webContents.openDevTools();
+    if (process.defaultApp) {
+        win.webContents.openDevTools();
+    }
 
     // ------------------------- AudioCapture
     const server = net.createServer((client) => {
