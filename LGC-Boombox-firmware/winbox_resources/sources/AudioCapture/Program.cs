@@ -22,7 +22,8 @@ class Program
 
         capture.DataAvailable += (s, data) =>
         {
-            getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 300, 2000, 6);
+            float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 4000, 7);
+            debugWaves(waves, 1, 6);
         };
 
         capture.RecordingStopped += (s, a) => Console.WriteLine("Recording stopped");
@@ -148,21 +149,21 @@ class Program
                     bands[b] /= maxVal;
             }
 
-
-            // для отладки можно выводить частотные полосы
-            for (int b = 0; b < bandsCount; b++)
-            {
-                double fStart = (sampleRate / (double)FftSize) * (kMin + b * binsPerBand);
-                double fEnd = (sampleRate / (double)FftSize) * (kMin + (b + 1) * binsPerBand);
-                //Console.WriteLine($"{fStart:0}-{fEnd:0} Hz : {bands[b]:0.0000}");
-                Console.WriteLine(string.Concat(Enumerable.Repeat('*', (int)Math.Round(bands[b] * 30))));
-            }
-            Console.WriteLine("-----");
-
-            // сдвигаем буфер на HopSize
             _monoBuffer.RemoveRange(0, HopSize);
         }
 
         return bands;
+    }
+
+    static void debugWaves(float[] waves, int startWave, int wavesCount)
+    {
+        Console.WriteLine("-----");
+        for (int b = startWave; b < (startWave + wavesCount); b++)
+        {
+            //double fStart = (sampleRate / (double)FftSize) * (kMin + b * binsPerBand);
+            //double fEnd = (sampleRate / (double)FftSize) * (kMin + (b + 1) * binsPerBand);
+            //Console.WriteLine($"{fStart:0}-{fEnd:0} Hz : {bands[b]:0.0000}");
+            Console.WriteLine($"{b} {string.Concat(Enumerable.Repeat('*', (int)Math.Round(waves[b] * 30)))}");
+        }
     }
 }
