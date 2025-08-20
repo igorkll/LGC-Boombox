@@ -26,8 +26,8 @@ class Program
 
         capture.DataAvailable += (s, data) =>
         {
-            float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 4000, 7);
-            string json = JsonSerializer.Serialize(waves);
+            float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 8000, 7);
+            string json = JsonSerializer.Serialize(normalizeWaves(waves, 16, 0, 6));
             writer.WriteLineAsync(json);
         };
 
@@ -133,8 +133,6 @@ class Program
 
             int binsPerBand = Math.Max(1, binsInRange / bandsCount);
 
-            float maxVal = 32;
-
             for (int b = 0; b < bandsCount; b++)
             {
                 int start = kMin + b * binsPerBand;
@@ -148,11 +146,7 @@ class Program
                 }
                 float val = (float)(sum / (end - start));
                 bands[b] = val;
-                if (val > maxVal) maxVal = val;
             }
-
-            for (int b = 0; b < bandsCount; b++)
-                bands[b] /= maxVal;
 
             _monoBuffer.RemoveRange(0, HopSize);
         }
@@ -160,17 +154,29 @@ class Program
         return bands;
     }
 
-    static void debugWaves(float[] waves, int startWave = 0, int? wavesCount = null)
+    static float[] normalizeWaves(float[] waves, int minDivVal = 0, int startWave = 0, int? wavesCount = null)
     {
-        wavesCount = waves.Length;
+        float maxVal = minDivVal;
 
-        Console.WriteLine("-----");
-        for (int b = startWave; b < (startWave + wavesCount); b++)
+        for (int i = 0; i < waves.Length; i++)
         {
-            //double fStart = (sampleRate / (double)FftSize) * (kMin + b * binsPerBand);
-            //double fEnd = (sampleRate / (double)FftSize) * (kMin + (b + 1) * binsPerBand);
-            //Console.WriteLine($"{fStart:0}-{fEnd:0} Hz : {bands[b]:0.0000}");
-            Console.WriteLine($"{b} {string.Concat(Enumerable.Repeat('*', (int)Math.Round(waves[b] * 30)))}");
+            float band = waves[i];
+            if (band > maxVal) maxVal = band;
         }
+
+        for (int b = 0; b < waves.Length; b++)
+        {
+            waves[b] /= maxVal;
+        }
+
+        float[] newWaves = new float[wavesCount ?? waves.Length];
+
+        int index = 0;
+        for (int i = startWave; i < (startWave + wavesCount); i++)
+        {
+            newWaves[index++] = waves[i];
+        }
+
+        return newWaves;
     }
 }
