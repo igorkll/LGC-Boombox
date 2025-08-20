@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
-const portAudio = require('naudiodon');
+const net = require('net');
 
 app.whenReady().then(() => {
     const win = new BrowserWindow({
@@ -21,22 +21,19 @@ app.whenReady().then(() => {
 
     win.webContents.openDevTools();
 
-    console.log(portAudio.getDevices());
+    // ------------------------- AudioCapture
+    const client = net.connect('\\\\.\\pipe\\LGCBoombox_AudioCapture');
 
-    const ai = new portAudio.AudioInput({
-        channelCount: 2,
-        sampleFormat: portAudio.SampleFormat16Bit,
-        sampleRate: 44100,
-        deviceId: 1,
-        closeOnError: true
+    client.on('data', (data) => {
+        const messages = data.toString().split('\n').filter(Boolean);
+        messages.forEach(msg => {
+            try {
+                const obj = JSON.parse(msg);
+                win.webContents.send('waves', obj);
+            } catch (err) {
+            }
+        });
     });
-
-    ai.on('data', (chunk) => {
-        console.log('PCM data length:', chunk.length);
-        mainWindow.webContents.send('audio-data', chunk);
-    });
-
-    ai.start();
 });
 
 app.on('window-all-closed', () => {

@@ -5,6 +5,8 @@ using NWaves.Transforms;
 using NWaves.Windows;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using WaveFormat = NAudio.Wave.WaveFormat;
 
@@ -14,23 +16,29 @@ class Program
     {
         var enumerator = new MMDeviceEnumerator();
         var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
-
-        Console.WriteLine($"Using device: {device.FriendlyName}");
-
+        //Console.WriteLine($"Using device: {device.FriendlyName}");
         using var capture = new WasapiLoopbackCapture(device);
-        Console.WriteLine($"Capture format: {capture.WaveFormat.Encoding}, {capture.WaveFormat.SampleRate} Hz, {capture.WaveFormat.Channels} ch, {capture.WaveFormat.BitsPerSample} bit");
+        //Console.WriteLine($"Capture format: {capture.WaveFormat.Encoding}, {capture.WaveFormat.SampleRate} Hz, {capture.WaveFormat.Channels} ch, {capture.WaveFormat.BitsPerSample} bit");
+
+        // named pipes
+        var server = new NamedPipeServerStream("LGCBoombox_AudioCapture", PipeDirection.Out);
+        server.WaitForConnection();
+
+        var writer = new StreamWriter(server) { AutoFlush = true };
 
         capture.DataAvailable += (s, data) =>
         {
             float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 4000, 7);
-            debugWaves(waves);
+            //debugWaves(waves);
+
+            string json = JsonSerializer.Serialize(waves);
+            writer.WriteLineAsync(json);
         };
 
-        capture.RecordingStopped += (s, a) => Console.WriteLine("Recording stopped");
+        capture.RecordingStopped += (s, a) => { };
 
         capture.StartRecording();
-        Console.WriteLine("Press Enter to stop...");
-        Console.ReadLine();
+        Task.Delay(-1).Wait();
         capture.StopRecording();
     }
 
