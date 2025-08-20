@@ -23,7 +23,7 @@ class Program
         capture.DataAvailable += (s, data) =>
         {
             float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 4000, 7);
-            debugWaves(waves, 1, 6);
+            debugWaves(waves);
         };
 
         capture.RecordingStopped += (s, a) => Console.WriteLine("Recording stopped");
@@ -123,7 +123,7 @@ class Program
 
             int binsPerBand = Math.Max(1, binsInRange / bandsCount);
 
-            float maxVal = 0;
+            float maxVal = 32;
 
             for (int b = 0; b < bandsCount; b++)
             {
@@ -141,11 +141,8 @@ class Program
                 if (val > maxVal) maxVal = val;
             }
 
-            if (maxVal > 0)
-            {
-                for (int b = 0; b < bandsCount; b++)
-                    bands[b] /= maxVal;
-            }
+            for (int b = 0; b < bandsCount; b++)
+                bands[b] /= maxVal;
 
             _monoBuffer.RemoveRange(0, HopSize);
         }
@@ -153,8 +150,10 @@ class Program
         return bands;
     }
 
-    static void debugWaves(float[] waves, int startWave, int wavesCount)
+    static void debugWaves(float[] waves, int startWave = 0, int? wavesCount = null)
     {
+        wavesCount = waves.Length;
+
         Console.WriteLine("-----");
         for (int b = startWave; b < (startWave + wavesCount); b++)
         {
