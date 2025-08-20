@@ -22,7 +22,7 @@ class Program
 
         capture.DataAvailable += (s, data) =>
         {
-            getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat);
+            getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 300, 2000, 6);
         };
 
         capture.RecordingStopped += (s, a) => Console.WriteLine("Recording stopped");
@@ -48,7 +48,7 @@ class Program
     static List<float> _monoBuffer = new List<float>(FftSize * 4);
 
     static float[]? getWaves(byte[] Buffer, int BytesRecorded, WaveFormat waveFormat,
-                         double fMin = 100, double fMax = 5000, int bandsCount = 8)
+                         double fMin, double fMax, int bandsCount)
     {
         int channels = waveFormat.Channels;
 
@@ -124,6 +124,8 @@ class Program
 
             bands = new float[bandsCount];
 
+            float maxVal = 1e-9f; // чтобы не делить на ноль
+
             for (int b = 0; b < bandsCount; b++)
             {
                 int start = kMin + b * binsPerBand;
@@ -135,8 +137,15 @@ class Program
                     double mag = Math.Sqrt(_re[k] * _re[k] + _im[k] * _im[k]);
                     sum += mag;
                 }
-                bands[b] = (float)(sum / (end - start));
+                float val = (float)(sum / (end - start));
+                bands[b] = val;
+                if (val > maxVal) maxVal = val;
             }
+
+            // === нормализация в диапазон [0..1] ===
+            for (int b = 0; b < bandsCount; b++)
+                bands[b] /= maxVal;
+
 
             // для отладки можно выводить частотные полосы
             for (int b = 0; b < bandsCount; b++)
