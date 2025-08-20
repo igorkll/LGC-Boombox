@@ -15,9 +15,9 @@
 
 
 .dock-item-active {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(5deg);
 }
 
 .dock-item-hover {
-    transform: scale(1.15) translate(0px, -2vh);
+    transform: scale(1.1) translate(0px, -2vh);
 }
