@@ -39,8 +39,7 @@
 }
 
 .visualization_light {
-    width: 100%;
+    width: 50%;
     height: 0%;
-    box-shadow: 0 0 20vh 0vh var(--c);
-    border-radius: 50%;
+    box-shadow: 0 0 20vh 5vh var(--c);
 }
