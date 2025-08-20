@@ -16,14 +16,13 @@ class Program
     {
         var enumerator = new MMDeviceEnumerator();
         var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
-        //Console.WriteLine($"Using device: {device.FriendlyName}");
+
         using var capture = new WasapiLoopbackCapture(device);
-        //Console.WriteLine($"Capture format: {capture.WaveFormat.Encoding}, {capture.WaveFormat.SampleRate} Hz, {capture.WaveFormat.Channels} ch, {capture.WaveFormat.BitsPerSample} bit");
 
-        using var server = new NamedPipeServerStream("LGCBoombox_AudioCapture", PipeDirection.Out);
-        server.WaitForConnection();
+        using var client = new NamedPipeClientStream(".", "LGCBoombox_AudioCapture", PipeDirection.Out);
+        client.Connect();
 
-        var writer = new StreamWriter(server) { AutoFlush = true };
+        var writer = new StreamWriter(client) { AutoFlush = true };
 
         capture.DataAvailable += (s, data) =>
         {
@@ -35,13 +34,14 @@ class Program
         capture.RecordingStopped += (s, a) => { };
 
         capture.StartRecording();
-        while (server.IsConnected)
+
+        while (client.IsConnected)
         {
             Thread.Sleep(100);
         }
-        capture.StopRecording();
 
-        server.Close();
+        capture.StopRecording();
+        client.Close();
     }
 
 
@@ -58,7 +58,7 @@ class Program
 
     static List<float> _monoBuffer = new List<float>(FftSize * 4);
 
-    static float[]? getWaves(byte[] Buffer, int BytesRecorded, WaveFormat waveFormat,
+    static float[] getWaves(byte[] Buffer, int BytesRecorded, WaveFormat waveFormat,
                          double fMin, double fMax, int bandsCount)
     {
         int channels = waveFormat.Channels;

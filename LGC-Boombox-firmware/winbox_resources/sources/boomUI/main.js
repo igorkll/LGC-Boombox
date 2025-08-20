@@ -24,19 +24,24 @@ app.whenReady().then(() => {
     win.webContents.openDevTools();
 
     // ------------------------- AudioCapture
-    exec(`"${path.join(__dirname, "AudioCapture/AudioCapture.exe")}"`);
-    
-    const client = net.connect('\\\\.\\pipe\\LGCBoombox_AudioCapture');
+    const server = net.createServer((client) => {
+        console.log('Клиент подключился!');
 
-    client.on('data', (data) => {
-        const messages = data.toString().split('\n').filter(Boolean);
-        messages.forEach(msg => {
-            try {
-                const obj = JSON.parse(msg);
-                win.webContents.send('waves', obj);
-            } catch (err) {
-            }
+        client.on('data', (data) => {
+            const messages = data.toString().split('\n').filter(Boolean);
+            messages.forEach(msg => {
+                try {
+                    const obj = JSON.parse(msg);
+                    win.webContents.send('waves', obj);
+                } catch (err) {
+                }
+            });
         });
+    });
+
+    server.listen('\\\\.\\pipe\\LGCBoombox_AudioCapture', () => {
+        exec(`"${path.join(__dirname, "AudioCapture/AudioCapture.exe")}"`);
+        console.log(`pipe created: LGCBoombox_AudioCapture`);
     });
 });
 
