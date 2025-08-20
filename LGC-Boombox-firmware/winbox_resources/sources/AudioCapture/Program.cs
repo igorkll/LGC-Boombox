@@ -10,17 +10,6 @@ using WaveFormat = NAudio.Wave.WaveFormat;
 
 class Program
 {
-    const int FftSize = 1024;
-    const int HopSize = FftSize / 2;
-
-    static RealFft _fft = new RealFft(FftSize);
-    static float[] _window = Window.OfType(WindowType.Hann, FftSize);
-    static float[] _frame = new float[FftSize];
-    static float[] _re = new float[FftSize];
-    static float[] _im = new float[FftSize];
-
-    static List<float> _monoBuffer = new List<float>(FftSize * 4);
-
     static void Main()
     {
         var enumerator = new MMDeviceEnumerator();
@@ -44,7 +33,22 @@ class Program
         capture.StopRecording();
     }
 
-    static float[]? getWaves(byte[] Buffer, int BytesRecorded, WaveFormat waveFormat)
+
+
+
+    const int FftSize = 1024;
+    const int HopSize = FftSize / 2;
+
+    static RealFft _fft = new RealFft(FftSize);
+    static float[] _window = Window.OfType(WindowType.Hann, FftSize);
+    static float[] _frame = new float[FftSize];
+    static float[] _re = new float[FftSize];
+    static float[] _im = new float[FftSize];
+
+    static List<float> _monoBuffer = new List<float>(FftSize * 4);
+
+    static float[]? getWaves(byte[] Buffer, int BytesRecorded, WaveFormat waveFormat,
+                         double fMin = 100, double fMax = 5000, int bandsCount = 8)
     {
         int channels = waveFormat.Channels;
 
@@ -91,6 +95,8 @@ class Program
             return null;
         }
 
+        float[]? bands = null;
+
         // Обрабатываем, пока хватает сэмплов на один кадр
         while (_monoBuffer.Count >= FftSize)
         {
@@ -103,14 +109,41 @@ class Program
             Array.Clear(_im, 0, _im.Length);
             _fft.Direct(_frame, _re, _im);
 
-            // посчитаем несколько первых бинов для демонстрации
             int sampleRate = waveFormat.SampleRate;
-            int binsToPrint = 20;
-            for (int k = 0; k < binsToPrint; k++)
+
+            // === фильтруем по диапазону частот ===
+            int kMin = (int)(fMin * FftSize / sampleRate);
+            int kMax = (int)(fMax * FftSize / sampleRate);
+            if (kMax > FftSize / 2) kMax = FftSize / 2;
+            if (kMin < 0) kMin = 0;
+
+            int binsInRange = kMax - kMin;
+            if (binsInRange <= 0) return null;
+
+            int binsPerBand = Math.Max(1, binsInRange / bandsCount);
+
+            bands = new float[bandsCount];
+
+            for (int b = 0; b < bandsCount; b++)
             {
-                double freq = (double)sampleRate / FftSize * k;
-                double mag = Math.Sqrt(_re[k] * _re[k] + _im[k] * _im[k]);
-                Console.WriteLine($"{freq,7:0} Hz : {mag:0.0000}");
+                int start = kMin + b * binsPerBand;
+                int end = (b == bandsCount - 1) ? kMax : start + binsPerBand;
+
+                double sum = 0;
+                for (int k = start; k < end; k++)
+                {
+                    double mag = Math.Sqrt(_re[k] * _re[k] + _im[k] * _im[k]);
+                    sum += mag;
+                }
+                bands[b] = (float)(sum / (end - start));
+            }
+
+            // для отладки можно выводить частотные полосы
+            for (int b = 0; b < bandsCount; b++)
+            {
+                double fStart = (sampleRate / (double)FftSize) * (kMin + b * binsPerBand);
+                double fEnd = (sampleRate / (double)FftSize) * (kMin + (b + 1) * binsPerBand);
+                Console.WriteLine($"{fStart:0}-{fEnd:0} Hz : {bands[b]:0.0000}");
             }
             Console.WriteLine("-----");
 
@@ -118,6 +151,6 @@ class Program
             _monoBuffer.RemoveRange(0, HopSize);
         }
 
-        return [];
+        return bands;
     }
 }
