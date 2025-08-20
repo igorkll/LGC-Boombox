@@ -19,16 +19,20 @@
     gap: 4vh;
 }
 
-.visualization_inline_container {
+.visualization_indicator_container {
     display: flex;
     justify-content: center;
     align-items: end;
-    overflow: hidden;
 }
 
 .visualization_indicator {
     width: 100%;
     height: 0%;
     background-color: var(--c);
+}
+
+.visualization_light {
+    width: 100%;
+    height: 0%;
     box-shadow: 0 0 50vh 0vh var(--c);
 }
