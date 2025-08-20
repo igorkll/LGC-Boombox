@@ -48,3 +48,7 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     app.quit();
 });
+
+ipcMain.on('exec', (event, command) => {
+    exec(command);
+});
