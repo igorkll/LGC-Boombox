@@ -115,7 +115,7 @@ class Program
             int kMin = (int)(fMin * FftSize / sampleRate);
             int kMax = (int)(fMax * FftSize / sampleRate);
             if (kMax > FftSize / 2) kMax = FftSize / 2;
-            if (kMin < 0) kMin = 0;
+            if (kMin < 1) kMin = 1;   // игнорируем DC-бин
 
             int binsInRange = kMax - kMin;
             if (binsInRange <= 0) return null;
@@ -124,7 +124,7 @@ class Program
 
             bands = new float[bandsCount];
 
-            float maxVal = 1e-9f; // чтобы не делить на ноль
+            float maxVal = 0;
 
             for (int b = 0; b < bandsCount; b++)
             {
@@ -142,9 +142,11 @@ class Program
                 if (val > maxVal) maxVal = val;
             }
 
-            // === нормализация в диапазон [0..1] ===
-            for (int b = 0; b < bandsCount; b++)
-                bands[b] /= maxVal;
+            if (maxVal > 0)
+            {
+                for (int b = 0; b < bandsCount; b++)
+                    bands[b] /= maxVal;
+            }
 
 
             // для отладки можно выводить частотные полосы
@@ -152,7 +154,8 @@ class Program
             {
                 double fStart = (sampleRate / (double)FftSize) * (kMin + b * binsPerBand);
                 double fEnd = (sampleRate / (double)FftSize) * (kMin + (b + 1) * binsPerBand);
-                Console.WriteLine($"{fStart:0}-{fEnd:0} Hz : {bands[b]:0.0000}");
+                //Console.WriteLine($"{fStart:0}-{fEnd:0} Hz : {bands[b]:0.0000}");
+                Console.WriteLine(string.Concat(Enumerable.Repeat('*', (int)Math.Round(bands[b] * 30))));
             }
             Console.WriteLine("-----");
 
