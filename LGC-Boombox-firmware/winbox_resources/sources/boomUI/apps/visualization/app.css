@@ -19,7 +19,14 @@
     gap: 4vh;
 }
 
+.visualization_container_part {
+    position: relative;
+    width: 15%;
+    height: 100%;
+}
+
 .visualization_indicator_container {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: end;
@@ -35,4 +42,5 @@
     width: 100%;
     height: 0%;
     box-shadow: 0 0 50vh 0vh var(--c);
+    border-radius: 5vh;
 }
