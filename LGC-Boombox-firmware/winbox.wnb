@@ -27,11 +27,12 @@
     "Integrate vc redist",
     "Disable boot circle",
     "Disable boot messages",
+    "Integrate net 8.0.17",
+    "Integrate nircmd",
     "completely remove explorer.exe",
     "completely remove system audio/images",
     "removing UWP apps",
-    "removal of the subsystem SysWOW64",
-    "Integrate net 8.0.17"
+    "removal of the subsystem SysWOW64"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
