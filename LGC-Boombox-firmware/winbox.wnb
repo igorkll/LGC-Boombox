@@ -1,5 +1,5 @@
 {
-  "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x86_22h2.iso",
+  "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x64_22h2.iso",
   "BaseWindowsVersion": "Windows 10 Enterprise Evaluation",
   "WinboxName": "LGC-Boombox-firmware",
   "WinboxDescription": "",
@@ -17,10 +17,16 @@
   "ScreenTimeout": 0,
   "StandbyTimeout": 0,
   "HibernateTimeout": 0,
+  "action_powerButton": 3,
+  "action_sleepButton": 1,
+  "action_closingLaptop": 4,
   "ScreenTimeout_dc": 0,
   "StandbyTimeout_dc": 0,
   "HibernateTimeout_dc": 0,
-  "Architecture": "x86",
+  "action_powerButton_dc": 3,
+  "action_sleepButton_dc": 1,
+  "action_closingLaptop_dc": 4,
+  "Architecture": "x64",
   "ProgramType": 0,
   "LaunchMode": 0,
   "TweakList": [
@@ -101,10 +107,12 @@
   "dc_use": false,
   "enable_hibernation": false,
   "UseCustomDisplaySettings": false,
+  "UseCustomDisplaySettings_scale": false,
   "cds_width": 800,
   "cds_height": 600,
   "cds_bitDepth": 32,
   "cds_refreshRate": 60,
   "cds_scaling": 100,
-  "cds_orientation": 0
+  "cds_orientation": 0,
+  "firstBootAction": 0
 }
