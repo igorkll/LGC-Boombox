@@ -26,8 +26,8 @@ class Program
 
         capture.DataAvailable += (s, data) =>
         {
-            float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 0, 20000, 60);
-            string json = JsonSerializer.Serialize(normalizeWaves(normalizeWaves(waves, -1, 1, 6), 16));
+            float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 40, 16000, 6);
+            string json = JsonSerializer.Serialize(normalizeWaves(waves, 4, 2));
             writer.WriteLineAsync(json);
         };
 
@@ -154,11 +154,13 @@ class Program
         return bands;
     }
 
-    static float[] normalizeWaves(float[] waves, int minDivVal = 0, int startWave = 0, int? wavesCount = null)
+    static float[] normalizeWaves(float[] waves, int minDivVal = 0, int fisrtDevider = 1, int startWave = 0, int? wavesCount = null)
     {
         if (minDivVal >= 0)
         {
             float maxVal = minDivVal;
+
+            waves[0] /= fisrtDevider;
 
             for (int i = 0; i < waves.Length; i++)
             {
