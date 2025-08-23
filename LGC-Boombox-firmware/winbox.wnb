@@ -18,8 +18,8 @@
   "StandbyTimeout": 0,
   "HibernateTimeout": 0,
   "action_powerButton": 3,
-  "action_sleepButton": 1,
-  "action_closingLaptop": 4,
+  "action_sleepButton": 0,
+  "action_closingLaptop": 0,
   "ScreenTimeout_dc": 0,
   "StandbyTimeout_dc": 0,
   "HibernateTimeout_dc": 0,
@@ -49,9 +49,17 @@
   "winmountedEnabled": false,
   "winmountedEvent": "",
   "pythonVersion": null,
-  "downloadEnabled": false,
+  "downloadEnabled": true,
   "buildEnabled": true,
-  "DownloadItems": [],
+  "DownloadItems": [
+    {
+      "name": "download item 1",
+      "path": "winbox_temp/files/DIRECTORIES ARE/CREATED AUTOMATICALLY/example.mp3",
+      "url": "https://raw.githubusercontent.com/igorkll/trashfolder/refs/heads/main/sound3/1.mp3",
+      "cache": true,
+      "unpack": false
+    }
+  ],
   "BuildItems": [
     {
       "name": "boomUI",
