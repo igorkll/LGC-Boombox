@@ -30,11 +30,11 @@
   "ProgramType": 0,
   "LaunchMode": 0,
   "TweakList": [
-    "Integrate vc redist",
     "Disable boot circle",
     "Disable boot messages",
     "Integrate net 8.0.17",
-    "Integrate nircmd"
+    "Integrate nircmd",
+    "Integrate vc redist"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
