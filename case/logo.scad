@@ -1,16 +1,16 @@
 $fn = 100;
 
-width = 80;
+width = 70;
 length = 20;
-height = 5;
+height = 2;
 
 hole_diameter = 3;
 logo_hole_offset = 30;
 
 text_depth = 1;
 text_string = "LGC Boombox";
-font_size = 7;
-font_name = "Impact";
+font_size = 6;
+font_name = "Arial";
 
 difference() {
     cube([width, length, height]);
