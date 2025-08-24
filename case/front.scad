@@ -1,7 +1,7 @@
 $fn = 100;
 
 width = 185;
-length = 160;
+length = 170;
 height = 5;
 
 hole_diameter = 3;
