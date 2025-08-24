@@ -9,7 +9,7 @@ hole_offset = 2.5;
 
 speaker_diameter = 80;
 speaker_hole_diameter = 3;
-speaker_hole_offset = 4;
+speaker_hole_offset = 6;
 speaker_offset = 10;
 
 difference() {
