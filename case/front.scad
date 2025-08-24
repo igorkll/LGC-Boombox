@@ -12,8 +12,9 @@ speaker_hole_diameter = 3;
 speaker_hole_offset = 6;
 speaker_offset = 10;
 
-screen_width = 110.5;
-screen_height = 62.2;
+screen_margin = 1;
+screen_width = 121 + screen_margin;
+screen_height = 76 + screen_margin;
 
 bracing_width = 30;
 bracing_length = 4;
