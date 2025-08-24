@@ -16,6 +16,7 @@ screen_width = 110.5;
 screen_height = 62.2;
 
 bracing_width = 40;
+bracing_length = 10;
 bracing_height = 10;
 
 logo_hole_offset = 20;
@@ -66,5 +67,12 @@ difference() {
     translate([width, length / 2, height / 2]) {
         cube([screen_width, screen_height, height + 1], center = true);
     }
-    
 }
+
+module bracing(pos) {
+    translate(pos) {
+        cube([bracing_length, bracing_width, bracing_height], center = true);
+    }
+}
+
+bracing([0, 0, height + bracing_height / 2]);
