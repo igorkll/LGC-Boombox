@@ -15,9 +15,10 @@ speaker_offset = 10;
 screen_width = 110.5;
 screen_height = 62.2;
 
-bracing_width = 40;
-bracing_length = 10;
+bracing_width = 30;
+bracing_length = 5;
 bracing_height = 10;
+bracing_offset = 10;
 
 logo_hole_offset = 20;
 logo_hole_center_offset = 30;
@@ -75,4 +76,5 @@ module bracing(pos) {
     }
 }
 
-bracing([0, 0, height + bracing_height / 2]);
+bracing([width - bracing_length / 2, (bracing_width / 2) + bracing_offset, height + bracing_height / 2]);
+bracing([width - bracing_length / 2, (length - bracing_width / 2) - bracing_offset, height + bracing_height / 2]);
