@@ -12,6 +12,15 @@ speaker_hole_diameter = 3;
 speaker_hole_offset = 6;
 speaker_offset = 10;
 
+screen_width = 110.5;
+screen_height = 62.2;
+
+bracing_width = 40;
+bracing_height = 10;
+
+logo_hole_offset = 20;
+logo_hole_center_offset = 30;
+
 difference() {
     cube([width, length, height]);
     
@@ -44,4 +53,18 @@ difference() {
     translate([speaker_x - local_speaker_hole_offset, speaker_y - local_speaker_hole_offset, height / 2]) {
         cylinder(h = height + 1, d = speaker_hole_diameter, center = true);
     }
+    
+    // logo hole
+    translate([width - logo_hole_center_offset, logo_hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width - logo_hole_center_offset, length - logo_hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    
+    // screen
+    translate([width, length / 2, height / 2]) {
+        cube([screen_width, screen_height, height + 1], center = true);
+    }
+    
 }
