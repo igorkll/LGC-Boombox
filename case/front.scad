@@ -16,9 +16,10 @@ screen_width = 110.5;
 screen_height = 62.2;
 
 bracing_width = 30;
-bracing_length = 5;
+bracing_length = 4;
 bracing_height = 10;
 bracing_offset = 10;
+bracing_holo_offset = 10;
 
 logo_hole_offset = 20;
 logo_hole_center_offset = 30;
@@ -71,8 +72,28 @@ difference() {
 }
 
 module bracing(pos) {
-    translate(pos) {
-        cube([bracing_length, bracing_width, bracing_height], center = true);
+    difference() {
+        translate(pos) {    
+            cube([bracing_length, bracing_width, bracing_height], center = true);
+        }
+        
+        translate([pos[0], pos[1], pos[2]]) {
+            rotate([0, 90, 0]) {
+                cylinder(h = bracing_length + 1, d = hole_diameter, center = true);
+            }
+        }
+        
+        translate([pos[0], pos[1] + bracing_holo_offset, pos[2]]) {
+            rotate([0, 90, 0]) {
+                cylinder(h = bracing_length + 1, d = hole_diameter, center = true);
+            }
+        }
+        
+        translate([pos[0], pos[1] - bracing_holo_offset, pos[2]]) {
+            rotate([0, 90, 0]) {
+                cylinder(h = bracing_length + 1, d = hole_diameter, center = true);
+            }
+        }
     }
 }
 
