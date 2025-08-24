@@ -1,7 +1,9 @@
 class vertical_slider extends HTMLElement {
     constructor() {
         super();
+    }
 
+    connectedCallback() {
         this.classList.add('soap');
     }
 }
