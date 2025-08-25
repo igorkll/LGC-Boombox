@@ -57,20 +57,29 @@ class vertical_slider extends HTMLElement {
 
         this._touchMoveHandler = (event) => {
             if (this.isDragging) {
-                //this._updateSlider(event.clientY);
-                console.log("A");
+                for (let i = 0; i < event.touches.length; i++) {
+                    let touchObj = event.touches[i];
+                    if (isTouchingElement(touchObj, this)) {
+                        let topElement = document.elementFromPoint(touchObj.clientX, touchObj.clientY);
+                        if (topElement === this || this.contains(topElement)) {
+                            this._updateSlider(touchObj.clientY);
+                            break;
+                        }
+                    }
+                }
             }
+        };
+
+        this._mouseDownHandler = (event) => {
+            this.isDragging = true;
+            this._updateSlider(event.clientY);
         };
 
         this._mouseUpHandler = () => {
             this.isDragging = false;
         };
 
-        sliderContainer.addEventListener('mousedown', (e) => {
-            this.isDragging = true;
-            this._updateSlider(e.clientY);
-        });
-
+        sliderContainer.addEventListener('pointerdown', this._mouseDownHandler);
         document.addEventListener('mousemove', this._mouseMoveHandler);
         document.addEventListener('touchmove', this._touchMoveHandler);
         document.addEventListener('mouseup', this._mouseUpHandler);
