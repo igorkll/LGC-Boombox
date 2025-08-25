@@ -37,8 +37,7 @@ class vertical_slider extends HTMLElement {
             this.value = 0.5;
         }
 
-        let isDragging = false;
-
+        // process
         this._updateSlider = (y) => {
             const rect = sliderContainer.getBoundingClientRect();
             let relativeY = rect.bottom - y;
@@ -58,37 +57,32 @@ class vertical_slider extends HTMLElement {
         this._touchMoveHandler = (event) => {
             if (this.isDragging) {
                 for (let i = 0; i < event.touches.length; i++) {
-                    let touchObj = event.touches[i];
-                    if (isTouchingElement(touchObj, this)) {
-                        let topElement = document.elementFromPoint(touchObj.clientX, touchObj.clientY);
-                        if (topElement === this || this.contains(topElement)) {
-                            this._updateSlider(touchObj.clientY);
-                            break;
-                        }
-                    }
+                    this._updateSlider(event.touches[i].clientY);
                 }
             }
         };
 
-        this._mouseDownHandler = (event) => {
+        this._downHandler = (event) => {
             this.isDragging = true;
             this._updateSlider(event.clientY);
         };
 
-        this._mouseUpHandler = () => {
+        this._upHandler = () => {
             this.isDragging = false;
         };
 
-        sliderContainer.addEventListener('pointerdown', this._mouseDownHandler);
+        sliderContainer.addEventListener('pointerdown', this._downHandler);
         document.addEventListener('mousemove', this._mouseMoveHandler);
         document.addEventListener('touchmove', this._touchMoveHandler);
-        document.addEventListener('mouseup', this._mouseUpHandler);
+        document.addEventListener('touchend', this._upHandler);
+        document.addEventListener('mouseup', this._upHandler);
     }
 
     disconnectedCallback() {
         document.removeEventListener('mousemove', this._mouseMoveHandler);
         document.removeEventListener('touchmove', this._touchMoveHandler);
-        document.removeEventListener('mouseup', this._mouseUpHandler);
+        document.removeEventListener('touchend', this._upHandler);
+        document.removeEventListener('mouseup', this._upHandler);
     }
 
     get value() {

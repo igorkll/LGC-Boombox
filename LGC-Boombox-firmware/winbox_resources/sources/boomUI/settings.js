@@ -1,1 +1,1 @@
-let volume_multiplier = 0.5;
+let volume_multiplier = 0.7;
