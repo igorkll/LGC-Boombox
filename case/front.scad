@@ -35,6 +35,21 @@ difference() {
     translate([hole_offset, length - hole_offset, height / 2]) {
         cylinder(h = height + 1, d = hole_diameter, center = true);
     }
+    translate([width - hole_offset, hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width - hole_offset, length - hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width / 2, hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width / 2, length - hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([hole_offset, length / 2, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
     
     // speaker
     speaker_x = (speaker_diameter / 2) + speaker_offset;

@@ -30,6 +30,21 @@ difference() {
     translate([hole_offset, length - hole_offset, height / 2]) {
         cylinder(h = height + 1, d = hole_diameter, center = true);
     }
+    translate([width - hole_offset, hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width - hole_offset, length - hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width / 2, hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width / 2, length - hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([hole_offset, length / 2, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
     
     // logo hole
     translate([width - logo_hole_center_offset, logo_hole_offset, height / 2]) {
@@ -77,3 +92,4 @@ module bracing(pos) {
 
 bracing([width - bracing_length / 2, (bracing_width / 2) + bracing_offset, height + bracing_height / 2]);
 bracing([width - bracing_length / 2, (length - bracing_width / 2) - bracing_offset, height + bracing_height / 2]);
+bracing([width - bracing_length / 2, length / 2, height + bracing_height / 2]);
