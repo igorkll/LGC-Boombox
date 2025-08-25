@@ -10,6 +10,15 @@ hole_diameter = 3;
 hole_offset = 2.5;
 hole_depth = 15;
 
+leds_width = 13;
+leds_height = 4;
+leds_offset = 30;
+
+legs_offset = 30;
+legs_offset2 = 30;
+
+right = false;
+
 module holes(pos) {
     translate([hole_offset, hole_offset, pos]) {
         cylinder(h = hole_depth + 1, d = hole_diameter);
@@ -39,6 +48,16 @@ difference() {
     
     translate([thickness, thickness, -1]) {
         cube([width, length - thickness * 2, height + 2]);
+    }
+    
+    if (right) {
+        translate([leds_offset, length - (thickness / 2), height / 2]) {
+            cube([leds_width, thickness + 1, leds_height], center = true);
+        }
+    } else {
+        translate([leds_offset, thickness / 2, height / 2]) {
+            cube([leds_width, thickness + 1, leds_height], center = true);
+        }
     }
     
     holes(-1);
