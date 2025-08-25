@@ -3,16 +3,6 @@ let capturedElements = []
 let elementsTriggerTime = []
 let elementsDelay = []
 
-function isTouchingElement(touch, element) {
-    const rect = element.getBoundingClientRect();
-    return (
-        touch.clientX >= rect.left &&
-        touch.clientX <= rect.right &&
-        touch.clientY >= rect.top &&
-        touch.clientY <= rect.bottom
-    );
-}
-
 function changeElementState(element, touch) {
     let uptime = performance.now();
     if (touch) {
@@ -40,7 +30,7 @@ function checkTouchs(event) {
         let touch = false;
         for (let i = 0; i < event.touches.length; i++) {
             let touchObj = event.touches[i];
-            if (isTouchingElement(touchObj, element)) {
+            if (window.isTouchingElement(touchObj, element)) {
                 let topElement = document.elementFromPoint(touchObj.clientX, touchObj.clientY);
                 if (topElement === element || element.contains(topElement)) {
                     touch = true;

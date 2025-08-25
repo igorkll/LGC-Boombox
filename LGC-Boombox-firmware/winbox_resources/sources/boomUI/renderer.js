@@ -1,3 +1,13 @@
+function isTouchingElement(touch, element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        touch.clientX >= rect.left &&
+        touch.clientX <= rect.right &&
+        touch.clientY >= rect.top &&
+        touch.clientY <= rect.bottom
+    );
+}
+
 {
 const { exec } = require('child_process');
 

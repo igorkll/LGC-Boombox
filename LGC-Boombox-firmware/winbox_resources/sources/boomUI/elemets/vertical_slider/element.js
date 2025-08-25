@@ -63,15 +63,17 @@ class vertical_slider extends HTMLElement {
         };
 
         this._downHandler = (event) => {
-            this.isDragging = true;
-            this._updateSlider(event.clientY);
+            if (window.isTouchingElement(event, this)) {
+                this.isDragging = true;
+                this._updateSlider(event.clientY);
+            }
         };
 
         this._upHandler = () => {
             this.isDragging = false;
         };
 
-        sliderContainer.addEventListener('pointerdown', this._downHandler);
+        document.addEventListener('pointerdown', this._downHandler);
         document.addEventListener('mousemove', this._mouseMoveHandler);
         document.addEventListener('touchmove', this._touchMoveHandler);
         document.addEventListener('touchend', this._upHandler);
@@ -79,6 +81,7 @@ class vertical_slider extends HTMLElement {
     }
 
     disconnectedCallback() {
+        document.removeEventListener('pointerdown', this._downHandler);
         document.removeEventListener('mousemove', this._mouseMoveHandler);
         document.removeEventListener('touchmove', this._touchMoveHandler);
         document.removeEventListener('touchend', this._upHandler);
