@@ -49,29 +49,31 @@ class vertical_slider extends HTMLElement {
             this.dispatchEvent(new CustomEvent('change', { detail: this._value }));
         }
 
-        this._mouseMoveHandler = (e) => {
-            console.log("B");
-            if (this.isDragging) this._updateSlider(e.clientY);
+        this._mouseMoveHandler = (event) => {
+            if (this.isDragging) {
+                console.log(event.clientY);
+                this._updateSlider(event.clientY);
+            }
         };
 
         this._mouseUpHandler = () => {
-            console.log("C");
             this.isDragging = false;
         };
 
         sliderContainer.addEventListener('mousedown', (e) => {
-            console.log("A");
-            isDragging = true;
+            this.isDragging = true;
             this._updateSlider(e.clientY);
         });
 
-        window.addEventListener('mousemove', this._mouseMoveHandler);
-        window.addEventListener('mouseup', this._mouseUpHandler);
+        //document.addEventListener('mousemove', this._mouseMoveHandler);
+        document.addEventListener('touchmove', this._mouseMoveHandler);
+        document.addEventListener('mouseup', this._mouseUpHandler);
     }
 
     disconnectedCallback() {
-        window.removeEventListener('mousemove', this._mouseMoveHandler);
-        window.removeEventListener('mouseup', this._mouseUpHandler);
+        //document.removeEventListener('mousemove', this._mouseMoveHandler);
+        document.removeEventListener('touchmove', this._mouseMoveHandler);
+        document.removeEventListener('mouseup', this._mouseUpHandler);
     }
 
     get value() {
