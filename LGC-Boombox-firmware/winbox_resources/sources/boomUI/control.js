@@ -24,13 +24,25 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
     verticalSlider.style.top = '10%';
     verticalSlider.style.bottom = '10%';
     verticalSlider.style.width = '15%';
+    verticalSlider.style.setProperty('--slider-value', window.getVolume());
     document.body.appendChild(verticalSlider);
 
-    verticalSliderCloseTimeoutId = setTimeout(() => {
-        verticalSlider.remove();
-        verticalSlider = null;
-        verticalSliderCloseTimeoutId = null;
-    }, 5000);
+    function startTimer() {
+        verticalSliderCloseTimeoutId = setTimeout(() => {
+            verticalSlider.remove();
+            verticalSlider = null;
+            verticalSliderCloseTimeoutId = null;
+        }, 5000);
+    }
+
+    startTimer();
+
+    verticalSlider.addEventListener('change', value => {
+        window.setVolume(value);
+
+        if (verticalSliderCloseTimeoutId) clearInterval(verticalSliderCloseTimeoutId);
+        startTimer();
+    });
 })
 
 }

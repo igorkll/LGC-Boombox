@@ -18,18 +18,69 @@ class vertical_slider extends HTMLElement {
         sliderContainer.style.justifyContent = 'center';
         sliderContainer.style.alignItems = 'end';
 
-        let slider = document.createElement('div');
-        slider.style.background = 'rgba(var(--slider-color), 1)';
-        slider.style.width = '100%';
-        slider.style.height = '50%';
+        this._slider = document.createElement('div');
+        this._slider.style.background = 'rgba(var(--slider-color), 1)';
+        this._slider.style.width = '100%';
 
-        sliderContainer.appendChild(slider);
+        sliderContainer.appendChild(this._slider);
 
         this.classList.add('soap');
         this.style.display = 'flex';
         this.style.justifyContent = 'center';
         this.style.alignItems = 'stretch';
         this.appendChild(sliderContainer);
+
+        let value = this.style.getPropertyValue('--slider-value');
+        if (value) {
+            this.value = value;
+        } else {
+            this.value = 0.5;
+        }
+
+        let isDragging = false;
+
+        this._updateSlider = (y) => {
+            const rect = sliderContainer.getBoundingClientRect();
+            let relativeY = rect.bottom - y;
+            relativeY = Math.max(0, Math.min(relativeY, rect.height));
+            const percent = relativeY / rect.height;
+
+            this.value = percent;
+            this.dispatchEvent(new CustomEvent('change', { detail: this._value }));
+        }
+
+        this._mouseMoveHandler = (e) => {
+            console.log("B");
+            if (this.isDragging) this._updateSlider(e.clientY);
+        };
+
+        this._mouseUpHandler = () => {
+            console.log("C");
+            this.isDragging = false;
+        };
+
+        sliderContainer.addEventListener('mousedown', (e) => {
+            console.log("A");
+            isDragging = true;
+            this._updateSlider(e.clientY);
+        });
+
+        window.addEventListener('mousemove', this._mouseMoveHandler);
+        window.addEventListener('mouseup', this._mouseUpHandler);
+    }
+
+    disconnectedCallback() {
+        window.removeEventListener('mousemove', this._mouseMoveHandler);
+        window.removeEventListener('mouseup', this._mouseUpHandler);
+    }
+
+    get value() {
+        return this._value;
+    }
+
+    set value(v) {
+        this._value = Math.max(0, Math.min(1, v));
+        this._slider.style.height = `${this._value * 100}%`;
     }
 }
 
