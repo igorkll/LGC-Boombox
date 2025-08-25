@@ -14,8 +14,8 @@ leds_width = 13;
 leds_height = 5;
 leds_offset = 30;
 
-handle_length = 150;
-handle_hole_offset = 2.5;
+handle_length = 170;
+handle_hole_offset = 5;
 
 legs_border_offset = 10;
 legs_center_offset = 30;
@@ -105,6 +105,18 @@ difference() {
             }
         }
         
+        translate([width - (handle_length / 2), thickness + 1, (height / 2) - handle_hole_offset]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+
+        translate([width - (handle_length / 2), thickness + 1, (height / 2) + handle_hole_offset]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+        
         translate([legs_center_offset, length + 1, legs_offset]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
@@ -128,6 +140,18 @@ difference() {
         }
 
         translate([width - (handle_length / 2) + handle_hole_offset, length + 1, height / 2]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+        
+        translate([width - (handle_length / 2), length + 1, (height / 2) - handle_hole_offset]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+
+        translate([width - (handle_length / 2), length + 1, (height / 2) + handle_hole_offset]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
             }

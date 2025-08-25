@@ -1,11 +1,11 @@
 $fn = 100;
 
-handle_length = 150;
-handle_width = 10;
-handle_height = 30;
+handle_length = 170;
+handle_width = 30;
+handle_height = 40;
 
 hole_diameter = 3;
-hole_offset = 2.5;
+hole_offset = 5;
 hole_depth = 15;
 
 rotate([0, 90, 0]) {
@@ -27,6 +27,14 @@ difference() {
     translate([(handle_length / 2) - hole_offset, 0, (handle_height + (handle_width / 2)) - hole_depth]) {
         cylinder(h = hole_depth + 1, d = hole_diameter);
     }
+    
+    translate([handle_length / 2, hole_offset, (handle_height + (handle_width / 2)) - hole_depth]) {
+        cylinder(h = hole_depth + 1, d = hole_diameter);
+    }
+    
+    translate([handle_length / 2, -hole_offset, (handle_height + (handle_width / 2)) - hole_depth]) {
+        cylinder(h = hole_depth + 1, d = hole_diameter);
+    }
 }
 
 difference() {
@@ -42,6 +50,14 @@ difference() {
     }
     
     translate([(handle_length / -2) - hole_offset, 0, (handle_height + (handle_width / 2)) - hole_depth]) {
+        cylinder(h = hole_depth + 1, d = hole_diameter);
+    }
+    
+    translate([handle_length / -2, hole_offset, (handle_height + (handle_width / 2)) - hole_depth]) {
+        cylinder(h = hole_depth + 1, d = hole_diameter);
+    }
+    
+    translate([handle_length / -2, -hole_offset, (handle_height + (handle_width / 2)) - hole_depth]) {
         cylinder(h = hole_depth + 1, d = hole_diameter);
     }
 }
