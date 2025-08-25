@@ -8,7 +8,7 @@ thickness = 5;
 
 hole_diameter = 3;
 hole_offset = 2.5;
-hole_depth = 5;
+hole_depth = 10;
 
 leds_width = 13;
 leds_height = 5;
