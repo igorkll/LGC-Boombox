@@ -11,11 +11,14 @@ hole_offset = 2.5;
 hole_depth = 15;
 
 leds_width = 13;
-leds_height = 4;
+leds_height = 5;
 leds_offset = 30;
 
-legs_offset = 30;
-legs_offset2 = 30;
+handle_length = 150;
+handle_hole_offset = 2.5;
+
+legs_offset = 10;
+legs_center_offset = 30;
 
 right = false;
 
@@ -54,9 +57,57 @@ difference() {
         translate([leds_offset, length - (thickness / 2), height / 2]) {
             cube([leds_width, thickness + 1, leds_height], center = true);
         }
+        
+        translate([width - (handle_length / 2) - handle_hole_offset, thickness + 1, height / 2]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+
+        translate([width - (handle_length / 2) + handle_hole_offset, thickness + 1, height / 2]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+        
+        translate([legs_center_offset, length + 1, legs_offset]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+
+        translate([legs_center_offset, length + 1, height - legs_offset]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
     } else {
         translate([leds_offset, thickness / 2, height / 2]) {
             cube([leds_width, thickness + 1, leds_height], center = true);
+        }
+        
+        translate([width - (handle_length / 2) - handle_hole_offset, length + 1, height / 2]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+
+        translate([width - (handle_length / 2) + handle_hole_offset, length + 1, height / 2]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+        
+        translate([legs_center_offset, thickness + 1, legs_offset]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
+        }
+
+        translate([legs_center_offset, thickness + 1, height - legs_offset]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = hole_diameter);
+            }
         }
     }
     
