@@ -24,6 +24,7 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
     verticalSlider.style.top = '10%';
     verticalSlider.style.bottom = '10%';
     verticalSlider.style.width = '15%';
+    verticalSlider.style.setProperty('--slider-color', "#ff0000");
     document.body.appendChild(verticalSlider);
 
     verticalSliderCloseTimeoutId = setTimeout(() => {
