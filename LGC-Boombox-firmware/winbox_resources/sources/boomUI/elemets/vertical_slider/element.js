@@ -4,20 +4,22 @@ class vertical_slider extends HTMLElement {
     }
 
     connectedCallback() {
+        if (!this.style.getPropertyValue('--slider-color')) {
+            this.style.setProperty('--slider-color', "63, 255, 48");
+        }
+
         let sliderContainer = document.createElement('div');
         sliderContainer.classList.add('soap');
         sliderContainer.classList.add('crop');
-        sliderContainer.style.setProperty('--slider-color', "#8cd70b44");
         sliderContainer.style.flex = 1;
-        sliderContainer.style.background = 'var(--slider-color)';
+        sliderContainer.style.background = 'rgba(var(--slider-color), 0.27)';
         sliderContainer.style.margin = '2vh';
         sliderContainer.style.display = 'flex';
         sliderContainer.style.justifyContent = 'center';
         sliderContainer.style.alignItems = 'end';
 
         let slider = document.createElement('div');
-        slider.style.setProperty('--slider-color', "#8cd70bff");
-        slider.style.background = 'var(--slider-color)';
+        slider.style.background = 'rgba(var(--slider-color), 1)';
         slider.style.width = '100%';
         slider.style.height = '50%';
 
