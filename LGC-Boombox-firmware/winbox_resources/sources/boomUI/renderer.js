@@ -8,6 +8,11 @@ function isTouchingElement(touch, element) {
     );
 }
 
+function isTouchingElementLayerCheck(touch, element) {
+    let topElement = document.elementFromPoint(touch.clientX, touch.clientY);
+    return topElement === element || element.contains(topElement);
+}
+
 {
 const { exec } = require('child_process');
 

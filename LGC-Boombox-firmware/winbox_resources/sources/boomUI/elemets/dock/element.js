@@ -30,12 +30,9 @@ function checkTouchs(event) {
         let touch = false;
         for (let i = 0; i < event.touches.length; i++) {
             let touchObj = event.touches[i];
-            if (window.isTouchingElement(touchObj, element)) {
-                let topElement = document.elementFromPoint(touchObj.clientX, touchObj.clientY);
-                if (topElement === element || element.contains(topElement)) {
-                    touch = true;
-                    break;
-                }
+            if (window.isTouchingElement(touchObj, element) && window.isTouchingElementLayerCheck(touchObj, element)) {
+                touch = true;
+                break;
             }
         }
 

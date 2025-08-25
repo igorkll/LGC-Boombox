@@ -63,9 +63,11 @@ class vertical_slider extends HTMLElement {
         };
 
         this._downHandler = (event) => {
-            if (window.isTouchingElement(event, this)) {
+            if (window.isTouchingElement(event, this) && window.isTouchingElementLayerCheck(event, this)) {
                 this.isDragging = true;
                 this._updateSlider(event.clientY);
+            } else {
+                this.dispatchEvent(new CustomEvent('click_outside'));
             }
         };
 

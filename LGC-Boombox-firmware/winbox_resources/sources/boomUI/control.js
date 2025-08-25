@@ -5,43 +5,51 @@ document.getElementById('poweroff_button').addEventListener('custom_click', () =
     exec('shutdown /s /t 0');
 })
 
-let verticalSlider = null;
-let verticalSliderCloseTimeoutId = null;
+let volumeSlider = null;
+let volumeSliderCloseTimeoutId = null;
+
+function deleteVolumeSlider() {
+    clearTimeout(volumeSliderCloseTimeoutId);
+    volumeSlider.remove();
+    volumeSlider = null;
+    volumeSliderCloseTimeoutId = null;
+}
 
 document.getElementById('volume_button').addEventListener('custom_click', () => {
-    if (verticalSlider) {
-        clearTimeout(verticalSliderCloseTimeoutId);
-        verticalSlider.remove();
-        verticalSlider = null;
-        verticalSliderCloseTimeoutId = null;
+    if (volumeSlider) {
+        deleteVolumeSlider();
         return;
     }
 
-    verticalSlider = document.createElement('vertical-slider');
-    verticalSlider.style.position = 'absolute';
-    verticalSlider.style.zIndex = '10';
-    verticalSlider.style.right = '1%';
-    verticalSlider.style.top = '10%';
-    verticalSlider.style.bottom = '10%';
-    verticalSlider.style.width = '15%';
-    verticalSlider.style.setProperty('--slider-value', window.getVolume());
-    document.body.appendChild(verticalSlider);
+    volumeSlider = document.createElement('vertical-slider');
+    volumeSlider.style.position = 'absolute';
+    volumeSlider.style.zIndex = '10';
+    volumeSlider.style.right = '1%';
+    volumeSlider.style.top = '10%';
+    volumeSlider.style.bottom = '10%';
+    volumeSlider.style.width = '15%';
+    volumeSlider.style.setProperty('--slider-value', window.getVolume());
+    document.body.appendChild(volumeSlider);
 
     function startTimer() {
-        verticalSliderCloseTimeoutId = setTimeout(() => {
-            verticalSlider.remove();
-            verticalSlider = null;
-            verticalSliderCloseTimeoutId = null;
+        volumeSliderCloseTimeoutId = setTimeout(() => {
+            volumeSlider.remove();
+            volumeSlider = null;
+            volumeSliderCloseTimeoutId = null;
         }, 5000);
     }
 
     startTimer();
 
-    verticalSlider.addEventListener('change', value => {
+    volumeSlider.addEventListener('change', value => {
         window.setVolume(value.detail);
 
-        if (verticalSliderCloseTimeoutId) clearInterval(verticalSliderCloseTimeoutId);
+        if (volumeSliderCloseTimeoutId) clearInterval(volumeSliderCloseTimeoutId);
         startTimer();
+    });
+
+    volumeSlider.addEventListener('click_outside', () => {
+        deleteVolumeSlider();
     });
 })
 
