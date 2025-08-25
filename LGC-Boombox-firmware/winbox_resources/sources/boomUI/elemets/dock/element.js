@@ -39,9 +39,13 @@ function checkTouchs(event) {
     document.querySelectorAll('.dock-item').forEach(element => {
         let touch = false;
         for (let i = 0; i < event.touches.length; i++) {
-            if (isTouchingElement(event.touches[i], element)) {
-                touch = true;
-                break;
+            let touchObj = event.touches[i];
+            if (isTouchingElement(touchObj, element)) {
+                let topElement = document.elementFromPoint(touchObj.clientX, touchObj.clientY);
+                if (topElement === element || element.contains(topElement)) {
+                    touch = true;
+                    break;
+                }
             }
         }
 

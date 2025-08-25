@@ -51,8 +51,14 @@ class vertical_slider extends HTMLElement {
 
         this._mouseMoveHandler = (event) => {
             if (this.isDragging) {
-                console.log(event.clientY);
                 this._updateSlider(event.clientY);
+            }
+        };
+
+        this._touchMoveHandler = (event) => {
+            if (this.isDragging) {
+                //this._updateSlider(event.clientY);
+                console.log("A");
             }
         };
 
@@ -65,14 +71,14 @@ class vertical_slider extends HTMLElement {
             this._updateSlider(e.clientY);
         });
 
-        //document.addEventListener('mousemove', this._mouseMoveHandler);
-        document.addEventListener('touchmove', this._mouseMoveHandler);
+        document.addEventListener('mousemove', this._mouseMoveHandler);
+        document.addEventListener('touchmove', this._touchMoveHandler);
         document.addEventListener('mouseup', this._mouseUpHandler);
     }
 
     disconnectedCallback() {
-        //document.removeEventListener('mousemove', this._mouseMoveHandler);
-        document.removeEventListener('touchmove', this._mouseMoveHandler);
+        document.removeEventListener('mousemove', this._mouseMoveHandler);
+        document.removeEventListener('touchmove', this._touchMoveHandler);
         document.removeEventListener('mouseup', this._mouseUpHandler);
     }
 
