@@ -1,17 +1,20 @@
 class vertical_slider extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
         let sliderContainer = document.createElement('div');
         sliderContainer.classList.add('soap');
-        sliderContainer.style.setProperty('--slider-color', 'red');
-        sliderContainer.style.width = '100px';
-        sliderContainer.style.height = '50px';
+        sliderContainer.style.setProperty('--slider-color', "#8cd70bff");
+        sliderContainer.style.flex = 1;
+        sliderContainer.style.background = 'var(--slider-color)';
+        sliderContainer.style.margin = '2vh';
 
         this.classList.add('soap');
+        this.style.display = 'flex';
+        this.style.justifyContent = 'center';
+        this.style.alignItems = 'stretch';
         this.appendChild(sliderContainer);
     }
 }
