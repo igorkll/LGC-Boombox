@@ -17,8 +17,13 @@ leds_offset = 30;
 handle_length = 150;
 handle_hole_offset = 2.5;
 
-legs_offset = 10;
+legs_border_offset = 10;
 legs_center_offset = 30;
+
+bracing_width = 30;
+bracing_length = 4;
+bracing_height = 10;
+bracing_holo_offset = 10;
 
 right = false;
 
@@ -98,13 +103,13 @@ difference() {
             }
         }
         
-        translate([legs_center_offset, thickness + 1, legs_offset]) {
+        translate([legs_center_offset, thickness + 1, legs_border_offset]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
             }
         }
 
-        translate([legs_center_offset, thickness + 1, height - legs_offset]) {
+        translate([legs_center_offset, thickness + 1, height - legs_border_offset]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
             }
@@ -113,4 +118,38 @@ difference() {
     
     holes(-1);
     holes(height - hole_depth);
+}
+
+module bracing() {
+    difference() {
+        cube([bracing_length, bracing_width, bracing_height], center = true);
+        
+        rotate([0, 90, 0]) {
+            cylinder(h = bracing_length + 1, d = hole_diameter, center = true);
+        }
+        
+        translate([0, bracing_holo_offset, 0]) {
+            rotate([0, 90, 0]) {
+                cylinder(h = bracing_length + 1, d = hole_diameter, center = true);
+            }
+        }
+        
+        translate([0, -bracing_holo_offset, 0]) {
+            rotate([0, 90, 0]) {
+                cylinder(h = bracing_length + 1, d = hole_diameter, center = true);
+            }
+        }
+    }
+}
+
+translate([width - (bracing_length / 2), thickness * 2, height / 2]) {  
+    rotate([90, 0, 0]) {
+        bracing();
+    }
+}
+
+translate([width - (bracing_length / 2), length - thickness * 2, height / 2]) {  
+    rotate([90, 0, 0]) {
+        bracing();
+    }
 }
