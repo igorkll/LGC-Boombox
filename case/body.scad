@@ -37,7 +37,7 @@ usb_width = 13;
 usb_height = 6;
 usb_count = 4;
 
-right = false;
+right = true;
 
 module holes(pos) {
     translate([hole_offset, hole_offset, pos]) {
@@ -117,13 +117,13 @@ difference() {
             }
         }
         
-        translate([legs_center_offset, length + 1, legs_offset]) {
+        translate([legs_center_offset, length + 1, legs_border_offset]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
             }
         }
 
-        translate([legs_center_offset, length + 1, height - legs_offset]) {
+        translate([legs_center_offset, length + 1, height - legs_border_offset]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
             }
