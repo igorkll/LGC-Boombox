@@ -12,7 +12,7 @@ hole_depth = 10;
 
 leds_width = 13;
 leds_height = 5;
-leds_offset = 30;
+leds_offset = thickness + (leds_width / 2);
 
 handle_length = 170;
 handle_hole_offset = 5;
@@ -32,9 +32,9 @@ buttons_diameters = [11, 16];
 
 usb_offset = 14;
 usb_border_offset = 60;
-usb_gap = 6;
+usb_gap = 7;
 usb_width = 13;
-usb_height = 5;
+usb_height = 6;
 usb_count = 4;
 
 right = false;
