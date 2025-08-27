@@ -8,7 +8,12 @@ ipcRenderer.on('waves', (event, waves) => {
         document.getElementById(`visualization_light_${i}`).style.height = `${waves[i] * 100}%`;
     }
 
-    for (let i = 0; i <= window.leds_getCount(); i++) {
+    let realLedsCount = window.leds_getCount();
+    let ledsCount = realLedsCount;
+    if (storage_table.light_mirror) {
+        ledsCount /= 2;
+    }
+    for (let i = 0; i <= ledsCount; i++) {
         let color;
         if (waves[0] > storage_table.light_bassLevel) {
             color = [255, 255, 255];
@@ -24,6 +29,9 @@ ipcRenderer.on('waves', (event, waves) => {
         color = window.colors_multiply(color, storage_table.light_mul);
         color = window.colors_clamp(color, 0, storage_table.light_max * 255);
         window.leds_set(i, color);
+        if (storage_table.light_mirror) {
+            window.leds_set(realLedsCount - 1 - i, color);
+        }
     }
     window.leds_flush();
 });
