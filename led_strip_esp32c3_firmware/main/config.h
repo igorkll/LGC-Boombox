@@ -3,3 +3,9 @@
 #define LED_FREQ 10000000
 #define LED_ORDER ledstrip_GRB
 #define LED_MAX_LIGHT 16
+
+#define UART_NUM UART_NUM_1
+#define UART_TXD GPIO_NUM_5
+#define UART_RXD GPIO_NUM_4
+#define UART_BUFSIZE 1024
+#define UART_BAUDRATE 115200
