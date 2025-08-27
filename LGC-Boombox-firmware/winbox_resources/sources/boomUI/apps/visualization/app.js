@@ -3,9 +3,11 @@ const { ipcRenderer } = require('electron');
 
 ipcRenderer.on('waves', (event, waves) => {
     for (let i = 0; i <= 5; i++) {
-        document.getElementById(`visualization_${i}`).style.height = `${waves[i] * 100}%`;
+        let element = document.getElementById(`visualization_${i}`);
+        element.style.height = `${waves[i] * 100}%`;
         document.getElementById(`visualization_light_${i}`).style.height = `${waves[i] * 100}%`;
-        window.leds_set(i, waves[i] * 255);
+        console.log(element.style.getPropertyValue('--c').trim());
+        window.leds_set(i, window.colors_multiply(window.colors_from(element.style.getPropertyValue('--c').trim()), waves[i]));
     }
     window.leds_flush();
 });

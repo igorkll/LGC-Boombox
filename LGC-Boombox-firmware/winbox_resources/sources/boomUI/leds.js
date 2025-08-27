@@ -6,16 +6,19 @@ window.leds_getCount = function () {
     return led_count;
 }
 
-window.leds_set = function (index, hex) {
+window.leds_set = function (index, rgb) {
     if (led_count == 0) return;
-    let rgbArr = window.colors_hexToRgb(hex);
-    port.write(Buffer.from([index - 1, rgbArr[0], rgbArr[1], rgbArr[2]]));
+    port.write(Buffer.from([index + 1, rgb[0], rgb[1], rgb[2]]));
+    console.log(rgb);
 }
 
 window.leds_flush = function () {
     if (led_count == 0) return;
     port.write(Buffer.from([0, 0, 0, 0]));
+    console.log("F");
 }
+
+// ----------------------------------------------------------------
 
 const { SerialPort } = require('serialport');
 
