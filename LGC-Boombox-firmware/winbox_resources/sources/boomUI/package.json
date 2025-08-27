@@ -13,5 +13,8 @@
     "electron": "^37.3.0",
     "electron-packager": "^17.1.2",
     "electron-rebuild": "^3.2.9"
+  },
+  "dependencies": {
+    "serialport": "^13.0.0"
   }
 }
