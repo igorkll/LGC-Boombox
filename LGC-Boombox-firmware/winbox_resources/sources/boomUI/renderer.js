@@ -25,11 +25,7 @@ window.setWallpaper = function(path, dontSave) {
     }
 }
 
-window.getWallpaper = function() {
-    return localStorage.getItem('wallpaper');
-}
-
-setWallpaper(localStorage.getItem('wallpaper') || "wallpapers/2.jpg", true);
+setWallpaper(storage_table.wallpaper);
 
 // volume
 let max_volume = 65535 * volume_multiplier;
@@ -47,5 +43,5 @@ window.getVolume = function() {
     return current_volume;
 }
 
-setVolume(localStorage.getItem('volume') || 0.2, true);
+setVolume(storage_table.volume);
 }

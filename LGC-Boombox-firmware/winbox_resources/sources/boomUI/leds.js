@@ -9,13 +9,11 @@ window.leds_getCount = function () {
 window.leds_set = function (index, rgb) {
     if (led_count == 0) return;
     port.write(Buffer.from([index + 1, rgb[0], rgb[1], rgb[2]]));
-    console.log(rgb);
 }
 
 window.leds_flush = function () {
     if (led_count == 0) return;
     port.write(Buffer.from([0, 0, 0, 0]));
-    console.log("F");
 }
 
 // ----------------------------------------------------------------
