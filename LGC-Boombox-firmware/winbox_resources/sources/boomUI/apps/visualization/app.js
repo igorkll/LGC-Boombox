@@ -8,9 +8,6 @@ ipcRenderer.on('waves', (event, waves) => {
         document.getElementById(`visualization_light_${i}`).style.height = `${waves[i] * 100}%`;
     }
 
-    console.log(waves[0]);
-    console.log(storage_table.light_bassLevel);
-    console.log(waves[0] > storage_table.light_bassLevel);
     if (waves[0] > storage_table.light_bassLevel) {
         for (let i = 0; i <= window.leds_getCount(); i++) {
             window.leds_set(i, [255, 255, 255]);

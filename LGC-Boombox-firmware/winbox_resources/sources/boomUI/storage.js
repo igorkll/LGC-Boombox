@@ -1,4 +1,4 @@
-let storage_version = 0;
+let storage_version = 1;
 
 let storage_default = {
     //base
@@ -11,7 +11,7 @@ let storage_default = {
     light_movement: true,
     light_min: 0.1,
     light_max: 1,
-    light_bassLevel: 0.7
+    light_bassLevel: 0.6
 };
 
 let storage_table = structuredClone(storage_default);
