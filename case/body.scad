@@ -10,9 +10,8 @@ hole_diameter = 3;
 hole_offset = 2.5;
 hole_depth = 10;
 
-leds_width = 13;
-leds_height = 5;
-leds_offset = thickness + (leds_width / 2);
+leds_wire_hole_diameter = 5;
+leds_wire_hole_offset = 5;
 
 handle_length = 170;
 handle_hole_offset = 5;
@@ -89,10 +88,6 @@ difference() {
     }
     
     if (right) {
-        translate([leds_offset, length - (thickness / 2), height / 2]) {
-            cube([leds_width, thickness + 1, leds_height], center = true);
-        }
-        
         translate([width - (handle_length / 2) - handle_hole_offset, thickness + 1, height / 2]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
@@ -128,11 +123,13 @@ difference() {
                 cylinder(h = thickness + 2, d = hole_diameter);
             }
         }
-    } else {
-        translate([leds_offset, thickness / 2, height / 2]) {
-            cube([leds_width, thickness + 1, leds_height], center = true);
-        }
         
+        translate([leds_wire_hole_offset + thickness, length + 1, height / 2]) {
+            rotate([90, 0, 0]) {
+                cylinder(h = thickness + 2, d = leds_wire_hole_diameter);
+            }
+        }
+    } else {
         translate([width - (handle_length / 2) - handle_hole_offset, length + 1, height / 2]) {
             rotate([90, 0, 0]) {
                 cylinder(h = thickness + 2, d = hole_diameter);
