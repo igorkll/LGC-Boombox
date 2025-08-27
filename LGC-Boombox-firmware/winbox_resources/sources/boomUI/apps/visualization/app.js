@@ -13,7 +13,7 @@ ipcRenderer.on('waves', (event, waves) => {
     if (storage_table.light_mirror) {
         ledsCount /= 2;
     }
-    for (let i = 0; i <= ledsCount; i++) {
+    for (let i = 0; i < ledsCount; i++) {
         let color;
         if (waves[0] > storage_table.light_bassLevel) {
             color = [255, 255, 255];
@@ -28,9 +28,14 @@ ipcRenderer.on('waves', (event, waves) => {
         }
         color = window.colors_multiply(color, storage_table.light_mul);
         color = window.colors_clamp(color, 0, storage_table.light_max * 255);
-        window.leds_set(i, color);
+
+        let ni = i;
+        if (storage_table.light_reverse || true) {
+            ni = ledsCount - 1 - i;
+        }
+        window.leds_set(ni, color);
         if (storage_table.light_mirror) {
-            window.leds_set(realLedsCount - 1 - i, color);
+            window.leds_set(realLedsCount - 1 - ni, color);
         }
     }
     window.leds_flush();
