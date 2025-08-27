@@ -1,14 +1,11 @@
 #include "main.h"
+#include "load_config.h"
 #include "ledstrip.h"
-
-#define UART_NUM UART_NUM_1
-#define UART_TXD GPIO_NUM_5
-#define UART_RXD GPIO_NUM_4
-#define UART_BUFSIZE 1024
+#include "color.h"
 
 static void uart_init() {
     const uart_config_t uart_config = {
-        .baud_rate = 9600,
+        .baud_rate = UART_BAUDRATE,
         .data_bits = UART_DATA_8_BITS,
         .parity    = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
@@ -31,8 +28,17 @@ void app_main() {
     while (1) {
         int len = uart_read_bytes(UART_NUM, data, 4, portMAX_DELAY);
         if (len == 4) {
-            if (data[0]) {
-                ledstrip_flush();
+            if (data[0] == 0) {
+                switch (data[1]) {
+                    case 0:
+                        ledstrip_flush();
+                        break;
+                    
+                    case 1:
+                        uint8_t byte = LED_COUNT;
+                        uart_write_bytes(UART_NUM, &byte, 1);
+                        break;
+                }
             } else {
                 ledstrip_set(data[0] - 1, color_pack(data[1], data[2], data[3]));
             }
