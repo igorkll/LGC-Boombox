@@ -1,5 +1,5 @@
 #include "ledstrip.h"
-#include "config.h"
+#include "load_config.h"
 #include "color.h"
 
 #include <driver/rmt_tx.h>
@@ -12,7 +12,6 @@
 static uint8_t ledstrip_data[LED_BUFFERSIZE];
 static rmt_channel_handle_t rmt_handle;
 static rmt_encoder_handle_t rmt_encoder = NULL;
-static uint8_t currentLight;
 static const char* TAG = "ledstrip";
 
 void ledstrip_init() {
@@ -36,10 +35,6 @@ void ledstrip_init() {
 
     ESP_LOGI(TAG, "Enable RMT TX channel");
     ESP_ERROR_CHECK(rmt_enable(rmt_handle));
-}
-
-void ledstrip_setLight(uint8_t light) {
-    currentLight = light;
 }
 
 void ledstrip_clear(uint32_t color) {
@@ -92,9 +87,9 @@ void ledstrip_setRGB(size_t i, uint8_t r, uint8_t g, uint8_t b) {
             return;
     }
 
-    ledstrip_data[i * 3 + 0] = (v0 * currentLight) / 255;
-    ledstrip_data[i * 3 + 1] = (v1 * currentLight) / 255;
-    ledstrip_data[i * 3 + 2] = (v2 * currentLight) / 255;
+    ledstrip_data[i * 3 + 0] = (v0 * LED_MAX_LIGHT) / 255;
+    ledstrip_data[i * 3 + 1] = (v1 * LED_MAX_LIGHT) / 255;
+    ledstrip_data[i * 3 + 2] = (v2 * LED_MAX_LIGHT) / 255;
 }
 
 void ledstrip_setHSV(size_t i, uint8_t h, uint8_t s, uint8_t v) {
