@@ -14,34 +14,35 @@ function isTouchingElementLayerCheck(touch, element) {
 }
 
 {
+let autoSaveSettings = false;
+
 const { exec } = require('child_process');
 
 // wallpaper
 
-window.setWallpaper = function(path, dontSave) {
+window.setWallpaper = function(path) {
+    storage_table.wallpaper = path;
     document.body.style.backgroundImage = `url('${path}')`;
-    if (!dontSave) {
-        localStorage.setItem('wallpaper', path);
-    }
+    if (autoSaveSettings) storage_save();
 }
 
 setWallpaper(storage_table.wallpaper);
 
 // volume
 let max_volume = 65535 * volume_multiplier;
-let current_volume;
 
-window.setVolume = function(volume, dontSave) {
+window.setVolume = function(volume) {
+    storage_table.volume = volume;
     exec(`nircmd setsysvolume ${Math.round(volume * max_volume)}`);
-    current_volume = volume;
-    if (!dontSave) {
-        localStorage.setItem('volume', volume);
-    }
+    if (autoSaveSettings) storage_save();
 }
 
 window.getVolume = function() {
-    return current_volume;
+    return storage_table.volume;
 }
 
 setVolume(storage_table.volume);
+
+// enable autosave
+autoSaveSettings = true;
 }
