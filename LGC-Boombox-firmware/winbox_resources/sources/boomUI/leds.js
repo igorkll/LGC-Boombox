@@ -77,18 +77,9 @@ async function testPort(portPath) {
     });
 }
 
-/*
 (async () => {
     let portPath = await findLedStripPort();
     if (portPath) console.log(`Selected port: ${portPath}`);
 })();
-*/
-
-(async () => {
-    let result = await testPort("COM9");
-    console.log(result);
-})();
-
-
 
 }
