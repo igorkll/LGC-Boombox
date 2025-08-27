@@ -47,7 +47,7 @@ static int usb_read(void* buffer, size_t len) {
     return usb_serial_jtag_read_bytes(buffer, len, portMAX_DELAY);
 }
 
-static int usb_write(void* buffer, size_t len) {
+static int usb_write(const void* buffer, size_t len) {
     return usb_serial_jtag_write_bytes(buffer, len, portMAX_DELAY);;
 }
 #endif
@@ -66,8 +66,6 @@ void app_main() {
     uint8_t data[4];
     while (1) {
         int len = usb_read(data, 4);
-        ledstrip_clear(0x008800);
-        ledstrip_flush();
 
         if (len == 4) {
             if (data[0] == 0) {
