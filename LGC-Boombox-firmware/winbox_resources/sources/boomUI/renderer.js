@@ -1,3 +1,7 @@
+function wrapInt(value, max) {
+    return ((value % max) + max) % max;
+}
+
 function isTouchingElement(touch, element) {
     const rect = element.getBoundingClientRect();
     return (

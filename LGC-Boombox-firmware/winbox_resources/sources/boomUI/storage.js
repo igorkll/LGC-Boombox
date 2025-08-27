@@ -1,16 +1,17 @@
-let storage_version = 0;
+let storage_version = 1;
 
 let storage_default = {
     //base
     wallpaper: 'wallpapers/2.jpg',
-    volume: 0.2,
+    volume: 0.5,
 
     //light
     light_mirror: true,
-    light_reverse: false,
-    light_movement: true,
-    light_min: 0.1,
-    light_max: 0.5,
+    light_reverse: true,
+    light_moveSpeed: 1,
+    light_leds: 3,
+    light_min: 0.05,
+    light_max: 1,
     light_mul: 1.2,
     light_bassLevel: 0.6
 };
