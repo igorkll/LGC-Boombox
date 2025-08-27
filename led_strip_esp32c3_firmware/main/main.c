@@ -3,6 +3,9 @@
 #include "ledstrip.h"
 #include "color.h"
 
+static const char* TAG = "led_strip_esp32c3_firmware";
+
+#ifdef USE_UART
 static void uart_init() {
     const uart_config_t uart_config = {
         .baud_rate = UART_BAUDRATE,
@@ -17,16 +20,52 @@ static void uart_init() {
     ESP_ERROR_CHECK(uart_set_pin(UART_NUM, UART_TXD, UART_RXD, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
 }
 
+static int usb_read(void* buffer, size_t len) {
+    return uart_read_bytes(UART_NUM, buffer, len, portMAX_DELAY);
+}
+
+static int usb_write(void* buffer, size_t len) {
+    return uart_write_bytes(UART_NUM, buffer, len);
+}
+#else
+static void usb_serial_init() {
+    usb_serial_jtag_driver_config_t usb_serial_jtag_config = {
+        .tx_buffer_size = USB_SERIAL_TX_BUFSIZE,
+        .rx_buffer_size = USB_SERIAL_RX_BUFSIZE,
+    };
+    
+    esp_err_t err = usb_serial_jtag_driver_install(&usb_serial_jtag_config);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to install USB serial jtag driver: %s", esp_err_to_name(err));
+        return;
+    }
+
+    ESP_LOGI(TAG, "USB Serial/JTAG initialized successfully");
+}
+
+static int usb_read(void* buffer, size_t len) {
+    return usb_serial_jtag_read_bytes(buffer, len, portMAX_DELAY);
+}
+
+static int usb_write(void* buffer, size_t len) {
+    return usb_serial_jtag_write_bytes(buffer, len, portMAX_DELAY);;
+}
+#endif
+
 void app_main() {
     ledstrip_init();
     ledstrip_clear(0x000000);
     ledstrip_flush();
 
-    uart_init();
+    #ifdef USE_UART
+        uart_init();
+    #else
+        usb_serial_init();
+    #endif
 
     uint8_t data[4];
     while (1) {
-        int len = uart_read_bytes(UART_NUM, data, 4, portMAX_DELAY);
+        int len = usb_read(data, 4);
         ledstrip_clear(0x008800);
         ledstrip_flush();
 
@@ -39,12 +78,12 @@ void app_main() {
                     
                     case 1:
                         uint8_t byte = LED_COUNT;
-                        uart_write_bytes(UART_NUM, &byte, 1);
+                        usb_write(&byte, 1);
                         break;
 
                     case 2:
                         const char* str = "led_strip";
-                        uart_write_bytes(UART_NUM, str, strlen(str));
+                        usb_write(str, strlen(str));
                         break;
                 }
             } else {
