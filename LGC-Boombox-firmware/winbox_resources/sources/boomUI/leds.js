@@ -1,4 +1,22 @@
 {
+let port;
+let led_count = 0;
+
+window.leds_getCount = function () {
+    return led_count;
+}
+
+window.leds_set = function (index, hex) {
+    if (led_count == 0) return;
+    let rgbArr = window.colors_hexToRgb(hex);
+    port.write(Buffer.from([index - 1, rgbArr[0], rgbArr[1], rgbArr[2]]));
+}
+
+window.leds_flush = function () {
+    if (led_count == 0) return;
+    port.write(Buffer.from([0, 0, 0, 0]));
+}
+
 const { SerialPort } = require('serialport');
 
 const TEST_BYTES = Buffer.from([0, 2, 0, 0]);
@@ -78,15 +96,15 @@ async function testPort(portPath) {
 }
 
 (async () => {
-    let port = await findLedStripPort();
+    port = await findLedStripPort();
     if (port) {
-        console.log(port);
-        
-        let TEST_BYTES = Buffer.from([41, 255, 0, 255]);
-        port.write(TEST_BYTES);
+        port.on('data', (data) => {
+            if (data.length > 0) {
+                led_count = data[0];
+            }
+        });
 
-        TEST_BYTES = Buffer.from([0, 0, 0, 0]);
-        port.write(TEST_BYTES);
+        port.write(Buffer.from([0, 1, 0, 0]));
     }
 })();
 
