@@ -45,7 +45,6 @@ async function testPort(portPath) {
         };
 
         const onData = (data) => {
-            console.log(data);
             const str = data.toString('utf-8');
             if (str.includes('led_strip')) {
                 cleanup();
@@ -70,7 +69,6 @@ async function testPort(portPath) {
 
             port.write(TEST_BYTES);
 
-            // Таймаут для ответа
             timeout = setTimeout(() => {
                 cleanup();
                 resolve(false);
@@ -79,9 +77,18 @@ async function testPort(portPath) {
     });
 }
 
+/*
 (async () => {
     let portPath = await findLedStripPort();
     if (portPath) console.log(`Selected port: ${portPath}`);
 })();
+*/
+
+(async () => {
+    let result = await testPort("COM9");
+    console.log(result);
+})();
+
+
 
 }
