@@ -11,10 +11,10 @@ async function findLedStripPort() {
         console.log(`Trying port: ${portPath}`);
 
         try {
-            const found = await testPort(portPath);
-            if (found) {
+            const port = await testPort(portPath);
+            if (port) {
                 console.log(`LED strip found on port: ${portPath}`);
-                return portPath;
+                return port;
             }
         } catch (err) {
             console.log(`Failed to test ${portPath}: ${err.message}`);
@@ -35,11 +35,11 @@ async function testPort(portPath) {
 
         let timeout;
 
-        const cleanup = () => {
+        const cleanup = (withoutClose=false) => {
             clearTimeout(timeout);
             port.removeAllListeners('data');
             port.removeAllListeners('error');
-            if (port.isOpen) {
+            if (port.isOpen && !withoutClose) {
                 port.close();
             }
         };
@@ -47,8 +47,8 @@ async function testPort(portPath) {
         const onData = (data) => {
             const str = data.toString('utf-8');
             if (str.includes('led_strip')) {
-                cleanup();
-                resolve(true);
+                cleanup(true);
+                resolve(port);
             }
         };
 
@@ -78,8 +78,16 @@ async function testPort(portPath) {
 }
 
 (async () => {
-    let portPath = await findLedStripPort();
-    if (portPath) console.log(`Selected port: ${portPath}`);
+    let port = await findLedStripPort();
+    if (port) {
+        console.log(port);
+        
+        let TEST_BYTES = Buffer.from([41, 255, 0, 255]);
+        port.write(TEST_BYTES);
+
+        TEST_BYTES = Buffer.from([0, 0, 0, 0]);
+        port.write(TEST_BYTES);
+    }
 })();
 
 }
