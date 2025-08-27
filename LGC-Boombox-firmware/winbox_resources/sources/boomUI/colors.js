@@ -36,6 +36,14 @@ window.colors_from = function (colorValue) {
     return rgbArray;
 }
 
+window.colors_clamp = function(color, min, max) {
+    let rgb = color.slice();
+    rgb[0] = Math.min(max, Math.max(min, rgb[0]));
+    rgb[1] = Math.min(max, Math.max(min, rgb[1]));
+    rgb[2] = Math.min(max, Math.max(min, rgb[2]));
+    return rgb;
+}
+
 window.colors_multiply = function(color, multiplier) {
     let rgb = color.slice();
     rgb[0] = Math.min(255, Math.max(0, Math.round(rgb[0] * multiplier)));
