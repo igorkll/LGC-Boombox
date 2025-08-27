@@ -38,6 +38,11 @@ void app_main() {
                         uint8_t byte = LED_COUNT;
                         uart_write_bytes(UART_NUM, &byte, 1);
                         break;
+
+                    case 2:
+                        const char* str = "led_strip";
+                        uart_write_bytes(UART_NUM, str, strlen(str));
+                        break;
                 }
             } else {
                 ledstrip_set(data[0] - 1, color_pack(data[1], data[2], data[3]));
