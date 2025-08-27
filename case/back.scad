@@ -16,9 +16,16 @@ bracing_holo_offset = 10;
 logo_hole_offset = 20;
 logo_hole_center_offset = 30;
 
-right = true;
+right = false;
+
+//right
 power_connector_diameter = 11;
 power_connector_offset = 20;
+
+//left
+aux_deep_diameter = 9;
+aux_diameter = 6;
+aux_offset = 20;
 
 difference() {
     cube([width, length, height]);
@@ -60,6 +67,14 @@ difference() {
     if (right) {
         translate([power_connector_offset, length - power_connector_offset, height / 2]) {
             cylinder(h = height + 1, d = power_connector_diameter, center = true);
+        }
+    } else {
+        translate([aux_offset, aux_offset, height]) {
+            cylinder(h = height + 1, d = aux_deep_diameter, center = true);
+        }
+        
+        translate([aux_offset, aux_offset, height / 2]) {
+            cylinder(h = height + 1, d = aux_diameter, center = true);
         }
     }
 }
