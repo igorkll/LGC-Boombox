@@ -16,5 +16,6 @@
     #define UART_TXD      UART_PIN_NO_CHANGE
     #define UART_RXD      UART_PIN_NO_CHANGE
 #endif
-#define UART_BUFSIZE 1024
+#define UART_RX_BUFSIZE 1024
+#define UART_TX_BUFSIZE 1024
 #define UART_BAUDRATE 115200

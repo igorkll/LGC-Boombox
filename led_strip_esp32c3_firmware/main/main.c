@@ -12,9 +12,9 @@ static void uart_init() {
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
     };
 
-    uart_driver_install(UART_NUM, UART_BUFSIZE, 0, 0, NULL, 0);
-    uart_param_config(UART_NUM, &uart_config);
-    uart_set_pin(UART_NUM, UART_TXD, UART_RXD, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM, UART_RX_BUFSIZE, UART_TX_BUFSIZE, 0, NULL, 0));
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM, &uart_config));
+    ESP_ERROR_CHECK(uart_set_pin(UART_NUM, UART_TXD, UART_RXD, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
 }
 
 void app_main() {
@@ -27,6 +27,9 @@ void app_main() {
     uint8_t data[4];
     while (1) {
         int len = uart_read_bytes(UART_NUM, data, 4, portMAX_DELAY);
+        ledstrip_clear(0x008800);
+        ledstrip_flush();
+
         if (len == 4) {
             if (data[0] == 0) {
                 switch (data[1]) {
