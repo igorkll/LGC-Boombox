@@ -9,10 +9,16 @@ ipcRenderer.on('waves', (event, waves) => {
         console.log(element.style.getPropertyValue('--c').trim());
     }
 
-    for (let i = 0; i <= window.leds_getCount(); i++) {
-        let waveIndex = i % 6;
-        let element = document.getElementById(`visualization_${waveIndex}`);
-        window.leds_set(i, window.colors_multiply(window.colors_from(element.style.getPropertyValue('--c').trim()), waves[waveIndex]));
+    if (waves[0] > storage_table.light_bassLevel) {
+        for (let i = 0; i <= window.leds_getCount(); i++) {
+            window.leds_set(i, 0xffffff);
+        }
+    } else {
+        for (let i = 0; i <= window.leds_getCount(); i++) {
+            let waveIndex = i % 6;
+            let element = document.getElementById(`visualization_${waveIndex}`);
+            window.leds_set(i, window.colors_multiply(window.colors_from(element.style.getPropertyValue('--c').trim()), waves[waveIndex]));
+        }
     }
     window.leds_flush();
 });
