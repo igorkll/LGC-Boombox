@@ -38,6 +38,11 @@ class custom_button extends HTMLElement {
         this.addEventListener('pointerdown', this._handler_down);
         document.addEventListener('pointerup', this._handler_up);
         document.addEventListener('touchend', this._handler_up);
+
+        let buttonBody = this.shadow.getElementById("button-body");
+        if (this.hasAttribute("style")) {
+            buttonBody.style.cssText = this.getAttribute("style");
+        }
     }
 
     disconnectedCallback() {
