@@ -24,6 +24,7 @@ const { ipcRenderer } = require('electron');
 
 { // wallpaper
     let panel = document.getElementById('setting_wallpaper_panel');
+    let oldSelected;
 
     function addWallpaperSelector(name) {
         let path = `wallpapers/${name}.jpg`;
@@ -38,7 +39,11 @@ const { ipcRenderer } = require('electron');
         wallpaperSelector.style.boxSizing = 'border-box';
         
         let updateSelector = () => {
-            wallpaperSelector.style.backgroundColor = '#ffff00';
+            let state = path === storage_table.wallpaper;
+            wallpaperSelector.style.backgroundColor = state ? '#ffff00' : '#000000';
+            if (state) {
+                oldSelected = wallpaperSelector;
+            }
         };
 
         let wallpaperPreview = document.createElement('img');
@@ -50,11 +55,14 @@ const { ipcRenderer } = require('electron');
         wallpaperSelector.appendChild(wallpaperPreview);
 
         wallpaperSelector.addEventListener('pointerup', () => {
+            oldSelected.style.backgroundColor = '#000000';
             setWallpaper(path);
+            updateSelector();
         });
-
         
         panel.appendChild(wallpaperSelector);
+
+        updateSelector();
     }
 
     for (let i = 1; i <= 3; i++) {
