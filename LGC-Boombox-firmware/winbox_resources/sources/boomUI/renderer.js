@@ -72,6 +72,15 @@ function messagebox(message) {
     img.style.objectFit = 'contain';
     msgboxBody.appendChild(img);
 
+    let text = document.createElement('div');
+    text.classList.add("info");
+    text.classList.add("soap");
+    text.style.padding = '2vh';
+    text.style.flex = '1';
+    text.style.overflow = 'hidden';
+    text.innerHTML = message;
+    msgboxBody.appendChild(text);
+
     let button = document.createElement('custom-button');
     button.style.marginTop = 'auto';
     button.style.minWidth = '50%';
