@@ -17,8 +17,18 @@ function addTab(tablist, tabhost, button, tab, opened=false) {
         }
     }
 
-    button.addEventListener('pointerup', () => {
-        changeState(true);
+    let tablinkPressed = false;
+
+    button.addEventListener('pointerdown', () => {
+        tablinkPressed = true;
+    });
+
+    document.addEventListener('pointerup', (event) => {
+        if (!tablinkPressed) return;
+        tablinkPressed = false;
+        if (window.isTouchingElement(event, button) && window.isTouchingElementLayerCheck(event, button)) {
+            changeState(true);
+        }
     });
 
     if (opened) {

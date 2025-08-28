@@ -1,3 +1,6 @@
+{
+let htmlPromise = fetch('elemets/custom_button/element.html').then(r => r.text());
+
 class custom_button extends HTMLElement {
     constructor() {
         super();
@@ -5,8 +8,8 @@ class custom_button extends HTMLElement {
     }
 
     async connectedCallback() {
-        let resp = await fetch('elemets/custom_button/element.html');
-        let html = await resp.text();
+        let html = await htmlPromise;
+        if (!this.isConnected) return;
 
         this.shadow.innerHTML = html;
 
@@ -24,7 +27,7 @@ class custom_button extends HTMLElement {
         this._upHandler = (event) => {
             if (this.pressed) {
                 this.pressed = false;
-                
+
                 let buttonBody = this.shadow.getElementById("button-body");
                 buttonBody.classList.remove('button-active');
                 
@@ -43,3 +46,4 @@ class custom_button extends HTMLElement {
 }
 
 customElements.define('custom-button', custom_button);
+}
