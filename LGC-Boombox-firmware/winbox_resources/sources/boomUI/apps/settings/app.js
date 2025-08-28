@@ -82,7 +82,7 @@ const drivelist = require('drivelist');
                 if (fs.existsSync(filePath)) {
                     exec(`"${filePath}"`, (error, stdout, stderr) => {
                         if (error) {
-                            messagebox(`Error executing batch: ${error.message}`);
+                            messagebox(`Error executing batch: ${error.message}`, 'error');
                             return;
                         }
                         messagebox('Batch output:\n' + `${stdout}`);
@@ -92,6 +92,6 @@ const drivelist = require('drivelist');
             }
         }
 
-        messagebox("LGCBoombox.bat was not found on any of the media");
+        messagebox("LGCBoombox.bat was not found on any of the media", 'error');
     });
 }

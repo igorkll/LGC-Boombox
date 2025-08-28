@@ -38,7 +38,19 @@ function isTouch(event, element) {
     return false;
 }
 
-function messagebox(message) {
+{
+let autoSaveSettings = false;
+
+const { exec } = require('child_process');
+
+let messageboxTypes = {
+    error: {
+        icon: "error"
+    }
+};
+
+// messagebox
+window.messagebox = function (message, type) {
     let msgboxBackground = document.createElement('div');
     msgboxBackground.style.position = 'absolute';
     msgboxBackground.style.zIndex = '20';
@@ -65,12 +77,17 @@ function messagebox(message) {
     msgboxBody.style.boxSizing = 'border-box';
     document.body.appendChild(msgboxBody);
 
-    let img = document.createElement('img');
-    img.src = 'icons/error.png';
-    img.style.width = '100%';
-    img.style.height = '30%';
-    img.style.objectFit = 'contain';
-    msgboxBody.appendChild(img);
+    if (type != null) {
+        let typeData = messageboxTypes[type];
+        if (typeData.hasOwnProperty('icon')) {
+            let img = document.createElement('img');
+            img.src = `icons/${typeData.icon}.png`;
+            img.style.width = '100%';
+            img.style.height = '30%';
+            img.style.objectFit = 'contain';
+            msgboxBody.appendChild(img);
+        }
+    }
 
     let text = document.createElement('div');
     text.classList.add("info");
@@ -92,11 +109,6 @@ function messagebox(message) {
         msgboxBody.remove();
     })
 }
-
-{
-let autoSaveSettings = false;
-
-const { exec } = require('child_process');
 
 // wallpaper
 window.setWallpaper = function(path) {
