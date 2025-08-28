@@ -31,8 +31,7 @@ document.getElementById('test3').addEventListener('pointerup', () => {
 */
 
 // debug
-document.getElementById('setting_reboot_to_desktop').addEventListener('pointerup', () => {
+document.getElementById('setting_reboot_to_desktop').addEventListener('custom_click', () => {
     exec('C:\\WinboxApi\\reboot_to_desktop.bat');
-    console.log("A");
 });
 }

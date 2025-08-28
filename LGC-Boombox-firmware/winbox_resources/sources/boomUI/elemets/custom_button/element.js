@@ -30,7 +30,7 @@ class custom_button extends HTMLElement {
                 buttonBody.classList.remove('button-active');
                 
                 if (isTouch(event, this)) {
-                    this.dispatchEvent(new CustomEvent('click'));
+                    this.dispatchEvent(new CustomEvent('custom_click'));
                 }
             }
         };

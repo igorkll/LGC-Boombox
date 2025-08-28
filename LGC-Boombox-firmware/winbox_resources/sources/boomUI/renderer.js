@@ -34,9 +34,7 @@ function isTouchOnTouchscreen(event, element) {
 
 function isTouch(event, element) {
     if (isTouchingElementWithLayerCheck(event, element)) return true;
-    if (event.touches != null && isTouchOnTouchscreen(event, element)) {
-        return true;
-    }
+    if (event.touches != null && isTouchOnTouchscreen(event, element)) return true;
     return false;
 }
 
