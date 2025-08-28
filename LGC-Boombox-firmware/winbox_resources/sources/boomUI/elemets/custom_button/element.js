@@ -15,8 +15,8 @@ class custom_button extends HTMLElement {
 
         this.pressed = false;
 
-        this._downHandler = (event) => {
-            if (window.isTouchingElement(event, this) && window.isTouchingElementLayerCheck(event, this)) {
+        this._handler_touchstart = (event) => {
+            if (isTouch(event, this)) {
                 this.pressed = true;
 
                 let buttonBody = this.shadow.getElementById("button-body");
@@ -24,24 +24,26 @@ class custom_button extends HTMLElement {
             }
         };
 
-        this._upHandler = (event) => {
+        this._handler_touchend = (event) => {
             if (this.pressed) {
                 this.pressed = false;
 
                 let buttonBody = this.shadow.getElementById("button-body");
                 buttonBody.classList.remove('button-active');
                 
-                this.dispatchEvent(new CustomEvent('click'));
+                if (isTouch(event, this)) {
+                    this.dispatchEvent(new CustomEvent('click'));
+                }
             }
         };
 
-        document.addEventListener('pointerdown', this._downHandler);
-        document.addEventListener('pointerup', this._upHandler);
+        document.addEventListener('touchstart', this._handler_touchstart);
+        document.addEventListener('touchend', this._handler_touchend);
     }
 
     disconnectedCallback() {
-        document.removeEventListener('pointerdown', this._downHandler);
-        document.removeEventListener('pointerup', this._upHandler);
+        document.removeEventListener('touchstart', this._handler_touchstart);
+        document.removeEventListener('touchend', this._handler_touchend);
     }
 }
 

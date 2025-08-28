@@ -17,6 +17,17 @@ function isTouchingElementLayerCheck(touch, element) {
     return topElement === element || element.contains(topElement);
 }
 
+function isTouch(event, element) {
+    for (let i = 0; i < event.touches.length; i++) {
+        let touchObj = event.touches[i];
+        if (window.isTouchingElement(touchObj, element) && window.isTouchingElementLayerCheck(touchObj, element)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 {
 let autoSaveSettings = false;
 
