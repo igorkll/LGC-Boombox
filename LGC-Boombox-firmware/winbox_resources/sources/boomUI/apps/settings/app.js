@@ -65,11 +65,11 @@ const { ipcRenderer } = require('electron');
     });
 
     document.getElementById('setting_explorer').addEventListener('custom_click', () => {
-        exec('start explorer.exe');
+        exec('start "" /max explorer.exe');
     });
 
     document.getElementById('setting_cmd').addEventListener('custom_click', () => {
-        exec('start cmd.exe');
+        exec('start "" /max cmd.exe');
     });
 
     document.getElementById('setting_run_script').addEventListener('custom_click', async () => {
