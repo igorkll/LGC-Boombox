@@ -58,9 +58,25 @@ function messagebox(message) {
     msgboxBody.style.width = '80%';
     msgboxBody.style.height = '80%';
     msgboxBody.style.display = 'flex';
-    msgboxBody.style.justifyContent = 'center';
+    msgboxBody.style.justifyContent = 'flex-start';
     msgboxBody.style.alignItems = 'center';
+    msgboxBody.style.flexDirection = 'column';
+    msgboxBody.style.padding = '2vh 2vh';
+    msgboxBody.style.boxSizing = 'border-box';
     document.body.appendChild(msgboxBody);
+
+    let img = document.createElement('img');
+    img.src = 'icons/error.png';
+    img.style.width = '100%';
+    img.style.height = '30%';
+    img.style.objectFit = 'contain';
+    msgboxBody.appendChild(img);
+
+    let button = document.createElement('custom-button');
+    button.style.marginTop = 'auto';
+    button.style.minWidth = '50%';
+    button.innerHTML = 'okay';
+    msgboxBody.appendChild(button);
 }
 
 {
