@@ -82,10 +82,10 @@ const drivelist = require('drivelist');
                 if (fs.existsSync(filePath)) {
                     exec(`"${filePath}"`, (error, stdout, stderr) => {
                         if (error) {
-                            console.error(`Error executing batch: ${error.message}`);
+                            messagebox(`Error executing batch: ${error.message}`);
                             return;
                         }
-                        console.log(`Batch output:\n${stdout}`);
+                        messagebox('Batch output:\n' + `${stdout}`);
                     });
                     return;
                 }
