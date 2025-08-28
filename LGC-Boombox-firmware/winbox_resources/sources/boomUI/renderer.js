@@ -46,13 +46,21 @@ function messagebox(message) {
     msgboxBackground.style.height = '100%';
     msgboxBackground.style.backdropFilter = 'blur(1vh)';
     msgboxBackground.style.backgroundColor = 'rgba(20, 20, 20, 0.2)';
+    msgboxBackground.style.display = 'flex';
+    msgboxBackground.style.justifyContent = 'center';
+    msgboxBackground.style.alignItems = 'center';
     document.body.appendChild(msgboxBackground);
 
     let msgboxBody = document.createElement('div');
     msgboxBody.classList.add("soap");
+    msgboxBody.style.position = 'absolute';
+    msgboxBody.style.zIndex = '21';
     msgboxBody.style.width = '80%';
     msgboxBody.style.height = '80%';
-    msgboxBackground.appendChild(msgboxBody);
+    msgboxBody.style.display = 'flex';
+    msgboxBody.style.justifyContent = 'center';
+    msgboxBody.style.alignItems = 'center';
+    document.body.appendChild(msgboxBody);
 }
 
 {
