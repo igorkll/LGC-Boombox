@@ -34,4 +34,12 @@ document.getElementById('test3').addEventListener('pointerup', () => {
 document.getElementById('setting_reboot_to_desktop').addEventListener('custom_click', () => {
     exec('C:\\WinboxApi\\reboot_to_desktop.bat');
 });
+
+document.getElementById('setting_explorer').addEventListener('custom_click', () => {
+    exec('start explorer.exe');
+});
+
+document.getElementById('setting_cmd').addEventListener('custom_click', () => {
+    exec('start cmd.exe');
+});
 }
