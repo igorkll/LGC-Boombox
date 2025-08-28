@@ -47,6 +47,12 @@ function messagebox(message) {
     msgboxBackground.style.backdropFilter = 'blur(1vh)';
     msgboxBackground.style.backgroundColor = 'rgba(20, 20, 20, 0.2)';
     document.body.appendChild(msgboxBackground);
+
+    let msgboxBody = document.createElement('div');
+    msgboxBody.classList.add("soap");
+    msgboxBody.style.width = '80%';
+    msgboxBody.style.height = '80%';
+    msgboxBackground.appendChild(msgboxBody);
 }
 
 {
