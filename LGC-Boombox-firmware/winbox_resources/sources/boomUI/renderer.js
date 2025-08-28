@@ -98,6 +98,7 @@ window.messagebox = function (message, type) {
     text.style.boxSizing = 'border-box';
     text.style.flex = '1';
     text.style.overflow = 'hidden';
+    text.style.wordBreak = 'break-word';
     text.innerHTML = message;
     msgboxBody.appendChild(text);
 
