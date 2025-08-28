@@ -36,7 +36,10 @@ const { ipcRenderer } = require('electron');
         wallpaperSelector.style.height = '30vh';
         wallpaperSelector.style.padding = '2vh 2vh';
         wallpaperSelector.style.boxSizing = 'border-box';
-        wallpaperSelector.style.backgroundColor = '#ffff00';
+        
+        let updateSelector = () => {
+            wallpaperSelector.style.backgroundColor = '#ffff00';
+        };
 
         let wallpaperPreview = document.createElement('img');
         wallpaperPreview.src = path;
