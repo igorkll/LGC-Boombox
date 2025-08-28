@@ -38,13 +38,23 @@ function isTouch(event, element) {
     return false;
 }
 
+function messagebox(message) {
+    let msgboxBackground = document.createElement('div');
+    msgboxBackground.style.position = 'absolute';
+    msgboxBackground.style.zIndex = '20';
+    msgboxBackground.style.width = '100%';
+    msgboxBackground.style.height = '100%';
+    msgboxBackground.style.backdropFilter = 'blur(1vh)';
+    msgboxBackground.style.backgroundColor = 'rgba(20, 20, 20, 0.2)';
+    document.body.appendChild(msgboxBackground);
+}
+
 {
 let autoSaveSettings = false;
 
 const { exec } = require('child_process');
 
 // wallpaper
-
 window.setWallpaper = function(path) {
     storage_table.wallpaper = path;
     document.body.style.backgroundImage = `url('${path}')`;

@@ -1,4 +1,7 @@
 const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const drivelist = require('drivelist');
 
 { // main
     let tablist = document.getElementById('settings_tablist');
@@ -65,5 +68,30 @@ const { exec } = require('child_process');
 
     document.getElementById('setting_cmd').addEventListener('custom_click', () => {
         exec('start cmd.exe');
+    });
+
+    document.getElementById('setting_run_script').addEventListener('custom_click', async () => {
+        const drives = await drivelist.list();
+
+        for (const drive of drives) {
+            if (drive.mountpoints.some(mp => mp.path.toUpperCase() === 'C:\\')) continue;
+
+            for (const mount of drive.mountpoints) {
+                const filePath = path.join(mount.path, 'LGCBoombox.bat');
+
+                if (fs.existsSync(filePath)) {
+                    exec(`"${filePath}"`, (error, stdout, stderr) => {
+                        if (error) {
+                            console.error(`Error executing batch: ${error.message}`);
+                            return;
+                        }
+                        console.log(`Batch output:\n${stdout}`);
+                    });
+                    return;
+                }
+            }
+        }
+
+        messagebox("LGCBoombox.bat was not found on any of the media");
     });
 }
