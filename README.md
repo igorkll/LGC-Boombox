@@ -15,3 +15,8 @@
 * two buttons (one with locking)
 * input power and AUX
 * USB hub with 4 ports
+* esp32c3
+* addressable LED strip (2 pieces, the length of which will be enough to wrap it around the body right-top-left)
+* wires to connect all this crap
+* self-tapping screws for assembly
+* hot glue for fixing parts inside
