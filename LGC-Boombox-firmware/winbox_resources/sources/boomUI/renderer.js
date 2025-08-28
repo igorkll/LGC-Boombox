@@ -86,6 +86,11 @@ function messagebox(message) {
     button.style.minWidth = '50%';
     button.innerHTML = 'okay';
     msgboxBody.appendChild(button);
+
+    button.addEventListener("custom_click", () => {
+        msgboxBackground.remove();
+        msgboxBody.remove();
+    })
 }
 
 {
