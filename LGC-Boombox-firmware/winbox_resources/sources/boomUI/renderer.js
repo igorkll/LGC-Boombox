@@ -73,6 +73,7 @@ window.messagebox = function (message, type) {
     msgboxBody.style.justifyContent = 'flex-start';
     msgboxBody.style.alignItems = 'center';
     msgboxBody.style.flexDirection = 'column';
+    msgboxBody.style.gap = '2vh';
     msgboxBody.style.padding = '2vh 2vh';
     msgboxBody.style.boxSizing = 'border-box';
     document.body.appendChild(msgboxBody);

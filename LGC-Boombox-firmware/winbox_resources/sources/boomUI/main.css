@@ -65,8 +65,11 @@ body {
     overflow: hidden;
 }
 
+.dockobj {
+    margin: var(--padding);
+}
+
 .info {
     text-shadow: 0px 0px 2vh black;
     font-size: 6vh;
-    margin: var(--padding);
 }
