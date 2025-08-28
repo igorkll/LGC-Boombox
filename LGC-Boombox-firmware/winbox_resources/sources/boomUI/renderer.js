@@ -17,14 +17,26 @@ function isTouchingElementLayerCheck(touch, element) {
     return topElement === element || element.contains(topElement);
 }
 
-function isTouch(event, element) {
+function isTouchingElementWithLayerCheck(touch, element) {
+    return isTouchingElement(touch, element) && isTouchingElementLayerCheck(touch, element);
+}
+
+function isTouchOnTouchscreen(event, element) {
     for (let i = 0; i < event.touches.length; i++) {
         let touchObj = event.touches[i];
-        if (window.isTouchingElement(touchObj, element) && window.isTouchingElementLayerCheck(touchObj, element)) {
+        if (isTouchingElementWithLayerCheck(touchObj, element)) {
             return true;
         }
     }
 
+    return false;
+}
+
+function isTouch(event, element) {
+    if (isTouchingElementWithLayerCheck(event, element)) return true;
+    if (event.touches != null && isTouchOnTouchscreen(event, element)) {
+        return true;
+    }
     return false;
 }
 

@@ -27,15 +27,7 @@ function checkTouchs(event) {
     capturedElements = []
 
     document.querySelectorAll('.dock-item').forEach(element => {
-        let touch = false;
-        for (let i = 0; i < event.touches.length; i++) {
-            let touchObj = event.touches[i];
-            if (window.isTouchingElement(touchObj, element) && window.isTouchingElementLayerCheck(touchObj, element)) {
-                touch = true;
-                break;
-            }
-        }
-
+        let touch = isTouchOnTouchscreen(event, element)
         if (touch) {
             capturedElements.push(element);
         }

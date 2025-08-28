@@ -15,16 +15,14 @@ class custom_button extends HTMLElement {
 
         this.pressed = false;
 
-        this._handler_touchstart = (event) => {
-            if (isTouch(event, this)) {
-                this.pressed = true;
+        this._handler_down = (event) => {
+            this.pressed = true;
 
-                let buttonBody = this.shadow.getElementById("button-body");
-                buttonBody.classList.add('button-active');
-            }
+            let buttonBody = this.shadow.getElementById("button-body");
+            buttonBody.classList.add('button-active');
         };
 
-        this._handler_touchend = (event) => {
+        this._handler_up = (event) => {
             if (this.pressed) {
                 this.pressed = false;
 
@@ -37,13 +35,15 @@ class custom_button extends HTMLElement {
             }
         };
 
-        document.addEventListener('touchstart', this._handler_touchstart);
-        document.addEventListener('touchend', this._handler_touchend);
+        this.addEventListener('pointerdown', this._handler_down);
+        document.addEventListener('pointerup', this._handler_up);
+        document.addEventListener('touchend', this._handler_up);
     }
 
     disconnectedCallback() {
-        document.removeEventListener('touchstart', this._handler_touchstart);
-        document.removeEventListener('touchend', this._handler_touchend);
+        this.removeEventListener('pointerdown', this._handler_down);
+        document.removeEventListener('pointerup', this._handler_up);
+        document.removeEventListener('touchend', this._handler_up);
     }
 }
 

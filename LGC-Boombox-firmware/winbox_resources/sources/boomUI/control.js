@@ -28,7 +28,7 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
     volumeSlider.style.top = '10%';
     volumeSlider.style.bottom = '10%';
     volumeSlider.style.width = '15%';
-    volumeSlider.style.setProperty('--slider-value', window.getVolume());
+    volumeSlider.style.setProperty('--slider-value', getVolume());
     volumeSlider.style.setProperty('--slider-vertical', true);
     document.body.appendChild(volumeSlider);
 
@@ -43,7 +43,7 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
     startTimer();
 
     volumeSlider.addEventListener('change', value => {
-        window.setVolume(value.detail);
+        setVolume(value.detail);
 
         if (volumeSliderCloseTimeoutId) clearInterval(volumeSliderCloseTimeoutId);
         startTimer();

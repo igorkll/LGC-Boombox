@@ -16,7 +16,7 @@ ipcRenderer.on('waves', (event, waves) => {
     let deltaTime = performance.now() - oldTime;
     deltaTime = deltaTime / 1000;
 
-    let realLedsCount = window.leds_getCount();
+    let realLedsCount = leds_getCount();
     let ledsCount = realLedsCount;
     if (storage_table.light_mirror) {
         ledsCount /= 2;
@@ -32,21 +32,21 @@ ipcRenderer.on('waves', (event, waves) => {
             if (val < storage_table.light_min) {
                 val = storage_table.light_min;
             }
-            color = window.colors_multiply(window.colors_from(element.style.getPropertyValue('--c').trim()), val);
+            color = colors_multiply(colors_from(element.style.getPropertyValue('--c').trim()), val);
         }
-        color = window.colors_multiply(color, storage_table.light_mul);
-        color = window.colors_clamp(color, 0, storage_table.light_max * 255);
+        color = colors_multiply(color, storage_table.light_mul);
+        color = colors_clamp(color, 0, storage_table.light_max * 255);
 
         let ni = i;
         if (storage_table.light_reverse) {
             ni = ledsCount - 1 - i;
         }
-        window.leds_set(ni, color);
+        leds_set(ni, color);
         if (storage_table.light_mirror) {
-            window.leds_set(realLedsCount - 1 - ni, color);
+            leds_set(realLedsCount - 1 - ni, color);
         }
     }
-    window.leds_flush();
+    leds_flush();
 
     lightOffset += storage_table.light_moveSpeed * deltaTime;
 

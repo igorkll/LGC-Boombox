@@ -68,7 +68,7 @@ class custom_slider extends HTMLElement {
         };
 
         this._downHandler = (event) => {
-            if (window.isTouchingElement(event, this) && window.isTouchingElementLayerCheck(event, this)) {
+            if (isTouchingElementWithLayerCheck(event, this)) {
                 this.isDragging = true;
                 this._updateSlider(event.clientX, event.clientY);
             } else {

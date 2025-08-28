@@ -26,7 +26,7 @@ function addTab(tablist, tabhost, button, tab, opened=false) {
     document.addEventListener('pointerup', (event) => {
         if (!tablinkPressed) return;
         tablinkPressed = false;
-        if (window.isTouchingElement(event, button) && window.isTouchingElementLayerCheck(event, button)) {
+        if (isTouchingElementWithLayerCheck(event, button)) {
             changeState(true);
         }
     });
