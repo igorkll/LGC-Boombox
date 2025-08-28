@@ -92,7 +92,9 @@ window.messagebox = function (message, type) {
     let text = document.createElement('div');
     text.classList.add("info");
     text.classList.add("soap");
+    text.style.width = '100%';
     text.style.padding = '2vh';
+    text.style.boxSizing = 'border-box';
     text.style.flex = '1';
     text.style.overflow = 'hidden';
     text.innerHTML = message;
