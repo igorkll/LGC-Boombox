@@ -1,7 +1,9 @@
+{
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const drivelist = require('drivelist');
+const { ipcRenderer } = require('electron');
 
 { // main
     let tablist = document.getElementById('settings_tablist');
@@ -94,4 +96,9 @@ const drivelist = require('drivelist');
 
         messagebox("LGCBoombox.bat was not found on any of the media", 'error');
     });
+
+    document.getElementById('setting_quit').addEventListener('custom_click', async () => {
+        ipcRenderer.send('quit-app');
+    });
+}
 }
