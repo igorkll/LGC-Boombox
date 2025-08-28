@@ -1,45 +1,69 @@
-{
 const { exec } = require('child_process');
 
-let tablist = document.getElementById('settings_tablist');
-let tabhost = document.getElementById('settings_tabhost');
-let defaultTab = true;
+{ // main
+    let tablist = document.getElementById('settings_tablist');
+    let tabhost = document.getElementById('settings_tabhost');
+    let defaultTab = true;
 
-function addSettingsTab(name) {
-    addTab(tablist, tabhost, document.getElementById(`setting_${name}_button`), document.getElementById(`setting_${name}_panel`), defaultTab);
-    defaultTab = false;
+    function addSettingsTab(name) {
+        addTab(tablist, tabhost, document.getElementById(`setting_${name}_button`), document.getElementById(`setting_${name}_panel`), defaultTab);
+        defaultTab = false;
+    }
+
+    addSettingsTab("wallpaper");
+    addSettingsTab("clock");
+    addSettingsTab("light");
+    addSettingsTab("debug");
 }
 
-addSettingsTab("wallpaper");
-addSettingsTab("clock");
-addSettingsTab("light");
-addSettingsTab("debug");
 
-// wallpaper
-/*
-document.getElementById('test1').addEventListener('pointerup', () => {
-    setWallpaper("wallpapers/1.jpg");
-});
+{ // wallpaper
+    let panel = document.getElementById('setting_wallpaper_panel');
 
-document.getElementById('test2').addEventListener('pointerup', () => {
-    setWallpaper("wallpapers/2.jpg");
-});
+    function addWallpaperSelector(name) {
+        let path = `wallpapers/${name}.jpg`;
 
-document.getElementById('test3').addEventListener('pointerup', () => {
-    setWallpaper("wallpapers/3.jpg");
-});
-*/
+        let wallpaperSelector = document.createElement('div');
+        wallpaperSelector.style.display = 'flex';
+        wallpaperSelector.style.justifyContent = 'center';
+        wallpaperSelector.style.alignItems = 'center';
+        wallpaperSelector.style.width = '40vh';
+        wallpaperSelector.style.height = '30vh';
+        wallpaperSelector.style.padding = '2vh 2vh';
+        wallpaperSelector.style.boxSizing = 'border-box';
+        wallpaperSelector.style.backgroundColor = '#ffff00';
 
-// debug
-document.getElementById('setting_reboot_to_desktop').addEventListener('custom_click', () => {
-    exec('C:\\WinboxApi\\reboot_to_desktop.bat');
-});
+        let wallpaperPreview = document.createElement('img');
+        wallpaperPreview.src = path;
+        wallpaperPreview.style.width = '100%';
+        wallpaperPreview.style.height = '100%';
+        wallpaperPreview.style.objectFit = 'fill';
 
-document.getElementById('setting_explorer').addEventListener('custom_click', () => {
-    exec('start explorer.exe');
-});
+        wallpaperSelector.appendChild(wallpaperPreview);
 
-document.getElementById('setting_cmd').addEventListener('custom_click', () => {
-    exec('start cmd.exe');
-});
+        wallpaperSelector.addEventListener('pointerup', () => {
+            setWallpaper(path);
+        });
+
+        
+        panel.appendChild(wallpaperSelector);
+    }
+
+    for (let i = 1; i <= 3; i++) {
+        addWallpaperSelector(`${i}`);
+    }
+}
+
+{ // debug
+    document.getElementById('setting_reboot_to_desktop').addEventListener('custom_click', () => {
+        exec('C:\\WinboxApi\\reboot_to_desktop.bat');
+    });
+
+    document.getElementById('setting_explorer').addEventListener('custom_click', () => {
+        exec('start explorer.exe');
+    });
+
+    document.getElementById('setting_cmd').addEventListener('custom_click', () => {
+        exec('start cmd.exe');
+    });
 }
