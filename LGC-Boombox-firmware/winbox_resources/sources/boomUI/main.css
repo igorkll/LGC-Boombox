@@ -64,3 +64,9 @@ body {
     min-width: 0;
     overflow: hidden;
 }
+
+.info {
+    text-shadow: 0px 0px 2vh black;
+    font-size: 6vh;
+    margin: var(--padding);
+}

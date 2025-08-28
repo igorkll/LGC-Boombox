@@ -29,7 +29,7 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
     volumeSlider.style.bottom = '10%';
     volumeSlider.style.width = '15%';
     volumeSlider.style.setProperty('--slider-value', window.getVolume());
-    //volumeSlider.style.setProperty('--slider-vertical', true);
+    volumeSlider.style.setProperty('--slider-vertical', true);
     document.body.appendChild(volumeSlider);
 
     function startTimer() {
