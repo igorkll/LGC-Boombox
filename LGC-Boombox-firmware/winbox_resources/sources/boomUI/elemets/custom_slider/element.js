@@ -1,4 +1,4 @@
-class vertical_slider extends HTMLElement {
+class custom_slider extends HTMLElement {
     constructor() {
         super();
     }
@@ -8,27 +8,25 @@ class vertical_slider extends HTMLElement {
             this.style.setProperty('--slider-color', "63, 255, 48");
         }
 
-        let sliderContainer = document.createElement('div');
-        sliderContainer.classList.add('soap');
-        sliderContainer.classList.add('crop');
-        sliderContainer.style.flex = 1;
-        sliderContainer.style.background = 'rgba(var(--slider-color), 0.27)';
-        sliderContainer.style.margin = '2vh';
-        sliderContainer.style.display = 'flex';
-        sliderContainer.style.justifyContent = 'center';
-        sliderContainer.style.alignItems = 'end';
+        this._vertical = this.style.getPropertyValue('--slider-vertical');
 
         this._slider = document.createElement('div');
         this._slider.style.background = 'rgba(var(--slider-color), 1)';
+        this._slider.style.height = '100%';
         this._slider.style.width = '100%';
 
-        sliderContainer.appendChild(this._slider);
-
         this.classList.add('soap');
+        this.classList.add('crop');
+        this.style.background = 'rgba(var(--slider-color), 0.27)';
         this.style.display = 'flex';
-        this.style.justifyContent = 'center';
-        this.style.alignItems = 'stretch';
-        this.appendChild(sliderContainer);
+        if (this._vertical) {
+            this.style.justifyContent = 'center';
+            this.style.alignItems = 'end';
+        } else {
+            this.style.justifyContent = 'left';
+            this.style.alignItems = 'center';
+        }
+        this.appendChild(this._slider);
 
         let value = this.style.getPropertyValue('--slider-value');
         if (value) {
@@ -38,11 +36,18 @@ class vertical_slider extends HTMLElement {
         }
 
         // process
-        this._updateSlider = (y) => {
-            const rect = sliderContainer.getBoundingClientRect();
-            let relativeY = rect.bottom - y;
-            relativeY = Math.max(0, Math.min(relativeY, rect.height));
-            const percent = relativeY / rect.height;
+        this._updateSlider = (x, y) => {
+            const rect = this.getBoundingClientRect();
+            let percent;
+            if (this._vertical) {
+                let relativeY = rect.bottom - y;
+                relativeY = Math.max(0, Math.min(relativeY, rect.height));
+                percent = relativeY / rect.height;
+            } else {
+                let relativeX = rect.width - (rect.right - x);
+                relativeX = Math.max(0, Math.min(relativeX, rect.width));
+                percent = relativeX / rect.width;
+            }
 
             this.value = percent;
             this.dispatchEvent(new CustomEvent('change', { detail: this._value }));
@@ -50,14 +55,14 @@ class vertical_slider extends HTMLElement {
 
         this._mouseMoveHandler = (event) => {
             if (this.isDragging) {
-                this._updateSlider(event.clientY);
+                this._updateSlider(event.clientX, event.clientY);
             }
         };
 
         this._touchMoveHandler = (event) => {
             if (this.isDragging) {
                 for (let i = 0; i < event.touches.length; i++) {
-                    this._updateSlider(event.touches[i].clientY);
+                    this._updateSlider(event.touches[i].clientX, event.touches[i].clientY);
                 }
             }
         };
@@ -65,7 +70,7 @@ class vertical_slider extends HTMLElement {
         this._downHandler = (event) => {
             if (window.isTouchingElement(event, this) && window.isTouchingElementLayerCheck(event, this)) {
                 this.isDragging = true;
-                this._updateSlider(event.clientY);
+                this._updateSlider(event.clientX, event.clientY);
             } else {
                 this.dispatchEvent(new CustomEvent('click_outside'));
             }
@@ -96,8 +101,12 @@ class vertical_slider extends HTMLElement {
 
     set value(v) {
         this._value = Math.max(0, Math.min(1, v));
-        this._slider.style.height = `${this._value * 100}%`;
+        if (this._vertical) {
+            this._slider.style.height = `${this._value * 100}%`;
+        } else {
+            this._slider.style.width = `${this._value * 100}%`;
+        }
     }
 }
 
-customElements.define('vertical-slider', vertical_slider);
+customElements.define('custom-slider', custom_slider);

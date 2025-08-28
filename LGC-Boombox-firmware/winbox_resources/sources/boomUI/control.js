@@ -21,7 +21,7 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
         return;
     }
 
-    volumeSlider = document.createElement('vertical-slider');
+    volumeSlider = document.createElement('custom-slider');
     volumeSlider.style.position = 'absolute';
     volumeSlider.style.zIndex = '10';
     volumeSlider.style.right = '1%';
@@ -29,6 +29,7 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
     volumeSlider.style.bottom = '10%';
     volumeSlider.style.width = '15%';
     volumeSlider.style.setProperty('--slider-value', window.getVolume());
+    //volumeSlider.style.setProperty('--slider-vertical', true);
     document.body.appendChild(volumeSlider);
 
     function startTimer() {

@@ -1,4 +1,6 @@
 {
+  "winboxMakerVersion": 10600,
+  "winboxMakerVersionStr": "1.6.0",
   "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x64_22h2.iso",
   "BaseWindowsVersion": "Windows 10 Enterprise Evaluation",
   "WinboxName": "LGC-Boombox-firmware",
@@ -113,11 +115,16 @@
   "enable_hibernation": false,
   "UseCustomDisplaySettings": true,
   "UseCustomDisplaySettings_scale": false,
-  "cds_width": 800,
-  "cds_height": 600,
+  "cds_width": 1280,
+  "cds_height": 768,
   "cds_bitDepth": 32,
   "cds_refreshRate": 60,
   "cds_scaling": 100,
-  "cds_orientation": 1,
+  "cds_orientation": 0,
+  "cds_width_use": true,
+  "cds_height_use": true,
+  "cds_bitDepth_use": false,
+  "cds_refreshRate_use": false,
+  "cds_orientation_use": false,
   "firstBootAction": 2
 }
