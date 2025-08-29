@@ -37,7 +37,8 @@
     "Integrate net 8.0.17",
     "Integrate nircmd",
     "Integrate vc redist",
-    "Disable boot logo"
+    "Disable boot logo",
+    "Hide Touchscreen Visualization"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
