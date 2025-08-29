@@ -9,31 +9,36 @@
     <div class="tabhost" id="settings_tabhost">
         <div class="tab" id="setting_wallpaper_panel" style="margin: 2vh; gap: 2vh; flex-wrap: wrap;"></div>
         <div class="tab" id="setting_clock_panel">clock</div>
-        <div class="tab" id="setting_light_panel" style="margin: 2vh; gap: 2vh; flex-direction: row; flex-wrap: wrap;">
-            <div class="info">enabled</div>
-            <div class="break"></div>
+        <div class="tab" id="setting_light_panel" style="flex-direction: column;">
+            <div style="margin: 2vh; gap: 2vh; display: flex; flex-direction: row;">
+                <custom-switch style="height: 10%; width: 20%;"></custom-switch>
+                <div class="info">enabled</div>
+            </div>
 
-            <div class="info">mirror</div>
-            <div class="break"></div>
+            <div style="margin: 2vh; gap: 2vh; display: flex; flex-direction: row;">
+                <custom-switch style="height: 10%; width: 20%;"></custom-switch>
+                <div class="info">mirror</div>
+            </div>
 
-            <div class="info">reverse</div>
-            <div class="break"></div>
-            
+            <div style="margin: 2vh; gap: 2vh; display: flex; flex-direction: row;">
+                <custom-switch style="height: 10%; width: 20%;"></custom-switch>
+                <div class="info">reverse</div>
+            </div>
         </div>
         <div class="tab" id="setting_debug_panel" style="margin: 2vh; gap: 2vh; flex-direction: column;">
-            <custom-button id="setting_reboot_to_desktop" style="font-size: 6vh; min-width: 50%;">
+            <custom-button id="setting_reboot_to_desktop" _style="font-size: 6vh; min-width: 50%;">
                 reboot to desktop
             </custom-button>
-            <custom-button id="setting_explorer" style="font-size: 6vh; min-width: 50%;">
+            <custom-button id="setting_explorer" _style="font-size: 6vh; min-width: 50%;">
                 open explorer.exe
             </custom-button>
-            <custom-button id="setting_cmd" style="font-size: 6vh; min-width: 50%;">
+            <custom-button id="setting_cmd" _style="font-size: 6vh; min-width: 50%;">
                 open cmd.exe
             </custom-button>
-            <custom-button id="setting_run_script" style="font-size: 6vh; min-width: 50%;">
+            <custom-button id="setting_run_script" _style="font-size: 6vh; min-width: 50%;">
                 run script
             </custom-button>
-            <custom-button id="setting_quit" style="font-size: 6vh; min-width: 50%;">
+            <custom-button id="setting_quit" _style="font-size: 6vh; min-width: 50%;">
                 close boomUI
             </custom-button>
         </div>
