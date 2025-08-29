@@ -90,7 +90,7 @@ const { ipcRenderer } = require('electron');
             if (drive.mountpoints.some(mp => mp.path.toUpperCase() === 'C:\\')) continue;
 
             for (const mount of drive.mountpoints) {
-                const filePath = path.join(mount.path, 'LGCBoombox.bat');
+                const filePath = path.join(mount.path, 'LGCBoombox', 'LGCBoombox.bat');
 
                 if (fs.existsSync(filePath)) {
                     exec(`"${filePath}"`, (error, stdout, stderr) => {
@@ -105,7 +105,7 @@ const { ipcRenderer } = require('electron');
             }
         }
 
-        messagebox("LGCBoombox.bat was not found on any of the media", 'error');
+        messagebox("/LGCBoombox/LGCBoombox.bat was not found on any of the media", 'error');
     });
 
     document.getElementById('setting_quit').addEventListener('custom_click', async () => {

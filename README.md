@@ -5,6 +5,11 @@
 * width - 37
 * length - 8
 
+## software required for assembly
+* winbox maker: https://github.com/igorkll/WinBox-Maker/releases
+* visual studio with tools for building C++ and C#
+* nodeJS
+
 ## components
 * the motherboard of a thin client is a tonk TN1700/TN1200 thin client or another of the same size (a new one costs ~400-500 dollars, it sells for ~4-7 dollars on the used market in Russia)
 * A 5-inch HDMI touchscreen display with a resolution of 800x480 and an adapter with a display port for connecting it. The touchscreen is usually connected via USB
