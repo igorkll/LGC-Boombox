@@ -7,10 +7,20 @@
         <div class="tablink" id="setting_debug_button">debug</div>
     </div>
     <div class="tabhost" id="settings_tabhost">
-        <div class="tab" id="setting_wallpaper_panel" style="margin: 2vh; display: flex; gap: 2vh; flex-wrap: wrap;"></div>
+        <div class="tab" id="setting_wallpaper_panel" style="margin: 2vh; gap: 2vh; flex-wrap: wrap;"></div>
         <div class="tab" id="setting_clock_panel">clock</div>
-        <div class="tab" id="setting_light_panel">light</div>
-        <div class="tab" id="setting_debug_panel" style="margin: 2vh; display: flex; gap: 2vh; flex-direction: column;">
+        <div class="tab" id="setting_light_panel" style="margin: 2vh; gap: 2vh; flex-direction: row; flex-wrap: wrap;">
+            <div class="info">enabled</div>
+            <div class="break"></div>
+
+            <div class="info">mirror</div>
+            <div class="break"></div>
+
+            <div class="info">reverse</div>
+            <div class="break"></div>
+            
+        </div>
+        <div class="tab" id="setting_debug_panel" style="margin: 2vh; gap: 2vh; flex-direction: column;">
             <custom-button id="setting_reboot_to_desktop" style="font-size: 6vh; min-width: 50%;">
                 reboot to desktop
             </custom-button>

@@ -6,6 +6,7 @@ let storage_default = {
     volume: 0.5,
 
     //light
+    light_enabled: true,
     light_mirror: true,
     light_reverse: true,
     light_moveSpeed: 1,
