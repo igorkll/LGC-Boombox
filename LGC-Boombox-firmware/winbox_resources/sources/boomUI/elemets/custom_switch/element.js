@@ -14,8 +14,8 @@ class custom_switch extends HTMLElement {
         this.shadow.innerHTML = html;
 
         this._handler_down = (event) => {
-            let buttonBody = this.shadow.getElementById("button-body");
-            buttonBody.classList.add('button-active');
+            let buttonDot = this.shadow.getElementById("switch-dot");
+            buttonDot.classList.add('switch-dot-active');
         };
 
         this.addEventListener('pointerdown', this._handler_down);
