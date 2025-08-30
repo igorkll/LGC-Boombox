@@ -40,7 +40,7 @@ class custom_switch extends HTMLElement {
 
                 setTimeout(() => {
                     let buttonDot = this.shadow.getElementById("switch-dot");
-                    switchBody.classList.remove('switch-body-allow-animation');
+                    switchBody.classList.add('switch-body-allow-animation');
                     buttonDot.classList.add('switch-dot-allow-animation');
                 }, 0);
             }
