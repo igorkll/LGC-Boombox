@@ -1,11 +1,11 @@
 let storage_version = 1;
 
-let storage_default = {
-    //base
+let storage_defaults = {
     wallpaper: 'wallpapers/2.jpg',
-    volume: 0.5,
+    volume: 0.5
+};
 
-    //light
+let storage_defaultsLight = {
     light_enabled: true,
     light_mirror: true,
     light_reverse: true,
@@ -17,22 +17,29 @@ let storage_default = {
     light_bassLevel: 0.6
 };
 
-let storage_table = structuredClone(storage_default);
+let storage_table = {};
+
+function storage_loadDefaults(defaults, force=false) {
+    for (let key in defaults) {
+        if (force || !storage_table.hasOwnProperty(key)) {
+            storage_table[key] = defaults[key];
+        }
+    }
+}
 
 function storage_load() {
+    storage_table = {};
+    
     let savedStorageVersion = localStorage.getItem('storageVersion');
     if (savedStorageVersion == storage_version) {
         let savedSettings = localStorage.getItem('storageSettings');
         if (savedSettings) {
             storage_table = JSON.parse(savedSettings);
-
-            for (let key in storage_default) {
-                if (!storage_table.hasOwnProperty(key)) {
-                    storage_table[key] = storage_default[key];
-                }
-            }
         }
     }
+
+    storage_loadDefault(storage_defaults);
+    storage_loadDefault(storage_defaultsLight);
 }
 
 function storage_save() {

@@ -152,7 +152,7 @@ const { ipcRenderer } = require('electron');
 
     let setting_light_reset = document.getElementById('setting_light_reset');
     setting_light_reset.addEventListener('custom_click', () => {
-        
+        storage_loadDefaults(storage_defaultsLight, true);
         updateValues();
         storage_save();
     });
