@@ -52,8 +52,6 @@ setInterval(async () => {
     }
 
     for (let path in existsTabs) {
-        console.log(path);
-        console.log(fs.existsSync(path));
         if (!fs.existsSync(path)) {
             let obj = existsTabs[path];
             delTab(tablist, tabhost, obj.tablink, obj.tab);
