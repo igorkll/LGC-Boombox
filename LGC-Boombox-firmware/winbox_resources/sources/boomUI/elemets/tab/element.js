@@ -8,8 +8,10 @@ function activateTab(tablist, tabhost, button, tab) {
         const child = tablist.children[i];
         if (button.id === child.id) {
             child.classList.add('tablink-selected');
+            child.selectedTab = true;
         } else {
             child.classList.remove('tablink-selected');
+            child.selectedTab = false;
         }
     }
 }
