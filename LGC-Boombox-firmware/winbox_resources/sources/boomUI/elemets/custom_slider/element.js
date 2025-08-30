@@ -93,6 +93,8 @@ class custom_slider extends HTMLElement {
         document.removeEventListener('touchmove', this._touchMoveHandler);
         document.removeEventListener('touchend', this._upHandler);
         document.removeEventListener('mouseup', this._upHandler);
+
+        this.removeChild(this._slider);
     }
 
     get value() {
