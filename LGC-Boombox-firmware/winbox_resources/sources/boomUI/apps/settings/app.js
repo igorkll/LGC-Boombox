@@ -97,6 +97,10 @@ const { ipcRenderer } = require('electron');
 
     let setting_light_moveSpeed = document.getElementById('setting_light_moveSpeed');
     let setting_light_leds = document.getElementById('setting_light_leds');
+    let setting_light_min = document.getElementById('setting_light_min');
+    let setting_light_max = document.getElementById('setting_light_max');
+    let setting_light_mul = document.getElementById('setting_light_mul');
+    let setting_light_bassLevel = document.getElementById('setting_light_bassLevel');
 
     setting_light_moveSpeed.max = 5;
     setting_light_moveSpeed.value = storage_table.light_moveSpeed;
@@ -113,6 +117,34 @@ const { ipcRenderer } = require('electron');
         console.log(storage_table.light_leds);
         storage_save();
     });
+
+    setting_light_min.value = storage_table.light_min;
+    setting_light_min.addEventListener('change', (event) => {
+        storage_table.light_min = event.detail;
+        storage_save();
+    });
+
+    setting_light_max.value = storage_table.light_max;
+    setting_light_max.addEventListener('change', (event) => {
+        storage_table.light_max = event.detail;
+        storage_save();
+    });
+
+    setting_light_mul.min = 0.5;
+    setting_light_mul.max = 2;
+    setting_light_mul.value = storage_table.light_mul;
+    setting_light_mul.addEventListener('change', (event) => {
+        storage_table.light_mul = event.detail;
+        storage_save();
+    });
+
+    setting_light_bassLevel.value = storage_table.light_bassLevel;
+    setting_light_bassLevel.addEventListener('change', (event) => {
+        storage_table.light_bassLevel = event.detail;
+        storage_save();
+    });
+
+    light_bassLevel
 }
 
 { // debug
