@@ -66,7 +66,7 @@ const { ipcRenderer } = require('electron');
         updateSelector();
     }
 
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 16; i++) {
         addWallpaperSelector(i);
     }
 }
