@@ -1,6 +1,8 @@
 class custom_slider extends HTMLElement {
     constructor() {
         super();
+        this.min = 0;
+        this.max = 1;
     }
 
     connectedCallback() {
@@ -32,7 +34,7 @@ class custom_slider extends HTMLElement {
         if (value) {
             this.value = value;
         } else {
-            this.value = 0.5;
+            this.value = 0;
         }
 
         // process
@@ -49,8 +51,10 @@ class custom_slider extends HTMLElement {
                 percent = relativeX / rect.width;
             }
 
-            this.value = percent;
-            this.dispatchEvent(new CustomEvent('change', { detail: this._value }));
+            let newValue = mapRange(percent, 0, 1, this.min, this.max);
+
+            this.value = newValue;
+            this.dispatchEvent(new CustomEvent('change', { detail: newValue }));
         }
 
         this._mouseMoveHandler = (event) => {
@@ -98,10 +102,11 @@ class custom_slider extends HTMLElement {
     }
 
     get value() {
-        return this._value;
+        return mapRange(this._value, 0, 1, this.min, this.max);
     }
 
     set value(v) {
+        v = mapRange(v, this.min, this.max, 0, 1);
         this._value = Math.max(0, Math.min(1, v));
         if (this._vertical) {
             this._slider.style.height = `${this._value * 100}%`;

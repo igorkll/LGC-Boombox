@@ -2,6 +2,10 @@ function wrapInt(value, max) {
     return ((value % max) + max) % max;
 }
 
+function mapRange(x, inMin, inMax, outMin, outMax) {
+    return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
+
 function isTouchingElement(touch, element) {
     const rect = element.getBoundingClientRect();
     return (

@@ -94,6 +94,25 @@ const { ipcRenderer } = require('electron');
         storage_table.light_reverse = event.detail;
         storage_save();
     });
+
+    let setting_light_moveSpeed = document.getElementById('setting_light_moveSpeed');
+    let setting_light_leds = document.getElementById('setting_light_leds');
+
+    setting_light_moveSpeed.max = 5;
+    setting_light_moveSpeed.value = storage_table.light_moveSpeed;
+    setting_light_moveSpeed.addEventListener('change', (event) => {
+        storage_table.light_moveSpeed = event.detail;
+        storage_save();
+    });
+
+    setting_light_leds.min = 1;
+    setting_light_leds.max = 20;
+    setting_light_leds.value = storage_table.light_leds;
+    setting_light_leds.addEventListener('change', (event) => {
+        storage_table.light_leds = Math.round(event.detail);
+        console.log(storage_table.light_leds);
+        storage_save();
+    });
 }
 
 { // debug

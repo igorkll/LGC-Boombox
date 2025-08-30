@@ -42,8 +42,8 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
 
     startTimer();
 
-    volumeSlider.addEventListener('change', value => {
-        setVolume(value.detail);
+    volumeSlider.addEventListener('change', (event) => {
+        setVolume(event.detail);
 
         if (volumeSliderCloseTimeoutId) clearInterval(volumeSliderCloseTimeoutId);
         startTimer();
