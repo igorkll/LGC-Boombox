@@ -76,10 +76,6 @@ const { ipcRenderer } = require('electron');
     let setting_light_mirror = document.getElementById('setting_light_mirror');
     let setting_light_reverse = document.getElementById('setting_light_reverse');
 
-    setting_light_enabled.setState(storage_table.light_enabled);
-    setting_light_mirror.setState(storage_table.light_mirror);
-    setting_light_reverse.setState(storage_table.light_reverse);
-
     setting_light_enabled.addEventListener('switch_change', (event) => {
         storage_table.light_enabled = event.detail;
         storage_save();
@@ -103,7 +99,6 @@ const { ipcRenderer } = require('electron');
     let setting_light_bassLevel = document.getElementById('setting_light_bassLevel');
 
     setting_light_moveSpeed.max = 5;
-    setting_light_moveSpeed.value = storage_table.light_moveSpeed;
     setting_light_moveSpeed.addEventListener('change', (event) => {
         storage_table.light_moveSpeed = event.detail;
         storage_save();
@@ -111,20 +106,18 @@ const { ipcRenderer } = require('electron');
 
     setting_light_leds.min = 1;
     setting_light_leds.max = 20;
-    setting_light_leds.value = storage_table.light_leds;
     setting_light_leds.addEventListener('change', (event) => {
         storage_table.light_leds = Math.round(event.detail);
         console.log(storage_table.light_leds);
         storage_save();
     });
 
-    setting_light_min.value = storage_table.light_min;
+    
     setting_light_min.addEventListener('change', (event) => {
         storage_table.light_min = event.detail;
         storage_save();
     });
 
-    setting_light_max.value = storage_table.light_max;
     setting_light_max.addEventListener('change', (event) => {
         storage_table.light_max = event.detail;
         storage_save();
@@ -132,19 +125,37 @@ const { ipcRenderer } = require('electron');
 
     setting_light_mul.min = 0.5;
     setting_light_mul.max = 2;
-    setting_light_mul.value = storage_table.light_mul;
     setting_light_mul.addEventListener('change', (event) => {
         storage_table.light_mul = event.detail;
         storage_save();
     });
 
-    setting_light_bassLevel.value = storage_table.light_bassLevel;
     setting_light_bassLevel.addEventListener('change', (event) => {
         storage_table.light_bassLevel = event.detail;
         storage_save();
     });
 
-    light_bassLevel
+    let updateValues = () => {
+        setting_light_enabled.setState(storage_table.light_enabled);
+        setting_light_mirror.setState(storage_table.light_mirror);
+        setting_light_reverse.setState(storage_table.light_reverse);
+        
+        setting_light_moveSpeed.value = storage_table.light_moveSpeed;
+        setting_light_leds.value = storage_table.light_leds;
+        setting_light_min.value = storage_table.light_min;
+        setting_light_max.value = storage_table.light_max;
+        setting_light_mul.value = storage_table.light_mul;
+        setting_light_bassLevel.value = storage_table.light_bassLevel;
+    };
+
+    updateValues();
+
+    let setting_light_reset = document.getElementById('setting_light_reset');
+    setting_light_reset.addEventListener('custom_click', () => {
+        
+        updateValues();
+        storage_save();
+    });
 }
 
 { // debug
