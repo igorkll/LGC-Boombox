@@ -26,37 +26,31 @@ const { ipcRenderer } = require('electron');
     let panel = document.getElementById('setting_wallpaper_panel');
     let oldSelected;
 
+    let defaultBorder = '1vh solid #0000006b';
+    let highlightBorder = '1vh solid #f6ff00bd';
+
     function addWallpaperSelector(name) {
         let path = `wallpapers/${name}.jpg`;
 
-        let wallpaperSelector = document.createElement('div');
-        wallpaperSelector.style.display = 'flex';
-        wallpaperSelector.style.justifyContent = 'center';
-        wallpaperSelector.style.alignItems = 'center';
+        let wallpaperSelector = document.createElement('img');
         wallpaperSelector.style.width = '45%';
-        wallpaperSelector.style.aspectRatio = '4 / 3';
-        wallpaperSelector.style.padding = '2vh 2vh';
+        wallpaperSelector.style.aspectRatio = `${window.innerWidth} / ${window.innerHeight}`;
         wallpaperSelector.style.boxSizing = 'border-box';
+        wallpaperSelector.style.objectFit = 'fill';
+        wallpaperSelector.style.border = defaultBorder;
+        wallpaperSelector.src = path;
         wallpaperSelector.classList.add("settings-item");
         
         let updateSelector = () => {
             let state = path === storage_table.wallpaper;
-            wallpaperSelector.style.backgroundColor = state ? '#ffff00' : '#000000';
+            wallpaperSelector.style.border = state ? highlightBorder : defaultBorder;
             if (state) {
                 oldSelected = wallpaperSelector;
             }
         };
 
-        let wallpaperPreview = document.createElement('img');
-        wallpaperPreview.src = path;
-        wallpaperPreview.style.width = '100%';
-        wallpaperPreview.style.height = '100%';
-        wallpaperPreview.style.objectFit = 'fill';
-
-        wallpaperSelector.appendChild(wallpaperPreview);
-
-        wallpaperSelector.addEventListener('pointerdown', () => {
-            oldSelected.style.backgroundColor = '#000000';
+        wallpaperSelector.addEventListener('pointerup', () => {
+            oldSelected.style.border = defaultBorder;
             setWallpaper(path);
             updateSelector();
         });

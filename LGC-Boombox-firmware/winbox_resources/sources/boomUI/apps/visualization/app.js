@@ -5,6 +5,8 @@ let lightOffset = 0;
 let oldTime;
 
 ipcRenderer.on('waves', (event, waves) => {
+    if (shutdown) return;
+    
     for (let i = 0; i <= 5; i++) {
         let element = document.getElementById(`visualization_${i}`);
         element.style.height = `${waves[i] * 100}%`;
