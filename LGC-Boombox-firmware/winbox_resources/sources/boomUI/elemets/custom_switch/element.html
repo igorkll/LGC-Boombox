@@ -7,8 +7,6 @@
 
     width: 100%;
     height: 100%;
-
-    transition: background-color 0.3s ease;
 }
 
 .switch-dot {
@@ -17,22 +15,22 @@
 
     height: 100%;
     aspect-ratio: 1 / 1;
+}
 
-    transition: margin 0.3s ease;
+.switch-body-allow-animation {
+    transition: background-color 0.3s ease;
+}
+
+.switch-dot-allow-animation {
+    transition: transform 0.3s ease;
 }
 
 .switch-body-active {
     background-color: #4ccc07;
 }
-
-.switch-dot-active {
-    margin-left: 100%;
-    transform: translateX(-100%);
-}
 </style>
 
 <div id="switch-body" class="switch-body">
     <div id="switch-dot" class="switch-dot">
-        
     </div>
 </div>

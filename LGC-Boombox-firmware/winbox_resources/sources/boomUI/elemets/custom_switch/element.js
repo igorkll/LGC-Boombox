@@ -13,7 +13,6 @@ class custom_switch extends HTMLElement {
         if (!this.isConnected) return;
 
         this.shadow.innerHTML = html;
-        this.setState(this.state);
         
         this._handler_down = (event) => {
             this.state = !this.state;
@@ -30,6 +29,23 @@ class custom_switch extends HTMLElement {
             let switchBody = this.shadow.getElementById("switch-body");
             switchBody.style.cssText = this.getAttribute("_style");
         }
+
+        let firstStateLoaded = false;
+        let switchBody = this.shadow.getElementById("switch-body");
+        this.resizeObserver = new ResizeObserver(entries => {
+            let switchBody = this.shadow.getElementById("switch-body");
+            if (switchBody.clientWidth > 0) {
+                if (!firstStateLoaded) this.setState(this.state);
+                firstStateLoaded = true;
+
+                setTimeout(() => {
+                    let buttonDot = this.shadow.getElementById("switch-dot");
+                    switchBody.classList.remove('switch-body-allow-animation');
+                    buttonDot.classList.add('switch-dot-allow-animation');
+                }, 0);
+            }
+        });
+        this.resizeObserver.observe(switchBody);
     }
 
     disconnectedCallback() {
@@ -37,15 +53,15 @@ class custom_switch extends HTMLElement {
     }
 
     setState(state) {
-        let buttonDot = this.shadow.getElementById("switch-dot");
         let switchBody = this.shadow.getElementById("switch-body");
+        let buttonDot = this.shadow.getElementById("switch-dot");
 
         this.state = state;
         if (state) {
-            buttonDot.classList.add('switch-dot-active');
+            buttonDot.style.transform = `translate(${switchBody.clientWidth - buttonDot.clientWidth}px)`;
             switchBody.classList.add('switch-body-active');
         } else {
-            buttonDot.classList.remove('switch-dot-active');
+            buttonDot.style.transform = null;
             switchBody.classList.remove('switch-body-active');
         }
     }
