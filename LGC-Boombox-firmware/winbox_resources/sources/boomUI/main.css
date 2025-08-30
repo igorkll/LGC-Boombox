@@ -78,3 +78,8 @@ body {
     flex-basis: 100%;
     height: 0;
 }
+
+.scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+}

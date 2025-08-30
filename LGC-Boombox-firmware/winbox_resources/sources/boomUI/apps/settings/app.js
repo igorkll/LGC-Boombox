@@ -37,6 +37,7 @@ const { ipcRenderer } = require('electron');
         wallpaperSelector.style.height = '30vh';
         wallpaperSelector.style.padding = '2vh 2vh';
         wallpaperSelector.style.boxSizing = 'border-box';
+        wallpaperSelector.classList.add("settings-item");
         
         let updateSelector = () => {
             let state = path === storage_table.wallpaper;
@@ -54,7 +55,7 @@ const { ipcRenderer } = require('electron');
 
         wallpaperSelector.appendChild(wallpaperPreview);
 
-        wallpaperSelector.addEventListener('pointerup', () => {
+        wallpaperSelector.addEventListener('pointerdown', () => {
             oldSelected.style.backgroundColor = '#000000';
             setWallpaper(path);
             updateSelector();
@@ -66,7 +67,7 @@ const { ipcRenderer } = require('electron');
     }
 
     for (let i = 1; i <= 3; i++) {
-        addWallpaperSelector(`${i}`);
+        addWallpaperSelector(i);
     }
 }
 

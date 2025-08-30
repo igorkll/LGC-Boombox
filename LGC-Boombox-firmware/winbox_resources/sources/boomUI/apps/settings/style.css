@@ -10,8 +10,17 @@
 
 .settings-line {
     margin: 2vh;
-    gap: 2vh;
+    gap: 4vh;
     display: flex;
     flex-direction: row;
     width: 100%;
+}
+
+.settings-item {
+    margin: 2vh;
+}
+
+.settings-tab {
+    padding: 2vh;
+    box-sizing: border-box;
 }
