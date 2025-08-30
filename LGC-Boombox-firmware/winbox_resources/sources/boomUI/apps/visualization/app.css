@@ -11,12 +11,8 @@
     flex: 1;
     
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
     flex-direction: row;
-
-    margin: 4vh;
-    gap: 4vh;
 }
 
 .visualization_container_part {
@@ -30,6 +26,8 @@
     display: flex;
     justify-content: center;
     align-items: end;
+
+    border-radius: 2vh;
 }
 
 .visualization_indicator {
