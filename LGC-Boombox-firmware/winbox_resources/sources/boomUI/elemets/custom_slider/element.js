@@ -1,21 +1,14 @@
 class custom_slider extends HTMLElement {
     constructor() {
         super();
+    }
 
+    connectedCallback() {
         if (!this.style.getPropertyValue('--slider-color')) {
             this.style.setProperty('--slider-color', "63, 255, 48");
         }
 
-        let value = this.style.getPropertyValue('--slider-value');
-        if (value) {
-            this.value = value;
-        } else {
-            this.value = 0.5;
-        }
-    }
-
-    connectedCallback() {
-        this._vertical = this.style.getPropertyValue('--slider-vertical');
+        this._vertical = this.style.getPropertyValue('--slider-vertical') == 'true';
 
         this._slider = document.createElement('div');
         this._slider.style.background = 'rgba(var(--slider-color), 1)';
@@ -34,6 +27,13 @@ class custom_slider extends HTMLElement {
             this.style.alignItems = 'center';
         }
         this.appendChild(this._slider);
+
+        let value = this.style.getPropertyValue('--slider-value');
+        if (value) {
+            this.value = value;
+        } else {
+            this.value = 0.5;
+        }
 
         // process
         this._updateSlider = (x, y) => {

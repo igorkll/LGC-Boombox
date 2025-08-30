@@ -1,0 +1,16 @@
+.settings-switch {
+    height: 8vh;
+    width: 17vh;
+}
+
+.settings-slider {
+    height: 8vh;
+}
+
+.settings-line {
+    margin: 2vh;
+    gap: 2vh;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}

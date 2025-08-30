@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="apps/settings/style.css">
+
 <div class="fill soap crop">
     <div class="tabcontrol" id="settings_tablist" style="flex-direction: column; width: 30%; height: 100%;">
         <div class="tablink" id="setting_wallpaper_button">wallpaper</div>
@@ -10,19 +12,24 @@
         <div class="tab" id="setting_wallpaper_panel" style="margin: 2vh; gap: 2vh; flex-wrap: wrap;"></div>
         <div class="tab" id="setting_clock_panel">clock</div>
         <div class="tab" id="setting_light_panel" style="flex-direction: column;">
-            <div style="margin: 2vh; gap: 2vh; display: flex; flex-direction: row;">
-                <custom-switch id="setting_light_enabled" style="height: 8vh; width: 17vh;"></custom-switch>
+            <div class="settings-line">
+                <custom-switch id="setting_light_enabled" class="settings-switch"></custom-switch>
                 <div class="info">enabled</div>
             </div>
 
-            <div style="margin: 2vh; gap: 2vh; display: flex; flex-direction: row;">
-                <custom-switch id="setting_light_mirror" style="height: 8vh; width: 17vh;"></custom-switch>
+            <div class="settings-line">
+                <custom-switch id="setting_light_mirror" class="settings-switch"></custom-switch>
                 <div class="info">mirror</div>
             </div>
 
-            <div style="margin: 2vh; gap: 2vh; display: flex; flex-direction: row;">
-                <custom-switch id="setting_light_reverse" style="height: 8vh; width: 17vh;"></custom-switch>
+            <div class="settings-line">
+                <custom-switch id="setting_light_reverse" class="settings-switch"></custom-switch>
                 <div class="info">reverse</div>
+            </div>
+
+            <div class="settings-line">
+                <custom-slider id="setting_light_moveSpeed" class="settings-slider" style="--slider-value: 0.5; flex: 1;"></custom-slider>
+                <div class="info">move speed</div>
             </div>
         </div>
         <div class="tab" id="setting_debug_panel" style="margin: 2vh; gap: 2vh; flex-direction: column;">
