@@ -94,12 +94,12 @@ body {
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-  background-color: #9b9b9b;
+  background-color: #b8b8b870;
   border-radius: 100vh;
   border: 0.5vh solid transparent;
   background-clip: content-box;
 }
 
 .scrollable::-webkit-scrollbar-thumb:hover {
-  background-color: #ffffff;
+  background-color: #ffffffa6;
 }
