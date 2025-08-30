@@ -1,7 +1,7 @@
-let storage_version = 1;
+let storage_version = 0;
 
 let storage_defaults = {
-    wallpaper: 'wallpapers/2.jpg',
+    wallpaper: 'wallpapers/1.jpg',
     volume: 0.5
 };
 
@@ -38,8 +38,8 @@ function storage_load() {
         }
     }
 
-    storage_loadDefault(storage_defaults);
-    storage_loadDefault(storage_defaultsLight);
+    storage_loadDefaults(storage_defaults);
+    storage_loadDefaults(storage_defaultsLight);
 }
 
 function storage_save() {
