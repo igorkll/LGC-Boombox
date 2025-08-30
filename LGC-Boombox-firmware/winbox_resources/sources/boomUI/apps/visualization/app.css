@@ -11,8 +11,11 @@
     flex: 1;
     
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: space-between;
     flex-direction: row;
+
+    margin: 2vh;
 }
 
 .visualization_container_part {
