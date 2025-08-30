@@ -1,5 +1,9 @@
 {
-function addFilesFolder(name, path) {
+let path = require('path');
+
+function addFilesFolder(name, path, opened=false) {
+    console.log(path);
+    
     let tablist = document.getElementById('files_tablist');
     let tabhost = document.getElementById('files_tabhost');
 
@@ -12,12 +16,12 @@ function addFilesFolder(name, path) {
     let tab = document.createElement('div');
     tab.id = `${name}_tab`;
     tab.classList.add("tab");
-    tab.innerHTML = name;
+    tab.innerHTML = path;
     tabhost.appendChild(tab);
 
-    addTab(tablist, tabhost, tablink, tab, false);
+    addTab(tablist, tabhost, tablink, tab, opened);
 }
 
-addFilesFolder("test", "C:\\");
+addFilesFolder("defaults", path.join(__dirname, 'defaults'), true);
 addFilesFolder("test2", "D:\\");
 }
