@@ -53,17 +53,9 @@
   "winmountedEnabled": false,
   "winmountedEvent": "",
   "pythonVersion": null,
-  "downloadEnabled": true,
+  "downloadEnabled": false,
   "buildEnabled": true,
-  "DownloadItems": [
-    {
-      "name": "download item 1",
-      "path": "winbox_temp/files/DIRECTORIES ARE/CREATED AUTOMATICALLY/example.mp3",
-      "url": "https://raw.githubusercontent.com/igorkll/trashfolder/refs/heads/main/sound3/1.mp3",
-      "cache": true,
-      "unpack": false
-    }
-  ],
+  "DownloadItems": [],
   "BuildItems": [
     {
       "name": "boomUI",
