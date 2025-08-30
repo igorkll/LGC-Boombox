@@ -30,18 +30,15 @@ addFilesFolder("storage", 'C:\\LGCBoombox_storage');
 
 activateTab(tablist, tabhost, tabs[0].tablink, tabs[0].tab);
 
-setInterval(1000, async () => {
+setTimeout(async () => {
     const drives = await drivelist.list();
-
-    console.log(drives);
-
     for (const drive of drives) {
         if (drive.mountpoints.some(mp => mp.path.toUpperCase() === 'C:\\')) continue;
+        console.log(drive);
 
         for (const mount of drive.mountpoints) {
-            console.log(mount);
-            addFilesFolder(name, path);
+            addFilesFolder(drive.description, mount.path);
         }
     }
-});
+}, 1000);
 }

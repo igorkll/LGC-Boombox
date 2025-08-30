@@ -10,6 +10,11 @@
     font-size: 8vh;
     text-shadow: 0px 0px 2vh black;
     padding: 2vh;
+
+    border-top: 0.5vh solid #4b4b4b43;
+    border-bottom: 0.5vh solid #4b4b4b43;
+    border-left: none;
+    border-right: none; 
 }
 
 .tablink-selected {
