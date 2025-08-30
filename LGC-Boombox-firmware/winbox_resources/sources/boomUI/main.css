@@ -85,18 +85,19 @@ body {
 }
 
 .scrollable::-webkit-scrollbar {
-  width: 1vh;
-  height: 1vh;
+  width: 3vh;
+  height: 3vh;
 }
 
 .scrollable::-webkit-scrollbar-track {
-  background: #00000000;
-  border-radius: 1vh;
+  background: transparent;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
   background-color: #9b9b9b;
-  border-radius: 1vh;
+  border-radius: 100vh;
+  border: 0.5vh solid transparent;
+  background-clip: content-box;
 }
 
 .scrollable::-webkit-scrollbar-thumb:hover {
