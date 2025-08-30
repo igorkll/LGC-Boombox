@@ -9,7 +9,44 @@ let tabhost = document.getElementById('files_tabhost');
 let tabs = [];
 let existsTabs = {};
 
-function addFolder(name, path, readonly=false) {
+function addFolderUi(tab, name, defaultPath) {
+    let currentPath = defaultPath;
+
+    let namelabel = document.createElement('div');
+    namelabel.classList.add("panel");
+    namelabel.classList.add("mini-info");
+    namelabel.style.textAlign = 'left';
+    namelabel.innerHTML = name;
+    tab.appendChild(namelabel);
+
+    let pathlabel = document.createElement('div');
+    pathlabel.classList.add("panel");
+    pathlabel.classList.add("mini-info");
+    pathlabel.style.textAlign = 'left';
+    pathlabel.style.flex = '1';
+    tab.appendChild(pathlabel);
+
+    let filescontainer = document.createElement('div');
+    filescontainer.style.textAlign = 'left';
+    filescontainer.style.flex = '1';
+    tab.appendChild(filescontainer);
+
+    let refresh = () => {
+        pathlabel.innerHTML = '/' + path.relative(defaultPath, currentPath).replace(/\\/g, '/');
+
+        filescontainer.replaceChildren();
+        fs.readdir(currentPath, (err, files) => {
+            if (err) files = [];
+            for (let obj of files) {
+                console.log(obj);
+            }
+        });
+    };
+
+    refresh();
+}
+
+function addFolder(name, defaultPath, readonly=false) {
     let tablink = document.createElement('div');
     tablink.id = `${name}_tablink`;
     tablink.classList.add("tablink");
@@ -19,14 +56,14 @@ function addFolder(name, path, readonly=false) {
     let tab = document.createElement('div');
     tab.id = `${name}_tab`;
     tab.classList.add("tab");
-    tab.innerHTML = path;
+    addFolderUi(tab, name, defaultPath);
     tabhost.appendChild(tab);
 
     addTab(tablist, tabhost, tablink, tab);
     
     let obj = {tablink: tablink, tab: tab};
     tabs.push(obj);
-    existsTabs[path] = obj;
+    existsTabs[defaultPath] = obj;
     return obj;
 }
 

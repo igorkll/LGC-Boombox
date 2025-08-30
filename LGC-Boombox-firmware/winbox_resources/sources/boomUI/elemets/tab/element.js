@@ -17,6 +17,10 @@ function activateTab(tablist, tabhost, button, tab) {
 }
 
 function addTab(tablist, tabhost, button, tab, opened=false) {
+    button.classList.remove('tablink-selected');
+    button.selectedTab = false;
+    tab.style.display = 'none';
+
     let tablinkPressed = false;
 
     button.addEventListener('pointerdown', () => {
