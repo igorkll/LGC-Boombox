@@ -5,6 +5,7 @@ class custom_switch extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
+        this.state = false;
     }
 
     async connectedCallback() {
@@ -12,8 +13,8 @@ class custom_switch extends HTMLElement {
         if (!this.isConnected) return;
 
         this.shadow.innerHTML = html;
-        this.state = false;
-
+        this.setState(this.state);
+        
         this._handler_down = (event) => {
             this.state = !this.state;
             this.setState(this.state);
