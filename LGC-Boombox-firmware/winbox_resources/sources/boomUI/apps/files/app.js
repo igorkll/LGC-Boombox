@@ -9,7 +9,7 @@ let tabhost = document.getElementById('files_tabhost');
 let tabs = [];
 let existsTabs = {};
 
-function addFilesFolder(name, path, readonly=false) {
+function addFolder(name, path, readonly=false) {
     let tablink = document.createElement('div');
     tablink.id = `${name}_tablink`;
     tablink.classList.add("tablink");
@@ -30,23 +30,14 @@ function addFilesFolder(name, path, readonly=false) {
     return obj;
 }
 
-if (!fs.existsSync(storage_path)) {
-    fs.mkdirSync(storage_path, {recursive: true});
-}
-
-addFilesFolder("defaults", path.join(__dirname, 'defaults'), true);
-addFilesFolder("storage", storage_path);
-
-activateTab(tablist, tabhost, tabs[0].tablink, tabs[0].tab);
-
-setInterval(async () => {
+let updateDrives = async () => {
     const drives = await drivelist.list();
     for (const drive of drives) {
         if (drive.mountpoints.some(mp => mp.path.toUpperCase() === 'C:\\')) continue;
 
         for (const mount of drive.mountpoints) {
             if (existsTabs[mount.path] == null) {
-                addFilesFolder(drive.description, mount.path);
+                addFolder(drive.description, mount.path);
             }
         }
     }
@@ -67,5 +58,19 @@ setInterval(async () => {
             delete existsTabs[path];
         }
     }
-}, 1000);
+};
+
+updateDrives();
+setInterval(updateDrives, 1000);
+
+// -------------------------
+
+if (!fs.existsSync(storage_path)) {
+    fs.mkdirSync(storage_path, {recursive: true});
+}
+
+addFolder("defaults", path.join(__dirname, 'defaults'), true);
+addFolder("storage", storage_path);
+
+activateTab(tablist, tabhost, tabs[0].tablink, tabs[0].tab);
 }
