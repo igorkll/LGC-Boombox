@@ -56,7 +56,7 @@ function addApp(name) {
         .catch(err => console.error(err));
 }
 
-addApp("music")
+addApp("files")
 addApp("visualization")
 addApp("settings")
 }
