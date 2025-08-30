@@ -70,6 +70,31 @@ const { ipcRenderer } = require('electron');
     }
 }
 
+{ // light
+    let setting_light_enabled = document.getElementById('setting_light_enabled');
+    let setting_light_mirror = document.getElementById('setting_light_mirror');
+    let setting_light_reverse = document.getElementById('setting_light_reverse');
+
+    setting_light_enabled.setState(storage_table.light_enabled);
+    setting_light_mirror.setState(storage_table.light_mirror);
+    setting_light_reverse.setState(storage_table.light_reverse);
+
+    setting_light_enabled.addEventListener('switch_change', (event) => {
+        storage_table.light_enabled = event.detail;
+        storage_save();
+    });
+
+    setting_light_mirror.addEventListener('switch_change', (event) => {
+        storage_table.light_mirror = event.detail;
+        storage_save();
+    });
+
+    setting_light_reverse.addEventListener('switch_change', (event) => {
+        storage_table.light_reverse = event.detail;
+        storage_save();
+    });
+}
+
 { // debug
     document.getElementById('setting_reboot_to_desktop').addEventListener('custom_click', () => {
         exec('C:\\WinboxApi\\reboot_to_desktop.bat');
