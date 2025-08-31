@@ -6,9 +6,29 @@
         <img id="media_preview" style="position: absolute; width: 100%; height: 100%; object-fit: contain;"></img>
     </div>
 
-    <custom-button id="music_fullscreen" class="music-button">
-        <div class="music-button-content">
-            <img src="apps/music/fullscreen.png" style="width: 80%; height: 80%; object-fit: contain;"></img>
-        </div>
-    </custom-button>
+    <div style="display: flex; flex-direction: row;">
+        <custom-button id="music_previous" class="music-button">
+            <div class="music-button-content">
+                <img src="apps/music/previous.png" style="width: 90%; height: 90%; object-fit: contain;"></img>
+            </div>
+        </custom-button>
+
+        <custom-button id="music_next" class="music-button">
+            <div class="music-button-content">
+                <img src="apps/music/next.png" style="width: 90%; height: 90%; object-fit: contain;"></img>
+            </div>
+        </custom-button>
+
+        <custom-button id="music_playPause" class="music-button">
+            <div id="music_playPause_img" class="music-button-content">
+                <img style="width: 90%; height: 90%; object-fit: contain;"></img>
+            </div>
+        </custom-button>
+
+        <custom-button id="music_fullscreen" class="music-button">
+            <div class="music-button-content">
+                <img src="apps/music/fullscreen.png" style="width: 90%; height: 90%; object-fit: contain;"></img>
+            </div>
+        </custom-button>
+    </div>
 </div>
