@@ -2,7 +2,7 @@ $fn = 100;
 
 handle_length = 170;
 handle_width = 30;
-handle_height = 40;
+handle_height = 30;
 
 hole_diameter = 3;
 hole_offset = 5;
