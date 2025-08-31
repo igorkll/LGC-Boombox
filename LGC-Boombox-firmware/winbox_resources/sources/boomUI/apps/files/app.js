@@ -51,19 +51,21 @@ function addFolderUi(tab, name, defaultPath) {
     toolcontainer.style.padding = '0px';
     tab.appendChild(toolcontainer);
 
-    let addToolButton = (path) => {
+    let addToolButton = (iconPath) => {
         let button = document.createElement('custom-button');
         button.style.aspectRatio = '1 / 1';
         button.style.height = '10vh';
+        button._style = {};
+        button._style.borderRadius = '0vh';
         toolcontainer.appendChild(button);
 
-        let imageContainer = document.createElement('img');
+        let imageContainer = document.createElement('div');
         imageContainer.classList.add("button-content");
         button.appendChild(imageContainer);
 
         let image = document.createElement('img');
         image.classList.add("button-image");
-        image.src = path;
+        image.src = iconPath;
         imageContainer.appendChild(image);
     };
 
