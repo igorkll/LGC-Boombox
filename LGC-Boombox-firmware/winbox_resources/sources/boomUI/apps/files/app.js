@@ -9,6 +9,10 @@ let tabhost = document.getElementById('files_tabhost');
 let tabs = [];
 let existsTabs = {};
 
+function getFileName(filePath) {
+    return path.basename(filePath, path.extname(filePath));
+}
+
 function addFolderUi(tab, name, defaultPath) {
     let currentPath = defaultPath;
 
@@ -49,13 +53,19 @@ function addFolderUi(tab, name, defaultPath) {
         fs.readdir(currentPath, (err, files) => {
             if (err) files = [];
             for (let obj of files) {
+                let fullPath = path.join(currentPath, obj);
+
                 let element = document.createElement('div');
                 element.classList.add("panel");
                 element.classList.add("mini-info");
                 element.style.textAlign = 'left';
                 element.style.alignSelf = 'stretch';
-                element.innerHTML = obj;
+                element.innerHTML = getFileName(obj);
                 filescontainer.appendChild(element);
+
+                element.addEventListener('pointerup', () => {
+                    
+                })
             }
         });
     };
