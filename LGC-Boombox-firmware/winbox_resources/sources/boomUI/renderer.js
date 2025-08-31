@@ -119,12 +119,46 @@ function fullscreenize(element) {
 let autoSaveSettings = false;
 
 const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const { fileTypeFromFile } = require('file-type');
 
 let messageboxTypes = {
     error: {
         icon: "error"
     }
 };
+
+// media
+window.detectMediaType = async function (filePath) {
+    const type = await fileTypeFromFile(filePath);
+    if (!type) return 'unknown';
+
+    if (type.mime.startsWith('audio/')) return 'audio';
+    if (type.mime.startsWith('video/')) return 'video';
+    return 'other';
+}
+
+window.setCover = async function (imgElement, filePath) {
+    try {
+        const metadata = await mm.parseFile(filePath, { native: true });
+        const picture = metadata.common.picture?.[0];
+
+        if (!picture) {
+            console.log('Обложка не найдена');
+            return;
+        }
+
+        // Конвертируем Buffer в Base64
+        const base64 = picture.data.toString('base64');
+        const mime = picture.format;
+
+        // Вставляем в <img>
+        imgElement.src = `data:${mime};base64,${base64}`;
+    } catch (err) {
+        console.error('Ошибка чтения метаданных:', err.message);
+    }
+}
 
 // messagebox
 window.messagebox = function (message, type) {

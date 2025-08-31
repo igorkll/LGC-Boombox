@@ -92,8 +92,23 @@ function addFolderUi(tab, name, defaultPath) {
                     fs.stat(fullPath, (err, stats) => {
                         if (err) return;
                         if (stats.isFile()) {
-                            openVideo(fullPath);
-                            openApp("music");
+                            detectMediaType(fullPath).then(result => {
+                                switch (result) {
+                                    case 'audio':
+                                        openVideo(fullPath);
+                                        openApp('music');
+                                        break;
+
+                                    case 'video':
+                                        openVideo(fullPath);
+                                        openApp('music');
+                                        break;
+
+                                    default:
+                                        messagebox('unsupported file type', 'error');
+                                        break;
+                                }
+                            })
                         } else if (stats.isDirectory()) {
                             currentPath = path.join(currentPath, obj);
                             refresh();

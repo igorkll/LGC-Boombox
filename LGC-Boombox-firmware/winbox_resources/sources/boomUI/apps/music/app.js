@@ -1,5 +1,6 @@
 {
 let media_player = document.getElementById('media_player');
+let media_preview = document.getElementById('media_preview');
 let media_panel = document.getElementById('media_panel');
 let music_progress = document.getElementById('music_progress');
 let music_playPause = document.getElementById('music_playPause');
@@ -23,11 +24,24 @@ function updateGui() {
 
 updateGui();
 
-window.openAudio = function (path) {
+function openNone() {
+    media_player.style.display = 'none';
+    media_preview.style.display = 'none';
+}
 
+openNone();
+
+window.openAudio = function (path) {
+    media_player.style.display = 'none';
+    media_preview.style.display = 'inline';
+
+    setCover(imgElement, filePath);
 }
 
 window.openVideo = function (path) {
+    media_player.style.display = 'inline';
+    media_preview.style.display = 'none';
+
     media_player.src = toWebPath(path);
     media_player.play();
     updateGui();
