@@ -129,7 +129,12 @@ music_playPause.addEventListener("custom_click", () => {
     }
 });
 
-media_player.addEventListener('ended', updateGui);
+media_player.addEventListener('ended', () => {
+    updateGui();
+    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
+        openMedia(nextPath);
+    });
+});
 
 function updateProgressBar() {
     if (isMediaLoaded()) {
