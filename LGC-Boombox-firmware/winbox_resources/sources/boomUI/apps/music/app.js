@@ -83,12 +83,10 @@ window.openMedia = function(filePath) {
         switch (result) {
             case 'audio':
                 openAudio(filePath);
-                openApp('music');
                 break;
 
             case 'video':
                 openVideo(filePath);
-                openApp('music');
                 break;
 
             default:
