@@ -122,7 +122,7 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const { fileTypeFromFile } = require('file-type');
-const mm = require('music-metadata');
+const { ipcRenderer } = require('electron');
 
 let messageboxTypes = {
     error: {
@@ -140,34 +140,14 @@ window.detectMediaType = async function (filePath) {
     return 'other';
 }
 
-window.setCover = async function (imgElement, filePath) {
-    try {
-        console.log(`Reading metadata from: ${filePath}`);
-        const metadata = await mm.parseFile(filePath, { native: true });
-
-        const picture = metadata.common.picture?.[0];
-        if (!picture) {
-            console.log('No cover found in metadata.');
-            return;
-        }
-
-        console.log(`Cover found. Format: ${picture.format}, size: ${picture.data.length} bytes`);
-
-        // Generate temporary file path
-        const ext = picture.format.split('/')[1]; // e.g., 'jpeg', 'png'
-        const tempFilePath = path.join(os.tmpdir(), `track_cover_${Date.now()}.${ext}`);
-
-        // Save cover as temp file
-        fs.writeFileSync(tempFilePath, picture.data);
-        console.log(`Cover saved temporarily at: ${tempFilePath}`);
-
-        // Set <img> src
-        imgElement.src = `file://${tempFilePath}`;
-        console.log('Cover image has been set successfully.');
-    } catch (err) {
-        console.error('Error reading metadata:', err.message);
+window.setTrackCover = async function (imgElement, filePath) {
+    const tempPath = await ipcRenderer.invoke('get-track-cover', filePath);
+    if (tempPath) {
+        imgElement.src = `file://${tempPath}`;
+        console.log('Cover image set successfully.');
+    } else {
+        console.log('No cover found.');
     }
-
 }
 
 // messagebox

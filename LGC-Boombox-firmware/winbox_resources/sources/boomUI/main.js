@@ -2,6 +2,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const { exec } = require('child_process');
 const net = require('net');
 const path = require('path');
+const mm = require('music-metadata');
+const os = require('os');
+const fs = require('fs');
 
 app.whenReady().then(() => {
     const win = new BrowserWindow({
@@ -52,4 +55,20 @@ app.on('window-all-closed', () => {
 
 ipcMain.on('quit-app', () => {
     app.quit();
+});
+
+ipcMain.handle('get-track-cover', async (event, filePath) => {
+    try {
+        const metadata = await mm.parseFile(filePath, { native: true });
+        const picture = metadata.common.picture?.[0];
+        if (!picture) return null;
+
+        const ext = picture.format.split('/')[1];
+        const tempFilePath = path.join(os.tmpdir(), `track_cover_${Date.now()}.${ext}`);
+        fs.writeFileSync(tempFilePath, picture.data);
+        return tempFilePath;
+    } catch (err) {
+        console.error('Error reading metadata:', err.message);
+        return null;
+    }
 });

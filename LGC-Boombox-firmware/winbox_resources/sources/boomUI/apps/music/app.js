@@ -36,7 +36,8 @@ window.openAudio = function (path) {
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
 
-    //setCover(media_preview, path);
+    setTrackCover(media_preview, path).then(() => {});
+    
     media_player.src = toWebPath(path);
     media_player.play();
     updateGui();
