@@ -57,6 +57,7 @@ function addApp(name) {
 }
 
 addApp("files");
+addApp("music");
 addApp("visualization");
 addApp("settings");
 }

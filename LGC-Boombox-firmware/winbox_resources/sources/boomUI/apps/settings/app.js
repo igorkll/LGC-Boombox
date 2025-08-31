@@ -16,7 +16,7 @@ const { ipcRenderer } = require('electron');
     }
 
     addSettingsTab("wallpaper");
-    addSettingsTab("clock");
+    //addSettingsTab("clock");
     addSettingsTab("light");
     addSettingsTab("debug");
 }

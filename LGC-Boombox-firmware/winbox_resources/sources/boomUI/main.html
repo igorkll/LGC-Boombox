@@ -18,6 +18,13 @@
     <script src="elemets/custom_switch/element.js"></script>
 </head>
 <body>
+    <div style="display: flex; width: 100%; flex-direction: row;">
+        <div style="height: 6vh; justify-content: space-between;" class="dockobj info soap dock flex-max">
+            <div style="margin-left: 2vh;" id="showtime"></div>
+            <div style="margin-right: 2vh;" id="showdate"></div>
+        </div>
+    </div>
+
     <div id="appscontainer" class="appscontainer dockobj">
     </div>
 
@@ -28,14 +35,18 @@
             <img id="poweroff_button" class="dock-item" src="icons/poweroff.png"></img>
         </div>
 
+        <!--
         <div id="showtime" class="dockobj info soap dock flex-max">
         </div>
+        -->
 
         <div id="appslist" class="soap dock dockobj">
         </div>
 
+        <!--
         <div id="showdate" class="dockobj info soap dock flex-max">
         </div>
+        -->
 
         <div class="soap dock dockobj">
             <img id="volume_button" class="dock-item" src="icons/volume.png"></img>
