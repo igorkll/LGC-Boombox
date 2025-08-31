@@ -16,6 +16,8 @@ function getFileName(filePath) {
 function addFolderUi(tab, name, defaultPath) {
     let currentPath = defaultPath;
 
+    // ---------------- info
+
     let infocontainer = document.createElement('div');
     infocontainer.style.width = '100%';
     infocontainer.style.display = 'flex';
@@ -37,6 +39,29 @@ function addFolderUi(tab, name, defaultPath) {
     pathlabel.style.flex = '1';
     infocontainer.appendChild(pathlabel);
 
+    // ---------------- tool
+
+    let toolcontainer = document.createElement('div');
+    toolcontainer.classList.add("panel");
+    toolcontainer.style.width = '100%';
+    toolcontainer.style.display = 'flex';
+    toolcontainer.style.justifyContent = 'start';
+    toolcontainer.style.alignItems = 'start';
+    toolcontainer.style.padding = '0px';
+    tab.appendChild(toolcontainer);
+
+    let upfolderButton = document.createElement('div');
+
+    toolcontainer.appendChild(upfolderButton);
+
+    let upfolderImage = document.createElement('img');
+    upfolderImage.src = 'icons/upfolder.png';
+    upfolderImage.style.objectFit = 'fill';
+    upfolderImage.style.width = '80%';
+    upfolderImage.style.height = '80%';
+    upfolderButton.appendChild(upfolderImage);
+
+    // ---------------- files
     let filescontainer = document.createElement('div');
     filescontainer.classList.add("scrollable");
     filescontainer.style.width = '100%';

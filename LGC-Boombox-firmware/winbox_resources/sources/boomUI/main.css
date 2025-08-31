@@ -115,7 +115,7 @@ body {
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-  background-color: #b8b8b870;
+  background-color: #ffffffa6;
   border-radius: 100vh;
   border: 0.5vh solid transparent;
   background-clip: content-box;
