@@ -81,7 +81,10 @@ class custom_slider extends HTMLElement {
         };
 
         this._upHandler = () => {
-            this.isDragging = false;
+            if (this.isDragging) {
+                this.isDragging = false;
+                this.dispatchEvent(new CustomEvent('custom_drop'));
+            }
         };
 
         document.addEventListener('pointerdown', this._downHandler);

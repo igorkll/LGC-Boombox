@@ -76,21 +76,30 @@ window.openVideo = function (filePath) {
     updateGui();
 }
 
-window.openMedia = function(filePath) {
+window.openMedia = function(filePath, callback) {
     lastMediaPath = filePath;
 
     detectMediaType(filePath).then(result => {
         switch (result) {
             case 'audio':
                 openAudio(filePath);
+                if (callback != null) {
+                    callback(true);
+                }
                 break;
 
             case 'video':
                 openVideo(filePath);
+                if (callback != null) {
+                    callback(true);
+                }
                 break;
 
             default:
                 messagebox('unsupported file type', 'error');
+                if (callback != null) {
+                    callback(false);
+                }
                 break;
         }
     });

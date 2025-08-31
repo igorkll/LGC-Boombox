@@ -99,11 +99,13 @@ const { ipcRenderer } = require('electron');
     });
 
     setting_light_leds.min = 1;
-    setting_light_leds.max = 20;
+    setting_light_leds.max = 10;
     setting_light_leds.addEventListener('change', (event) => {
         storage_table.light_leds = Math.round(event.detail);
-        console.log(storage_table.light_leds);
         storage_save();
+    });
+    setting_light_leds.addEventListener('custom_drop', (event) => {
+        setting_light_leds.value = storage_table.light_leds;
     });
 
     

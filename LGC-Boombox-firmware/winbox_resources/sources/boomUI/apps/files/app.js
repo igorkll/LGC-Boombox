@@ -106,8 +106,11 @@ function addFolderUi(tab, name, defaultPath) {
                     fs.stat(fullPath, (err, stats) => {
                         if (err) return;
                         if (stats.isFile()) {
-                            openMedia(fullPath);
-                            openApp('music');
+                            openMedia(fullPath, (successfully) => {
+                                if (successfully) {
+                                    openApp('music');
+                                }
+                            });
                         } else if (stats.isDirectory()) {
                             currentPath = path.join(currentPath, obj);
                             refresh();
