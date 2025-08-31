@@ -1,4 +1,8 @@
 {
+const path = require('path');
+const fs = require('fs');
+const os = require('os');
+
 let media_player = document.getElementById('media_player');
 let media_preview = document.getElementById('media_preview');
 let media_panel = document.getElementById('media_panel');
@@ -31,6 +35,20 @@ function openNone() {
 }
 
 openNone();
+
+function getPreviousAndNextFile(filePath, callback) {
+    let dir = path.dirname(filePath);
+    fs.readdir(dir, (err, files) => {
+        if (err) files = [];
+        for (let index in files) {
+            let lpath = path.join(dir, files[index]);
+            console.log(lpath);
+            if (path.normalize(lpath) == path.normalize(filePath)) {
+                callback(lpath, files[index - 1], files[index]);
+            }
+        }
+    });
+}
 
 window.openAudio = function (path) {
     openNone();
@@ -117,6 +135,10 @@ music_progress.addEventListener("change", (event) => {
     if (isMediaLoaded()) {
         media_player.currentTime = event.detail * media_player.duration;
     }
+});
+
+getPreviousAndNextFile(path, (currentPath, previousPath, nextPath) => {
+    
 });
 
 }
