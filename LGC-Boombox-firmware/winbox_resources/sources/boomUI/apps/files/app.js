@@ -44,22 +44,30 @@ function addFolderUi(tab, name, defaultPath) {
     let toolcontainer = document.createElement('div');
     toolcontainer.classList.add("panel");
     toolcontainer.style.width = '100%';
+    toolcontainer.style.height = '10vh';
     toolcontainer.style.display = 'flex';
     toolcontainer.style.justifyContent = 'start';
     toolcontainer.style.alignItems = 'start';
     toolcontainer.style.padding = '0px';
     tab.appendChild(toolcontainer);
 
-    let upfolderButton = document.createElement('div');
+    let addToolButton = (path) => {
+        let button = document.createElement('custom-button');
+        button.style.aspectRatio = '1 / 1';
+        button.style.height = '10vh';
+        toolcontainer.appendChild(button);
 
-    toolcontainer.appendChild(upfolderButton);
+        let imageContainer = document.createElement('img');
+        imageContainer.classList.add("button-content");
+        button.appendChild(imageContainer);
 
-    let upfolderImage = document.createElement('img');
-    //upfolderImage.src = 'icons/upfolder.png';
-    upfolderImage.style.objectFit = 'fill';
-    upfolderImage.style.height = '80%';
-    upfolderImage.style.aspectRatio = `1 / 1`;
-    upfolderButton.appendChild(upfolderImage);
+        let image = document.createElement('img');
+        image.classList.add("button-image");
+        image.src = path;
+        imageContainer.appendChild(image);
+    };
+
+    addToolButton('apps/files/upfolder.png');
 
     // ---------------- files
     let filescontainer = document.createElement('div');
@@ -86,6 +94,7 @@ function addFolderUi(tab, name, defaultPath) {
                 element.classList.add("mini-info");
                 element.style.textAlign = 'left';
                 element.style.alignSelf = 'stretch';
+                element.style.backgroundColor = 'rgba(35, 35, 35, 0.1)';
                 element.innerHTML = getFileName(obj);
                 filescontainer.appendChild(element);
 
