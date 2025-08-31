@@ -77,7 +77,8 @@ function addFolderUi(tab, name, defaultPath) {
         filescontainer.replaceChildren();
         fs.readdir(currentPath, (err, files) => {
             if (err) files = [];
-            for (let obj of files) {
+            const sortedFiles = files.sort();
+            for (let obj of sortedFiles) {
                 let fullPath = path.join(currentPath, obj);
 
                 let element = document.createElement('div');

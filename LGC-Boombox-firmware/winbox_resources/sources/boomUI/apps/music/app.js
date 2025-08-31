@@ -44,13 +44,16 @@ function getPreviousAndNextFile(filePath, callback) {
     let dir = path.dirname(filePath);
     fs.readdir(dir, (err, files) => {
         if (err) files = [];
-        const fullPaths = files.map(file => path.join(dir, file));
-        for (let index in fullPaths) {
+        const sortedFiles = files.sort();
+        const fullPaths = sortedFiles.map(file => path.join(dir, file));
+        for (let index = 0; index < fullPaths.length; index++) {
             let lpath = fullPaths[index];
             if (path.normalize(lpath) == path.normalize(filePath)) {
-                console.log(fullPaths);
                 console.log(index);
-                callback(lpath, fullPaths[index - 1], fullPaths[index + 1]);
+                console.log(fullPaths.length);
+                console.log(fullPaths[index - 1]);
+                console.log(fullPaths[index + 1]);
+                callback(lpath, fullPaths[wrapInt(index - 1, 0, fullPaths.length - 1)], fullPaths[wrapInt(index + 1, 0, fullPaths.length - 1)]);
             }
         }
     });
@@ -151,7 +154,6 @@ music_progress.addEventListener("change", (event) => {
 music_previous.addEventListener("custom_click", () => {
     if (lastMediaPath == null) return;
     getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
-        console.log(previousPath);
         openMedia(previousPath);
     });
 });
@@ -159,7 +161,6 @@ music_previous.addEventListener("custom_click", () => {
 music_next.addEventListener("custom_click", () => {
     if (lastMediaPath == null) return;
     getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
-        console.log(nextPath);
         openMedia(nextPath);
     });
 });
