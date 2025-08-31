@@ -50,6 +50,26 @@ window.openVideo = function (path) {
     updateGui();
 }
 
+window.openMedia = function(path) {
+    detectMediaType(path).then(result => {
+        switch (result) {
+            case 'audio':
+                openAudio(path);
+                openApp('music');
+                break;
+
+            case 'video':
+                openVideo(path);
+                openApp('music');
+                break;
+
+            default:
+                messagebox('unsupported file type', 'error');
+                break;
+        }
+    });
+}
+
 function exitFromFullscreen() {
     if (restoreState != null) {
         restoreState();
