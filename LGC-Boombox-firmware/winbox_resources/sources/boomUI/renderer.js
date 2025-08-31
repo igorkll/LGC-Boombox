@@ -1,3 +1,5 @@
+let shutdown_flag = false;
+
 function wrapInt(value, max) {
     return ((value % max) + max) % max;
 }
@@ -40,6 +42,10 @@ function isTouch(event, element) {
     if (isTouchingElementWithLayerCheck(event, element)) return true;
     if (event.touches != null && isTouchOnTouchscreen(event, element)) return true;
     return false;
+}
+
+function toWebPath(filePath) {
+    return `file://${filePath.replace(/\\/g, '/')}`;
 }
 
 {

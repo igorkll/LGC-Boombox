@@ -2,7 +2,7 @@
 const { exec } = require('child_process');
 
 document.getElementById('poweroff_button').addEventListener('custom_click', () => {
-    shutdown = true;
+    shutdown_flag = true;
 
     let ledsCount = leds_getCount();
     for (let i = 0; i < ledsCount; i++) {

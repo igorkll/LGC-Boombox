@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const drivelist = require('drivelist');
 
+let audio_player = document.getElementById('audio_player');
 let tablist = document.getElementById('files_tablist');
 let tabhost = document.getElementById('files_tabhost');
 
@@ -55,10 +56,10 @@ function addFolderUi(tab, name, defaultPath) {
     toolcontainer.appendChild(upfolderButton);
 
     let upfolderImage = document.createElement('img');
-    upfolderImage.src = 'icons/upfolder.png';
+    //upfolderImage.src = 'icons/upfolder.png';
     upfolderImage.style.objectFit = 'fill';
     upfolderImage.style.height = '80%';
-    wallpaperSelector.style.aspectRatio = `1 / 1`;
+    upfolderImage.style.aspectRatio = `1 / 1`;
     upfolderButton.appendChild(upfolderImage);
 
     // ---------------- files
@@ -92,7 +93,8 @@ function addFolderUi(tab, name, defaultPath) {
                     fs.stat(fullPath, (err, stats) => {
                         if (err) return;
                         if (stats.isFile()) {
-                            
+                            audio_player.src = toWebPath(fullPath);
+                            audio_player.play();
                         } else if (stats.isDirectory()) {
                             currentPath = path.join(currentPath, obj);
                             refresh();
