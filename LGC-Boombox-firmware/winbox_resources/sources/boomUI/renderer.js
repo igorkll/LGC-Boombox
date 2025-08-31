@@ -122,6 +122,7 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const { fileTypeFromFile } = require('file-type');
+const mm = require('music-metadata');
 
 let messageboxTypes = {
     error: {
@@ -141,22 +142,26 @@ window.detectMediaType = async function (filePath) {
 
 window.setCover = async function (imgElement, filePath) {
     try {
+        console.log(`Reading metadata from: ${filePath}`);
         const metadata = await mm.parseFile(filePath, { native: true });
-        const picture = metadata.common.picture?.[0];
 
+        const picture = metadata.common.picture?.[0];
         if (!picture) {
-            console.log('Обложка не найдена');
+            console.log('No cover found in metadata.');
             return;
         }
 
-        // Конвертируем Buffer в Base64
+        console.log(`Cover found. Format: ${picture.format}, size: ${picture.data.length} bytes`);
+
+        // Convert Buffer to Base64
         const base64 = picture.data.toString('base64');
         const mime = picture.format;
 
-        // Вставляем в <img>
+        // Set the <img> src
         imgElement.src = `data:${mime};base64,${base64}`;
+        console.log('Cover image has been set successfully.');
     } catch (err) {
-        console.error('Ошибка чтения метаданных:', err.message);
+        console.error('Error reading metadata:', err.message);
     }
 }
 

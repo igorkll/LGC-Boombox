@@ -35,7 +35,9 @@ window.openAudio = function (path) {
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
 
-    setCover(imgElement, filePath);
+    console.log("a");
+    setCover(media_preview, path);
+    console.log("b");
 }
 
 window.openVideo = function (path) {

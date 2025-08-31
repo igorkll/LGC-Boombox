@@ -93,9 +93,10 @@ function addFolderUi(tab, name, defaultPath) {
                         if (err) return;
                         if (stats.isFile()) {
                             detectMediaType(fullPath).then(result => {
+                                console.log(result);
                                 switch (result) {
                                     case 'audio':
-                                        openVideo(fullPath);
+                                        openAudio(fullPath);
                                         openApp('music');
                                         break;
 
