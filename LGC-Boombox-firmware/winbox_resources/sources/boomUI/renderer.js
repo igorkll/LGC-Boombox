@@ -153,16 +153,21 @@ window.setCover = async function (imgElement, filePath) {
 
         console.log(`Cover found. Format: ${picture.format}, size: ${picture.data.length} bytes`);
 
-        // Convert Buffer to Base64
-        const base64 = picture.data.toString('base64');
-        const mime = picture.format;
+        // Generate temporary file path
+        const ext = picture.format.split('/')[1]; // e.g., 'jpeg', 'png'
+        const tempFilePath = path.join(os.tmpdir(), `track_cover_${Date.now()}.${ext}`);
 
-        // Set the <img> src
-        imgElement.src = `data:${mime};base64,${base64}`;
+        // Save cover as temp file
+        fs.writeFileSync(tempFilePath, picture.data);
+        console.log(`Cover saved temporarily at: ${tempFilePath}`);
+
+        // Set <img> src
+        imgElement.src = `file://${tempFilePath}`;
         console.log('Cover image has been set successfully.');
     } catch (err) {
         console.error('Error reading metadata:', err.message);
     }
+
 }
 
 // messagebox

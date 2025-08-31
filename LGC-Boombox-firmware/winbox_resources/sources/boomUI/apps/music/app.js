@@ -26,7 +26,8 @@ updateGui();
 
 function openNone() {
     media_player.style.display = 'none';
-    media_preview.style.display = 'none';
+    media_preview.style.display = 'inline';
+    media_preview.src = 'apps/music/none.png';
 }
 
 openNone();
@@ -35,9 +36,10 @@ window.openAudio = function (path) {
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
 
-    console.log("a");
-    setCover(media_preview, path);
-    console.log("b");
+    //setCover(media_preview, path);
+    media_player.src = toWebPath(path);
+    media_player.play();
+    updateGui();
 }
 
 window.openVideo = function (path) {
