@@ -49,11 +49,7 @@ function getPreviousAndNextFile(filePath, callback) {
         for (let index = 0; index < fullPaths.length; index++) {
             let lpath = fullPaths[index];
             if (path.normalize(lpath) == path.normalize(filePath)) {
-                console.log(index);
-                console.log(fullPaths.length);
-                console.log(fullPaths[index - 1]);
-                console.log(fullPaths[index + 1]);
-                callback(lpath, fullPaths[wrapInt(index - 1, 0, fullPaths.length - 1)], fullPaths[wrapInt(index + 1, 0, fullPaths.length - 1)]);
+                callback(lpath, fullPaths[wrapInt(index - 1, fullPaths.length)], fullPaths[wrapInt(index + 1, fullPaths.length)]);
             }
         }
     });
