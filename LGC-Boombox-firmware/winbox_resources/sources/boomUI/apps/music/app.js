@@ -75,4 +75,11 @@ function updateProgressBar() {
 }
 setInterval(updateProgressBar, 50);
 updateProgressBar();
+
+music_progress.addEventListener("change", (event) => {
+    if (isMediaLoaded()) {
+        media_player.currentTime = event.detail * media_player.duration;
+    }
+});
+
 }
