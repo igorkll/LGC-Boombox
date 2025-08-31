@@ -48,6 +48,73 @@ function toWebPath(filePath) {
     return `file://${filePath.replace(/\\/g, '/')}`;
 }
 
+function fullscreenize(element) {
+    // Сохраняем исходный родитель и следующий элемент
+    const parent = element.parentNode;
+    const nextSibling = element.nextSibling;
+
+    // Сохраняем текущие inline-стили
+    const prevStyles = {
+        position: element.style.position || '',
+        top: element.style.top || '',
+        left: element.style.left || '',
+        width: element.style.width || '',
+        height: element.style.height || '',
+        zIndex: element.style.zIndex || '',
+        objectFit: element.style.objectFit || '',
+    };
+
+    // Создаем overlay для фона
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.zIndex = '9998'; // чуть ниже элемента
+    overlay.style.backgroundImage = getComputedStyle(document.body).backgroundImage;
+    overlay.style.backgroundSize = getComputedStyle(document.body).backgroundSize;
+    overlay.style.backgroundPosition = getComputedStyle(document.body).backgroundPosition;
+    overlay.style.backgroundRepeat = getComputedStyle(document.body).backgroundRepeat;
+
+    document.body.appendChild(overlay);
+
+    // Перемещаем элемент в body
+    document.body.appendChild(element);
+
+    // fullscreen стили для элемента
+    element.style.position = 'fixed';
+    element.style.top = '0';
+    element.style.left = '0';
+    element.style.width = '100vw';
+    element.style.height = '100vh';
+    element.style.zIndex = '9999';
+    if (element.tagName.toLowerCase() === 'video' || element.tagName.toLowerCase() === 'img') {
+        element.style.objectFit = 'contain';
+    }
+
+    // Возвращаем лямбду для восстановления
+    return () => {
+        // Убираем overlay
+        overlay.remove();
+
+        // Возвращаем элемент на место
+        if (nextSibling) parent.insertBefore(element, nextSibling);
+        else parent.appendChild(element);
+
+        // Восстанавливаем стили
+        element.style.position = prevStyles.position;
+        element.style.top = prevStyles.top;
+        element.style.left = prevStyles.left;
+        element.style.width = prevStyles.width;
+        element.style.height = prevStyles.height;
+        element.style.zIndex = prevStyles.zIndex;
+        element.style.objectFit = prevStyles.objectFit;
+    };
+}
+
+
+
 {
 let autoSaveSettings = false;
 

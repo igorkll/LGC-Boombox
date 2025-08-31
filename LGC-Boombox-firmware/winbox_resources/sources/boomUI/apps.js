@@ -4,7 +4,7 @@ let defaultApp = 'visualization';
 let appslist = document.getElementById('appslist');
 let appscontainer = document.getElementById('appscontainer');
 
-function openApp(name) {
+window.openApp = function (name) {
     for (let i = 0; i < appscontainer.children.length; i++) {
         const child = appscontainer.children[i];
         child.style.display = `${name}_container` === child.id ? 'flex' : 'none';
@@ -22,7 +22,7 @@ function openApp(name) {
     }
 }
 
-function addApp(name) {
+window.addApp = function (name) {
     let appIcon = document.createElement('img');
     appIcon.id = `${name}_icon`;
     appIcon.src = `apps/${name}/icon.png`;

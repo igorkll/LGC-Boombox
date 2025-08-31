@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="apps/music/app.css">
 
-<div class="fill soap crop" style="padding: 2vh; justify-content: center; align-items: center; flex-direction: column;">
-    <div style="width: 95%; height: 70%;">
-        <div style="position: relative; box-sizing: border-box; width: 100%; height: 100%;">
-            <video id="media_player" style="position: absolute; width: 100%; height: 100%; object-fit: contain;"></video>
-            <img id="media_preview" style="position: absolute; width: 100%; height: 100%; object-fit: contain;"></img>
-        </div>
+<div class="fill soap crop" style="padding: 2vh; box-sizing: border-box; justify-content: center; align-items: center; flex-direction: column;">
+    <div style="position: relative; margin: 2vh; box-sizing: border-box; width: 100%; height: 100%;">
+        <video id="media_player" style="position: absolute; width: 100%; height: 100%; object-fit: contain;"></video>
+        <img id="media_preview" style="position: absolute; width: 100%; height: 100%; object-fit: contain;"></img>
     </div>
 
     <custom-button id="music_fullscreen" class="music-button">
-        <img src="apps/music/fullscreen.png" style="width: 80%; height: 80%; object-fit: contain;"></img>
+        <div class="music-button-content">
+            <img src="apps/music/fullscreen.png" style="width: 80%; height: 80%; object-fit: contain;"></img>
+        </div>
     </custom-button>
 </div>

@@ -93,6 +93,7 @@ function addFolderUi(tab, name, defaultPath) {
                         if (err) return;
                         if (stats.isFile()) {
                             openVideo(fullPath);
+                            openApp("music");
                         } else if (stats.isDirectory()) {
                             currentPath = path.join(currentPath, obj);
                             refresh();

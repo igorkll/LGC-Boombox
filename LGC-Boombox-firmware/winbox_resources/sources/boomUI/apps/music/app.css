@@ -1,11 +1,12 @@
-.music-item {
-    margin: 2vh;
-}
-
 .music-button {
     margin: 2vh;
     width: 15vh;
     height: 15vh;
+}
+
+.music-button-content {
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
