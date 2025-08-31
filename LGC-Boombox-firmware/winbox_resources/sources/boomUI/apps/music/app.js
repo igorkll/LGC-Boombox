@@ -1,5 +1,7 @@
 {
 let media_player = document.getElementById('media_player');
+let media_panel = document.getElementById('media_panel');
+
 let restoreState = null;
 
 window.openAudio = function (path) {
@@ -12,12 +14,11 @@ window.openVideo = function (path) {
 }
 
 music_fullscreen.addEventListener("custom_click", () => {
-    restoreState = fullscreenize(media_player);
-
-    let exitListener = () => {
+    if (restoreState != null) {
         restoreState();
-        document.removeEventListener('pointerup', exitListener);
-    };
-    document.addEventListener("pointerup", exitListener);
+        restoreState = null;
+        return;
+    }
+    restoreState = fullscreenize(media_panel);
 });
 }
