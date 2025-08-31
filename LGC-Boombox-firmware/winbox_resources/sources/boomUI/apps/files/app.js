@@ -55,8 +55,7 @@ function addFolderUi(tab, name, defaultPath) {
         let button = document.createElement('custom-button');
         button.style.aspectRatio = '1 / 1';
         button.style.height = '10vh';
-        button._style = {};
-        button._style.borderRadius = '0vh';
+        button.setAttribute('_style', 'border-radius: 0vh;');
         toolcontainer.appendChild(button);
 
         let imageContainer = document.createElement('div');
