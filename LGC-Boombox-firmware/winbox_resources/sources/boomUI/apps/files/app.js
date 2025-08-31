@@ -57,8 +57,8 @@ function addFolderUi(tab, name, defaultPath) {
     let upfolderImage = document.createElement('img');
     upfolderImage.src = 'icons/upfolder.png';
     upfolderImage.style.objectFit = 'fill';
-    upfolderImage.style.width = '80%';
     upfolderImage.style.height = '80%';
+    wallpaperSelector.style.aspectRatio = `1 / 1`;
     upfolderButton.appendChild(upfolderImage);
 
     // ---------------- files
