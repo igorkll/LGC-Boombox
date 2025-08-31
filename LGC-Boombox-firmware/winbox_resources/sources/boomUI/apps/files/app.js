@@ -12,23 +12,34 @@ let existsTabs = {};
 function addFolderUi(tab, name, defaultPath) {
     let currentPath = defaultPath;
 
+    let infocontainer = document.createElement('div');
+    infocontainer.style.width = '100%';
+    infocontainer.style.display = 'flex';
+    infocontainer.style.justifyContent = 'start';
+    infocontainer.style.alignItems = 'start';
+    tab.appendChild(infocontainer);
+
     let namelabel = document.createElement('div');
     namelabel.classList.add("panel");
     namelabel.classList.add("mini-info");
     namelabel.style.textAlign = 'left';
     namelabel.innerHTML = name;
-    tab.appendChild(namelabel);
+    infocontainer.appendChild(namelabel);
 
     let pathlabel = document.createElement('div');
     pathlabel.classList.add("panel");
     pathlabel.classList.add("mini-info");
     pathlabel.style.textAlign = 'left';
     pathlabel.style.flex = '1';
-    tab.appendChild(pathlabel);
+    infocontainer.appendChild(pathlabel);
 
     let filescontainer = document.createElement('div');
-    filescontainer.style.textAlign = 'left';
-    filescontainer.style.flex = '1';
+    filescontainer.classList.add("scrollable");
+    filescontainer.style.width = '100%';
+    filescontainer.style.display = 'flex';
+    filescontainer.style.justifyContent = 'start';
+    filescontainer.style.alignItems = 'streetch';
+    filescontainer.style.flexDirection = 'column';
     tab.appendChild(filescontainer);
 
     let refresh = () => {
@@ -38,7 +49,13 @@ function addFolderUi(tab, name, defaultPath) {
         fs.readdir(currentPath, (err, files) => {
             if (err) files = [];
             for (let obj of files) {
-                console.log(obj);
+                let element = document.createElement('div');
+                element.classList.add("panel");
+                element.classList.add("mini-info");
+                element.style.textAlign = 'left';
+                element.style.alignSelf = 'stretch';
+                element.innerHTML = obj;
+                filescontainer.appendChild(element);
             }
         });
     };
@@ -56,6 +73,7 @@ function addFolder(name, defaultPath, readonly=false) {
     let tab = document.createElement('div');
     tab.id = `${name}_tab`;
     tab.classList.add("tab");
+    tab.style.flexDirection = 'column';
     addFolderUi(tab, name, defaultPath);
     tabhost.appendChild(tab);
 

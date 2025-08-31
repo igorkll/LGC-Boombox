@@ -89,7 +89,11 @@ body {
     text-shadow: 0px 0px 2vh black;
     font-size: 4vh;
 
-    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.without-overflow-text {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
