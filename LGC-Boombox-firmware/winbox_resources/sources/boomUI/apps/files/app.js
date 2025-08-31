@@ -63,8 +63,16 @@ function addFolderUi(tab, name, defaultPath) {
                 element.innerHTML = getFileName(obj);
                 filescontainer.appendChild(element);
 
-                element.addEventListener('pointerup', () => {
-                    
+                element.addEventListener('pointerup', async () => {
+                    fs.stat(fullPath, (err, stats) => {
+                        if (err) return;
+                        if (stats.isFile()) {
+                            
+                        } else if (stats.isDirectory()) {
+                            currentPath = path.join(currentPath, obj);
+                            refresh();
+                        }
+                    });
                 })
             }
         });
