@@ -8,10 +8,13 @@ let media_preview = document.getElementById('media_preview');
 let media_panel = document.getElementById('media_panel');
 let music_progress = document.getElementById('music_progress');
 let music_playPause = document.getElementById('music_playPause');
+let music_previous = document.getElementById('music_previous');
+let music_next = document.getElementById('music_next');
 let music_playPause_img = document.getElementById('music_playPause_img');
 let music_fullscreen_img = document.getElementById('music_fullscreen_img');
 
 let restoreState = null;
+let lastMediaPath = null;
 
 function isMediaLoaded() {
     return media_player.src && media_player.src.trim() !== "";
@@ -29,6 +32,7 @@ function updateGui() {
 updateGui();
 
 function openNone() {
+    lastMediaPath = null;
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
     media_preview.src = 'apps/music/none.png';
@@ -40,44 +44,51 @@ function getPreviousAndNextFile(filePath, callback) {
     let dir = path.dirname(filePath);
     fs.readdir(dir, (err, files) => {
         if (err) files = [];
-        for (let index in files) {
-            let lpath = path.join(dir, files[index]);
-            console.log(lpath);
+        const fullPaths = files.map(file => path.join(dir, file));
+        for (let index in fullPaths) {
+            let lpath = fullPaths[index];
             if (path.normalize(lpath) == path.normalize(filePath)) {
-                callback(lpath, files[index - 1], files[index]);
+                console.log(fullPaths);
+                console.log(index);
+                callback(lpath, fullPaths[index - 1], fullPaths[index + 1]);
             }
         }
     });
 }
 
-window.openAudio = function (path) {
+window.openAudio = function (filePath) {
     openNone();
-    setTrackCover(media_preview, path).then(() => {});
+    lastMediaPath = filePath;
+    setTrackCover(media_preview, filePath).then(() => {});
 
-    media_player.src = toWebPath(path);
+    media_player.src = toWebPath(filePath);
     media_player.play();
     updateGui();
 }
 
-window.openVideo = function (path) {
+window.openVideo = function (filePath) {
+    lastMediaPath = filePath;
+
     media_player.style.display = 'inline';
     media_preview.style.display = 'none';
 
-    media_player.src = toWebPath(path);
+    media_player.src = toWebPath(filePath);
     media_player.play();
     updateGui();
 }
 
-window.openMedia = function(path) {
-    detectMediaType(path).then(result => {
+window.openMedia = function(filePath) {
+    lastMediaPath = filePath;
+
+    detectMediaType(filePath).then(result => {
         switch (result) {
             case 'audio':
-                openAudio(path);
+                openAudio(filePath);
                 openApp('music');
                 break;
 
             case 'video':
-                openVideo(path);
+                openVideo(filePath);
                 openApp('music');
                 break;
 
@@ -137,8 +148,20 @@ music_progress.addEventListener("change", (event) => {
     }
 });
 
-getPreviousAndNextFile(path, (currentPath, previousPath, nextPath) => {
-    
+music_previous.addEventListener("custom_click", () => {
+    if (lastMediaPath == null) return;
+    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
+        console.log(previousPath);
+        openMedia(previousPath);
+    });
+});
+
+music_next.addEventListener("custom_click", () => {
+    if (lastMediaPath == null) return;
+    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
+        console.log(nextPath);
+        openMedia(nextPath);
+    });
 });
 
 }
