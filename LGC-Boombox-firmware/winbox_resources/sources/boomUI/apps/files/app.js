@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const drivelist = require('drivelist');
 
-let audio_player = document.getElementById('audio_player');
 let tablist = document.getElementById('files_tablist');
 let tabhost = document.getElementById('files_tabhost');
 
@@ -93,8 +92,7 @@ function addFolderUi(tab, name, defaultPath) {
                     fs.stat(fullPath, (err, stats) => {
                         if (err) return;
                         if (stats.isFile()) {
-                            audio_player.src = toWebPath(fullPath);
-                            audio_player.play();
+                            openVideo(fullPath);
                         } else if (stats.isDirectory()) {
                             currentPath = path.join(currentPath, obj);
                             refresh();
