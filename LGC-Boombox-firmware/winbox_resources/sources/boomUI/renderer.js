@@ -121,6 +121,7 @@ let autoSaveSettings = false;
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { fileTypeFromFile } = require('file-type');
 const { ipcRenderer } = require('electron');
 
@@ -129,6 +130,11 @@ let messageboxTypes = {
         icon: "error"
     }
 };
+
+// fs
+window.removeTemp = function () {
+    fs.rm(path.join(os.tmpdir(), 'LGCBoombox'), { recursive: true, force: true }, (err) => {});
+}
 
 // media
 window.detectMediaType = async function (filePath) {
@@ -242,3 +248,5 @@ setVolume(storage_table.volume);
 // enable autosave
 autoSaveSettings = true;
 }
+
+removeTemp();

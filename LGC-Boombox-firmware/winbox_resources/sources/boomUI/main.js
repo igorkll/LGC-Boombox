@@ -63,8 +63,10 @@ ipcMain.handle('get-track-cover', async (event, filePath) => {
         const picture = metadata.common.picture?.[0];
         if (!picture) return null;
 
+        fs.mkdir(path.join(os.tmpdir(), 'LGCBoombox'), { recursive: true }, (err) => {});
+
         const ext = picture.format.split('/')[1];
-        const tempFilePath = path.join(os.tmpdir(), `track_cover_${Date.now()}.${ext}`);
+        const tempFilePath = path.join(os.tmpdir(), 'LGCBoombox', `track_cover_${Date.now()}.${ext}`);
         fs.writeFileSync(tempFilePath, picture.data);
         return tempFilePath;
     } catch (err) {
