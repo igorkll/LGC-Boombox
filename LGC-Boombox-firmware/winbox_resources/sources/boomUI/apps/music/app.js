@@ -98,6 +98,7 @@ window.openMedia = function(filePath) {
 
 function exitFromFullscreen() {
     if (restoreState != null) {
+        media_panel.style.borderRadius = null;
         restoreState();
         restoreState = null;
         updateGui();
@@ -109,6 +110,7 @@ music_fullscreen.addEventListener("custom_click", () => {
         exitFromFullscreen();
         return;
     }
+    media_panel.style.borderRadius = '0px';
     restoreState = fullscreenize(media_panel);
     updateGui();
 });
