@@ -51,7 +51,7 @@ function addFolderUi(tab, name, defaultPath) {
     toolcontainer.style.padding = '0px';
     tab.appendChild(toolcontainer);
 
-    let addToolButton = (iconPath) => {
+    let addToolButton = (iconPath, callback) => {
         let button = document.createElement('custom-button');
         button.style.aspectRatio = '1 / 1';
         button.style.height = '10vh';
@@ -66,11 +66,14 @@ function addFolderUi(tab, name, defaultPath) {
         image.classList.add("button-image");
         image.src = iconPath;
         imageContainer.appendChild(image);
+
+        button.addEventListener('custom_click', () => {
+            callback();
+        });
     };
 
-    addToolButton('apps/files/upfolder.png');
-
     // ---------------- files
+    
     let filescontainer = document.createElement('div');
     filescontainer.classList.add("scrollable");
     filescontainer.style.width = '100%';
@@ -115,6 +118,23 @@ function addFolderUi(tab, name, defaultPath) {
     };
 
     refresh();
+
+    // ---------------- tool buttons
+
+    addToolButton('apps/files/upfolder.png', () => {
+        let oldPath = currentPath;
+        currentPath = path.dirname(currentPath);
+
+        let relative = path.relative(defaultPath, currentPath);
+        if (relative.startsWith('..') || path.isAbsolute(relative)) {
+            currentPath = oldPath;
+            return;
+        }
+
+        if (path.normalize(currentPath) != path.normalize(oldPath)) {
+            refresh();
+        }
+    });
 }
 
 function addFolder(name, defaultPath, readonly=false) {
