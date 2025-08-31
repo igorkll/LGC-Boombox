@@ -1,7 +1,8 @@
 .music-button {
-    margin: 2vh;
-    width: 15vh;
-    height: 15vh;
+    margin: 1vh;
+    width: 14vh;
+    height: 14vh;
+    flex-shrink: 0;
 }
 
 .music-button-content {
@@ -10,4 +11,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
