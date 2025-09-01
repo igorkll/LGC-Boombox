@@ -15,7 +15,7 @@ let storage_defaultsLight = {
     light_min: 0.05,
     light_max: 1,
     light_mul: 1.2,
-    light_bassLevel: 0.6
+    light_bassLevel: 0.2
 };
 
 let storage_table = {};
