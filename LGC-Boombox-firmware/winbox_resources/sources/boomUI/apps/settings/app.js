@@ -66,12 +66,26 @@ const { ipcRenderer } = require('electron');
 }
 
 { //date & time
-    flatpickr("#calendar", {
-        enableTime: true,
-        time_24hr: true,
-        inline: true,
-        dateFormat: "Y-m-d H:i",
-        defaultDate: new Date()
+    let clockTab = document.getElementById(`setting_clock_panel`);
+    let fp;
+
+    clockTab.addEventListener("tab-activate", (e) => {
+        fp = flatpickr("#setting_clock_calendar", {
+            enableTime: true,
+            inline: true,
+            time_24hr: true,
+            defaultDate: new Date(),
+            dateFormat: "Y-m-d H:i",
+        })
+    });
+
+    clockTab.addEventListener("tab-deactivate", (e) => {
+        fp.destroy();
+        fp = null;
+    });
+
+    document.getElementById('setting_clock_apply').addEventListener('custom_click', (event) => {
+        
     });
 }
 

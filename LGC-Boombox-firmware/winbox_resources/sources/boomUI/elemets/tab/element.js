@@ -1,4 +1,12 @@
 function activateTab(tablist, tabhost, button, tab) {
+    if (tablist.currnetTab != null) {
+        let event = new CustomEvent("tab-deactivate", {
+            cancelable: true
+        });
+        tablist.currnetTab.dispatchEvent(event);
+        tablist.currnetTab = null;
+    }
+
     for (let i = 0; i < tabhost.children.length; i++) {
         const child = tabhost.children[i];
         child.style.display = tab.id === child.id ? 'flex' : 'none';
@@ -14,6 +22,13 @@ function activateTab(tablist, tabhost, button, tab) {
             child.selectedTab = false;
         }
     }
+
+    let event = new CustomEvent("tab-activate", {
+        cancelable: true
+    });
+    tab.dispatchEvent(event);
+
+    tablist.currnetTab = tab;
 }
 
 function addTab(tablist, tabhost, button, tab, opened=false) {
