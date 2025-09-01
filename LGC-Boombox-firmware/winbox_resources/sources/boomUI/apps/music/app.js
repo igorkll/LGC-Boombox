@@ -249,7 +249,27 @@ media_player.addEventListener("playing", () => {
 
 media_player.addEventListener("error", (e) => {
     if (manualOpen) {
-        messagebox(media_player.error, 'error');
+        let err = media_player.error;
+        let message = "";
+
+        switch(err.code) {
+            case MediaError.MEDIA_ERR_ABORTED:
+                message = "The fetching process was aborted by the user.";
+                break;
+            case MediaError.MEDIA_ERR_NETWORK:
+                message = "A network error occurred while fetching the media.";
+                break;
+            case MediaError.MEDIA_ERR_DECODE:
+                message = "An error occurred while decoding the media.";
+                break;
+            case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+                message = "The media format is not supported.";
+                break;
+            default:
+                message = "An unknown media error occurred.";
+        }
+
+        messagebox(message, 'error');
     } else {
         nextMedia();
     }
