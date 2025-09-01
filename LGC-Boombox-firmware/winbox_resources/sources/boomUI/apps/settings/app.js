@@ -72,6 +72,11 @@ const sudo = require('sudo-prompt');
 
     clockTab.addEventListener("tab-activate", (e) => {
         getActualTimeDate((dateObj) => {
+            if (fp != null) {
+                fp.destroy();
+                fp = null;
+            }
+            
             fp = flatpickr("#setting_clock_calendar", {
                 enableTime: true,
                 inline: true,
@@ -85,8 +90,10 @@ const sudo = require('sudo-prompt');
     });
 
     clockTab.addEventListener("tab-deactivate", (e) => {
-        fp.destroy();
-        fp = null;
+        if (fp != null) {
+            fp.destroy();
+            fp = null;
+        }
     });
 
     document.getElementById('setting_clock_apply').addEventListener('custom_click', (event) => {
