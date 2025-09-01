@@ -79,6 +79,8 @@ const sudo = require('sudo-prompt');
                 defaultDate: dateObj,
                 dateFormat: "Y-m-d H:i",
             });
+
+            document.documentElement.style.setProperty('--calendar-scale', (window.innerHeight / 480) * 0.8);
         });
     });
 

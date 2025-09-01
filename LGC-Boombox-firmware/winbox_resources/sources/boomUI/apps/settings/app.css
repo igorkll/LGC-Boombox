@@ -24,3 +24,8 @@
     padding: 2vh;
     box-sizing: border-box;
 }
+
+.flatpickr-calendar {
+    transform-origin: center center;
+    transform: scale(var(--calendar-scale));
+}
