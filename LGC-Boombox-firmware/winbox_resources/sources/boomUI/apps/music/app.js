@@ -54,7 +54,17 @@ function showError(errorMessage) {
     media_preview.style.display = 'inline';
     media_preview.src = 'apps/music/error.png';
 
-    music_trackname.innerHTML = errorMessage;
+    if (loadedMediaName != null) {
+        music_trackname.innerHTML = `${errorMessage} (${loadedMediaName}))`;
+    } else {
+        music_trackname.innerHTML = errorMessage;
+
+        if (lastMediaPath != null) {
+            getMediaName(lastMediaPath, (name) => {
+                music_trackname.innerHTML = `${errorMessage} (${name}))`;
+            });
+        }
+    }
 }
 
 function defaultPreview() {
