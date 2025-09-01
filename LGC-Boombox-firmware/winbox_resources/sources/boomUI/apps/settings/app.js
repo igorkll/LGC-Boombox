@@ -69,6 +69,7 @@ const { ipcRenderer } = require('electron');
     let setting_light_enabled = document.getElementById('setting_light_enabled');
     let setting_light_mirror = document.getElementById('setting_light_mirror');
     let setting_light_reverse = document.getElementById('setting_light_reverse');
+    let setting_light_deltaBassLevel = document.getElementById('setting_light_deltaBassLevel');
 
     setting_light_enabled.addEventListener('switch_change', (event) => {
         storage_table.light_enabled = event.detail;
@@ -82,6 +83,11 @@ const { ipcRenderer } = require('electron');
 
     setting_light_reverse.addEventListener('switch_change', (event) => {
         storage_table.light_reverse = event.detail;
+        storage_save();
+    });
+
+    setting_light_deltaBassLevel.addEventListener('switch_change', (event) => {
+        storage_table.light_deltaBassLevel = event.detail;
         storage_save();
     });
 
@@ -135,6 +141,7 @@ const { ipcRenderer } = require('electron');
         setting_light_enabled.setState(storage_table.light_enabled);
         setting_light_mirror.setState(storage_table.light_mirror);
         setting_light_reverse.setState(storage_table.light_reverse);
+        setting_light_deltaBassLevel.setState(storage_table.light_deltaBassLevel);
         
         setting_light_moveSpeed.value = storage_table.light_moveSpeed;
         setting_light_leds.value = storage_table.light_leds;

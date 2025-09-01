@@ -9,6 +9,7 @@ let storage_defaultsLight = {
     light_enabled: true,
     light_mirror: true,
     light_reverse: true,
+    light_deltaBassLevel: true,
     light_moveSpeed: 1,
     light_leds: 3,
     light_min: 0.05,
