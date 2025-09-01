@@ -86,20 +86,19 @@ const sudo = require('sudo-prompt');
     });
 
     document.getElementById('setting_clock_apply').addEventListener('custom_click', (event) => {
-        const dateObj = fp.selectedDates[0]; // JS Date object
+        const dateObj = fp.selectedDates[0];
+        if (!dateObj) return;
 
         const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
         const day = String(dateObj.getDate()).padStart(2, '0');
-
         const hours = String(dateObj.getHours()).padStart(2, '0');
         const minutes = String(dateObj.getMinutes()).padStart(2, '0');
         const seconds = String(dateObj.getSeconds()).padStart(2, '0');
 
-        // Формируем команду PowerShell
-        const psCmd = `Set-Date -Date "${year}-${month}-${day} ${hours}:${minutes}:${seconds}"`;
+        // Оборачиваем дату во внутренние одинарные кавычки
+        const psCmd = `Set-Date -Date '${year}-${month}-${day} ${hours}:${minutes}:${seconds}'`;
 
-        // Выполняем команду с повышением прав
         sudo.exec(`powershell -Command "${psCmd}"`, { name: 'ElectronApp' }, (err, stdout, stderr) => {
             if (err) {
                 console.error("Error setting date/time:", err);
@@ -107,7 +106,6 @@ const sudo = require('sudo-prompt');
             }
             console.log("Date and time successfully set:", stdout);
 
-            // Обновляем отображение даты/времени в UI
             updateDateTime();
         });
     });
