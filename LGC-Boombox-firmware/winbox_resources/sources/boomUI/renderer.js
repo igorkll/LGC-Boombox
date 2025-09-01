@@ -238,7 +238,7 @@ window.messagebox = function (message, type, callback) {
     msgboxBody.appendChild(button);
 
     button.addEventListener("custom_click", () => {
-        callback(0);
+        if (callback != null) callback(0);
         msgboxBackground.remove();
         msgboxBody.remove();
     })

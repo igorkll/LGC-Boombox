@@ -49,6 +49,14 @@ function loadingLabel(filePath) {
     }
 }
 
+function showError(errorMessage) {
+    media_player.style.display = 'none';
+    media_preview.style.display = 'inline';
+    media_preview.src = 'apps/music/error.png';
+
+    music_trackname.innerHTML = errorMessage;
+}
+
 function defaultPreview() {
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
@@ -254,24 +262,23 @@ media_player.addEventListener("error", (e) => {
 
         switch(err.code) {
             case MediaError.MEDIA_ERR_ABORTED:
-                message = "The fetching process was aborted by the user.";
+                message = "the fetching process was aborted by the user";
                 break;
             case MediaError.MEDIA_ERR_NETWORK:
-                message = "A network error occurred while fetching the media.";
+                message = "a network error occurred while fetching the media";
                 break;
             case MediaError.MEDIA_ERR_DECODE:
-                message = "An error occurred while decoding the media.";
+                message = "an error occurred while decoding the media";
                 break;
             case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
-                message = "The media format is not supported.";
+                message = "the media format is not supported";
                 break;
             default:
-                message = "An unknown media error occurred.";
+                message = "an unknown media error occurred";
         }
 
-        messagebox(message, 'error', () => {
-            nextMedia();
-        });
+        messagebox(message, 'error');
+        showError(message);
     } else {
         nextMedia();
     }
