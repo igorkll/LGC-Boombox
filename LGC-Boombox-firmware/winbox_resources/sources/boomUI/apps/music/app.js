@@ -54,41 +54,63 @@ function openNone() {
 
 openNone();
 
+let oldDirPath = null;
+let cachedFullPaths = null;
+
+async function _getPreviousAndNextFile(filePath, callback) {
+    for (let index = 0; index < cachedFullPaths.length; index++) {
+        let lpath = cachedFullPaths[index];
+        if (path.normalize(lpath) == path.normalize(filePath)) {
+            callback(lpath, cachedFullPaths[wrapInt(index - 1, cachedFullPaths.length)], cachedFullPaths[wrapInt(index + 1, cachedFullPaths.length)]);
+            return;
+        }
+    }
+    callback(filePath, filePath, filePath);
+}
+
 function getPreviousAndNextFile(filePath, callback) {
     let dir = path.dirname(filePath);
+
+    if (cachedFullPaths != null && oldDirPath == dir) {
+        _getPreviousAndNextFile(filePath, callback);
+        return;
+    }
+
     fs.readdir(dir, (err, files) => {
         if (err) files = [];
         const sortedFiles = files.sort();
-        const fullPaths = sortedFiles.map(file => path.join(dir, file));
-        for (let index = 0; index < fullPaths.length; index++) {
-            let lpath = fullPaths[index];
-            if (path.normalize(lpath) == path.normalize(filePath)) {
-                callback(lpath, fullPaths[wrapInt(index - 1, fullPaths.length)], fullPaths[wrapInt(index + 1, fullPaths.length)]);
-            }
-        }
+        cachedFullPaths = sortedFiles.map(file => path.join(dir, file));
+        oldDirPath = dir;
+        _getPreviousAndNextFile(filePath, callback);
     });
 }
 
-window.openAudio = function (filePath) {
-    defaultPreview();
+let showRealContent
+
+function openAudio(filePath) {
     lastMediaPath = filePath;
 
-    music_trackname.innerHTML = getMediaName(filePath);
+    showRealContent = () => {
+        music_trackname.innerHTML = getMediaName(filePath);
     
-    setTrackCover(media_preview, filePath).then(() => {});
+        defaultPreview();
+        setTrackCover(media_preview, filePath).then(() => {});
+    };
 
     media_player.src = toWebPath(filePath);
     media_player.play();
     updateGui();
 }
 
-window.openVideo = function (filePath) {
+function openVideo(filePath) {
     lastMediaPath = filePath;
 
-    music_trackname.innerHTML = getMediaName(filePath);
+    showRealContent = () => {
+        music_trackname.innerHTML = getMediaName(filePath);
 
-    media_player.style.display = 'inline';
-    media_preview.style.display = 'none';
+        media_player.style.display = 'inline';
+        media_preview.style.display = 'none';
+    };
 
     media_player.src = toWebPath(filePath);
     media_player.play();
@@ -196,6 +218,13 @@ music_next.addEventListener("custom_click", () => {
 
 media_player.addEventListener('ended', () => {
     nextMedia();
+});
+
+media_player.addEventListener("playing", () => {
+    if (showRealContent != null) {
+        showRealContent();
+        showRealContent = null;
+    }
 });
 
 }
