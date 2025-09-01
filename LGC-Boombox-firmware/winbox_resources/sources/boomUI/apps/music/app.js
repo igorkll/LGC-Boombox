@@ -18,6 +18,7 @@ let restoreState = null;
 let lastMediaPath = null;
 let loadedMediaName = null;
 let manualOpen = false;
+let playingFlag = false;
 
 function isMediaLoaded() {
     return media_player.src && media_player.src.trim() !== "";
@@ -156,6 +157,7 @@ function openVideo(filePath) {
 window.openMedia = function(filePath, callback, _manualOpen=true) {
     manualOpen = _manualOpen;
     loadedMediaName = null;
+    playingFlag = false;
     loadingLabel(filePath);
     lastMediaPath = filePath;
     detectMediaType(filePath).then(result => {
@@ -229,7 +231,7 @@ function nextMedia(previous=false, _manualOpen=false) {
 }
 
 function updateProgressBar() {
-    if (isMediaLoaded()) {
+    if (isMediaLoaded() && playingFlag) {
         music_progress.value = media_player.currentTime / media_player.duration;
     } else {
         music_progress.value = 0;
@@ -239,7 +241,7 @@ setInterval(updateProgressBar, 50);
 updateProgressBar();
 
 music_progress.addEventListener("change", (event) => {
-    if (isMediaLoaded()) {
+    if (isMediaLoaded() && playingFlag) {
         media_player.currentTime = event.detail * media_player.duration;
     }
 });
@@ -259,6 +261,7 @@ media_player.addEventListener('ended', () => {
 });
 
 media_player.addEventListener("playing", () => {
+    playingFlag = true;
     if (showRealContent != null) {
         showRealContent();
         showRealContent = null;
