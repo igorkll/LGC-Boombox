@@ -3,6 +3,9 @@ const { ipcRenderer } = require('electron');
 
 let lightOffset = 0;
 let oldTime;
+let bassDetected = false;
+let deltaTime;
+let deltaCounter;
 
 ipcRenderer.on('waves', (event, waves) => {
     if (shutdown_flag) return;
@@ -16,7 +19,17 @@ ipcRenderer.on('waves', (event, waves) => {
     // light
     oldTime = oldTime || performance.now();
     let deltaTime = performance.now() - oldTime;
-    deltaTime = deltaTime / 1000;
+
+    if (storage_table.light_deltaBassLevel) {
+        deltaTime = deltaTime + waves[0];
+        deltaCounter = deltaCounter + deltaTime;
+        if (deltaCounter > 50) {
+            bassDetected = deltaTime > storage_table.light_bassLevel;
+            deltaCounter = 0;
+        }
+    } else {
+        bassDetected = waves[0] > storage_table.light_bassLevel;
+    }
 
     let realLedsCount = leds_getCount();
     let ledsCount = realLedsCount;
@@ -26,7 +39,7 @@ ipcRenderer.on('waves', (event, waves) => {
     for (let i = 0; i < ledsCount; i++) {
         if (storage_table.light_enabled) {
             let color;
-            if (waves[0] > storage_table.light_bassLevel) {
+            if (bassDetected) {
                 color = [255, 255, 255];
             } else {
                 let waveIndex = wrapInt(Math.round((i / storage_table.light_leds) - lightOffset), 6);
@@ -54,7 +67,7 @@ ipcRenderer.on('waves', (event, waves) => {
     }
     leds_flush();
 
-    lightOffset += storage_table.light_moveSpeed * deltaTime;
+    lightOffset += storage_table.light_moveSpeed * (deltaTime / 1000);
 
     oldTime = performance.now();
 });
