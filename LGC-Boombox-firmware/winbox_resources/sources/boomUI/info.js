@@ -1,5 +1,5 @@
 {
-function updateDateTime() {
+window.updateDateTime = function () {
     const now = new Date();
     
     const dateOptions = { 

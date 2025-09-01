@@ -16,7 +16,7 @@ const { ipcRenderer } = require('electron');
     }
 
     addSettingsTab("wallpaper");
-    //addSettingsTab("clock");
+    addSettingsTab("clock");
     addSettingsTab("light");
     addSettingsTab("debug");
 }
@@ -63,6 +63,16 @@ const { ipcRenderer } = require('electron');
     for (let i = 1; i <= 37; i++) {
         addWallpaperSelector(i);
     }
+}
+
+{ //date & time
+    flatpickr("#calendar", {
+        enableTime: true,
+        time_24hr: true,
+        inline: true,
+        dateFormat: "Y-m-d H:i",
+        defaultDate: new Date()
+    });
 }
 
 { // light

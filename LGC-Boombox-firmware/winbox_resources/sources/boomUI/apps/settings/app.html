@@ -3,15 +3,18 @@
 <div class="fill soap crop">
     <div class="tabcontrol scrollable" id="settings_tablist" style="flex-direction: column; width: 30%; height: 100%;">
         <div class="tablink" id="setting_wallpaper_button">wallpaper</div>
-        <!--
-        <div class="tablink" id="setting_clock_button">clock</div>
-        -->
+        <div class="tablink" id="setting_clock_button">date & time</div>
         <div class="tablink" id="setting_light_button">light</div>
         <div class="tablink" id="setting_debug_button">debug</div>
     </div>
     <div class="tabhost" id="settings_tabhost">
         <div class="tab settings-tab scrollable" id="setting_wallpaper_panel" style="flex-wrap: wrap;"></div>
-        <div class="tab settings-tab" id="setting_clock_panel">clock</div>
+        <div class="tab settings-tab" id="setting_clock_panel" style="justify-content: center; align-items: center;">
+            <div id="calendar"></div> 
+            <custom-button id="setting_light_reset" style="width: 40%;">
+                apply
+            </custom-button>
+        </div>
         <div class="tab settings-tab scrollable" id="setting_light_panel" style="flex-direction: column;">
             <div class="settings-line">
                 <custom-switch id="setting_light_enabled" class="settings-switch"></custom-switch>
