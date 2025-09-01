@@ -71,13 +71,15 @@ const sudo = require('sudo-prompt');
     let fp;
 
     clockTab.addEventListener("tab-activate", (e) => {
-        fp = flatpickr("#setting_clock_calendar", {
-            enableTime: true,
-            inline: true,
-            time_24hr: true,
-            defaultDate: new Date(),
-            dateFormat: "Y-m-d H:i",
-        })
+        getActualTimeDate((dateObj) => {
+            fp = flatpickr("#setting_clock_calendar", {
+                enableTime: true,
+                inline: true,
+                time_24hr: true,
+                defaultDate: dateObj,
+                dateFormat: "Y-m-d H:i",
+            });
+        });
     });
 
     clockTab.addEventListener("tab-deactivate", (e) => {

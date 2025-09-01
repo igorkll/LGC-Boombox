@@ -113,8 +113,6 @@ function fullscreenize(element) {
     };
 }
 
-
-
 {
 let autoSaveSettings = false;
 
@@ -130,6 +128,22 @@ let messageboxTypes = {
         icon: "error"
     }
 };
+
+// other
+window.getActualTimeDate = function (callback) {
+    exec('powershell -Command "Get-Date -Format \'yyyy-MM-dd HH:mm:ss\'"', (err, stdout) => {
+        if (err) {
+            console.error("Error getting system time:", err);
+            return;
+        }
+
+        // Преобразуем в объект Date
+        const dateTimeStr = stdout.trim().replace(' ', 'T'); // "2025-09-01T22:45:30"
+        const dateObj = new Date(dateTimeStr);
+
+        callback(dateObj);
+    });
+}
 
 // fs
 window.removeTemp = function () {

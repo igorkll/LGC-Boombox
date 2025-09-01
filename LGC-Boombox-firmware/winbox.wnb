@@ -107,7 +107,7 @@
   "dc_use": false,
   "enable_hibernation": false,
   "UseCustomDisplaySettings": false,
-  "UseCustomDisplaySettings_scale": false,
+  "UseCustomDisplaySettings_scale": true,
   "cds_width": 800,
   "cds_height": 600,
   "cds_bitDepth": 32,
