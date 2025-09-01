@@ -86,7 +86,7 @@ const { ipcRenderer } = require('electron');
 
     document.getElementById('setting_clock_apply').addEventListener('custom_click', (event) => {
         const dateObj = fp.selectedDates[0]; 
-        
+
         // dateObj — JavaScript Date object
         const year = dateObj.getFullYear();
         const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
@@ -119,6 +119,8 @@ const { ipcRenderer } = require('electron');
                 console.log("Time successfully set:", stdout2);
             });
         });
+
+        updateDateTime();
     });
 }
 
