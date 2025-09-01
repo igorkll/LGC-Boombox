@@ -9,10 +9,6 @@ let tabhost = document.getElementById('files_tabhost');
 let tabs = [];
 let existsTabs = {};
 
-function getFileName(filePath) {
-    return path.basename(filePath, path.extname(filePath));
-}
-
 function addFolderUi(tab, name, defaultPath) {
     let currentPath = defaultPath;
 

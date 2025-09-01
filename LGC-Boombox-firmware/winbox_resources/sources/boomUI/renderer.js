@@ -136,6 +136,14 @@ window.removeTemp = function () {
     fs.rm(path.join(os.tmpdir(), 'LGCBoombox'), { recursive: true, force: true }, (err) => {});
 }
 
+window.getFileName = function (filePath) {
+    return path.basename(filePath, path.extname(filePath));
+}
+
+window.getMediaName = function (filePath) {
+    return getFileName(filePath);
+}
+
 // media
 window.detectMediaType = async function (filePath) {
     const type = await fileTypeFromFile(filePath);

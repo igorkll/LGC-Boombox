@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
+let music_trackname = document.getElementById('music_trackname');
 let media_player = document.getElementById('media_player');
 let media_preview = document.getElementById('media_preview');
 let media_panel = document.getElementById('media_panel');
@@ -31,17 +32,24 @@ function updateGui() {
 
 updateGui();
 
-function openNone() {
-    media_player.pause();
-    media_player.currentTime = 0;
-    media_player.removeAttribute("src");
-    media_player.load();
-    updateGui();
+function loadingLabel() {
+    media_player.style.display = 'none';
+    media_preview.style.display = 'inline';
+    media_preview.src = 'apps/music/loading.gif';
 
-    lastMediaPath = null;
+    music_trackname.innerHTML = "loading...";
+}
+
+function defaultPreview() {
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
     media_preview.src = 'apps/music/none.png';
+}
+
+function openNone() {
+    defaultPreview();
+
+    music_trackname.innerHTML = "nothing is selected";
 }
 
 openNone();
@@ -62,8 +70,11 @@ function getPreviousAndNextFile(filePath, callback) {
 }
 
 window.openAudio = function (filePath) {
-    openNone();
+    defaultPreview();
     lastMediaPath = filePath;
+
+    music_trackname.innerHTML = getMediaName(filePath);
+    
     setTrackCover(media_preview, filePath).then(() => {});
 
     media_player.src = toWebPath(filePath);
@@ -74,6 +85,8 @@ window.openAudio = function (filePath) {
 window.openVideo = function (filePath) {
     lastMediaPath = filePath;
 
+    music_trackname.innerHTML = getMediaName(filePath);
+
     media_player.style.display = 'inline';
     media_preview.style.display = 'none';
 
@@ -83,8 +96,8 @@ window.openVideo = function (filePath) {
 }
 
 window.openMedia = function(filePath, callback) {
+    loadingLabel();
     lastMediaPath = filePath;
-
     detectMediaType(filePath).then(result => {
         switch (result) {
             case 'audio':
@@ -145,9 +158,8 @@ music_playPause.addEventListener("custom_click", () => {
 });
 
 function nextMedia(previous=false) {
-    let oldLastMediaPath = lastMediaPath
-    openNone(true);
-    getPreviousAndNextFile(oldLastMediaPath, (currentPath, previousPath, nextPath) => {
+    loadingLabel();
+    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
         if (previous) {
             openMedia(previousPath);
         } else {
@@ -155,10 +167,6 @@ function nextMedia(previous=false) {
         }
     });
 }
-
-media_player.addEventListener('ended', () => {
-    nextMedia();
-});
 
 function updateProgressBar() {
     if (isMediaLoaded()) {
@@ -183,6 +191,10 @@ music_previous.addEventListener("custom_click", () => {
 
 music_next.addEventListener("custom_click", () => {
     if (lastMediaPath == null) return;
+    nextMedia();
+});
+
+media_player.addEventListener('ended', () => {
     nextMedia();
 });
 
