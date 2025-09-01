@@ -292,7 +292,7 @@ media_player.addEventListener("error", (e) => {
                 message = "an unknown media error occurred";
         }
 
-        messagebox(message, 'error');
+        //messagebox(message, 'error');
         showError(message);
     } else {
         nextMedia();
