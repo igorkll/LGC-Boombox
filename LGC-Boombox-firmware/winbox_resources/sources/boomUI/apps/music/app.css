@@ -5,9 +5,28 @@
     flex-shrink: 0;
 }
 
-.music-slider {
+.music-slider-box {
     margin: 1vh;
     height: 14vh;
     flex-shrink: 0;
     flex: 1;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.music-slider-info-box {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.music-slider {
+    flex: 1;
+    width: 100%;
 }

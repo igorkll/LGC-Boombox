@@ -145,6 +145,20 @@ window.getActualTimeDate = function (callback) {
     });
 }
 
+window.formatTime = function (seconds) {
+    if (isNaN(seconds)) return "00:00:00";
+
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+
+    const hh = String(h).padStart(2, '0');
+    const mm = String(m).padStart(2, '0');
+    const ss = String(s).padStart(2, '0');
+
+    return `${hh}:${mm}:${ss}`;
+}
+
 // fs
 window.removeTemp = function () {
     fs.rm(path.join(os.tmpdir(), 'LGCBoombox'), { recursive: true, force: true }, (err) => {});

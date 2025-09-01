@@ -13,6 +13,8 @@ let music_previous = document.getElementById('music_previous');
 let music_next = document.getElementById('music_next');
 let music_playPause_img = document.getElementById('music_playPause_img');
 let music_fullscreen_img = document.getElementById('music_fullscreen_img');
+let music_duration = document.getElementById('music_duration');
+let music_currentTime = document.getElementById('music_currentTime');
 
 let restoreState = null;
 let lastMediaPath = null;
@@ -234,9 +236,13 @@ function updateProgressBar() {
     if (isMediaLoaded() && playingFlag) {
         music_progress.value = media_player.currentTime / media_player.duration;
         music_progress.locked = false;
+        music_currentTime.innerHTML = formatTime(media_player.currentTime);
+        music_duration.innerHTML = formatTime(media_player.duration);
     } else {
         music_progress.value = 0;
         music_progress.locked = true;
+        music_currentTime.innerHTML = formatTime(0);
+        music_duration.innerHTML = formatTime(0);
     }
 }
 setInterval(updateProgressBar, 50);
