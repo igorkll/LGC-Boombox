@@ -233,8 +233,10 @@ function nextMedia(previous=false, _manualOpen=false) {
 function updateProgressBar() {
     if (isMediaLoaded() && playingFlag) {
         music_progress.value = media_player.currentTime / media_player.duration;
+        music_progress.locked = false;
     } else {
         music_progress.value = 0;
+        music_progress.locked = true;
     }
 }
 setInterval(updateProgressBar, 50);

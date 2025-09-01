@@ -39,6 +39,8 @@ class custom_slider extends HTMLElement {
 
         // process
         this._updateSlider = (x, y) => {
+            if (this.locked) return;
+            
             const rect = this.getBoundingClientRect();
             let percent;
             if (this._vertical) {
