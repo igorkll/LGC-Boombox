@@ -85,7 +85,40 @@ const { ipcRenderer } = require('electron');
     });
 
     document.getElementById('setting_clock_apply').addEventListener('custom_click', (event) => {
+        const dateObj = fp.selectedDates[0]; 
         
+        // dateObj — JavaScript Date object
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
+        const day = String(dateObj.getDate()).padStart(2, '0');
+
+        const hours = String(dateObj.getHours()).padStart(2, '0');
+        const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+        const seconds = String(dateObj.getSeconds()).padStart(2, '0');
+
+        // Windows commands:
+        // date: MM-DD-YY
+        // time: HH:MM:SS
+        const dateCmd = `date ${month}-${day}-${year}`;
+        const timeCmd = `time ${hours}:${minutes}:${seconds}`;
+
+        // Set date
+        exec(dateCmd, { shell: "cmd.exe" }, (err, stdout, stderr) => {
+            if (err) {
+                console.error("Error setting date:", err);
+                return;
+            }
+            console.log("Date successfully set:", stdout);
+
+            // Set time
+            exec(timeCmd, { shell: "cmd.exe" }, (err2, stdout2, stderr2) => {
+                if (err2) {
+                    console.error("Error setting time:", err2);
+                    return;
+                }
+                console.log("Time successfully set:", stdout2);
+            });
+        });
     });
 }
 
