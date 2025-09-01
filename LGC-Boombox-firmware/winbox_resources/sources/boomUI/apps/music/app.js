@@ -17,6 +17,7 @@ let music_fullscreen_img = document.getElementById('music_fullscreen_img');
 let restoreState = null;
 let lastMediaPath = null;
 let loadedMediaName = null;
+let manualOpen = false;
 
 function isMediaLoaded() {
     return media_player.src && media_player.src.trim() !== "";
@@ -134,7 +135,8 @@ function openVideo(filePath) {
     updateGui();
 }
 
-window.openMedia = function(filePath, callback) {
+window.openMedia = function(filePath, callback, _manualOpen=true) {
+    manualOpen = _manualOpen;
     loadedMediaName = null;
     loadingLabel(filePath);
     lastMediaPath = filePath;
@@ -197,13 +199,13 @@ music_playPause.addEventListener("custom_click", () => {
     }
 });
 
-function nextMedia(previous=false) {
+function nextMedia(previous=false, _manualOpen=false) {
     loadingLabel();
     getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
         if (previous) {
-            openMedia(previousPath);
+            openMedia(previousPath, null, _manualOpen);
         } else {
-            openMedia(nextPath);
+            openMedia(nextPath, null, _manualOpen);
         }
     });
 }
@@ -226,12 +228,12 @@ music_progress.addEventListener("change", (event) => {
 
 music_previous.addEventListener("custom_click", () => {
     if (lastMediaPath == null) return;
-    nextMedia(true);
+    nextMedia(true, true);
 });
 
 music_next.addEventListener("custom_click", () => {
     if (lastMediaPath == null) return;
-    nextMedia();
+    nextMedia(false, true);
 });
 
 media_player.addEventListener('ended', () => {
@@ -242,6 +244,14 @@ media_player.addEventListener("playing", () => {
     if (showRealContent != null) {
         showRealContent();
         showRealContent = null;
+    }
+});
+
+media_player.addEventListener("error", (e) => {
+    if (manualOpen) {
+        messagebox(media_player.error, 'error');
+    } else {
+        nextMedia();
     }
 });
 
