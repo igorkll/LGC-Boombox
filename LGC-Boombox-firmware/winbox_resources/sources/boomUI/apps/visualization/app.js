@@ -4,7 +4,7 @@ const { ipcRenderer } = require('electron');
 let lightOffset = 0;
 let oldTime;
 let bassDetected = false;
-let deltaTime;
+let deltaValue;
 let deltaCounter;
 
 ipcRenderer.on('waves', (event, waves) => {
@@ -21,11 +21,12 @@ ipcRenderer.on('waves', (event, waves) => {
     let deltaTime = performance.now() - oldTime;
 
     if (storage_table.light_deltaBassLevel) {
-        deltaTime = deltaTime + waves[0];
+        deltaValue = deltaValue + waves[0];
         deltaCounter = deltaCounter + deltaTime;
         if (deltaCounter > 50) {
-            bassDetected = deltaTime > storage_table.light_bassLevel;
+            bassDetected = deltaValue > storage_table.light_bassLevel;
             deltaCounter = 0;
+            deltaValue = 0;
         }
     } else {
         bassDetected = waves[0] > storage_table.light_bassLevel;
