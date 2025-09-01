@@ -179,7 +179,7 @@ window.setTrackCover = async function (imgElement, filePath) {
 }
 
 // messagebox
-window.messagebox = function (message, type) {
+window.messagebox = function (message, type, callback) {
     let msgboxBackground = document.createElement('div');
     msgboxBackground.style.position = 'absolute';
     msgboxBackground.style.zIndex = '20';
@@ -238,6 +238,7 @@ window.messagebox = function (message, type) {
     msgboxBody.appendChild(button);
 
     button.addEventListener("custom_click", () => {
+        callback(0);
         msgboxBackground.remove();
         msgboxBody.remove();
     })
