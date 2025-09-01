@@ -154,8 +154,8 @@ window.getFileName = function (filePath) {
     return path.basename(filePath, path.extname(filePath));
 }
 
-window.getMediaName = function (filePath) {
-    return getFileName(filePath);
+window.getMediaName = function (filePath, callback) {
+    callback(getFileName(filePath));
 }
 
 // media

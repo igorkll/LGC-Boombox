@@ -16,6 +16,7 @@ let music_fullscreen_img = document.getElementById('music_fullscreen_img');
 
 let restoreState = null;
 let lastMediaPath = null;
+let loadedMediaName = null;
 
 function isMediaLoaded() {
     return media_player.src && media_player.src.trim() !== "";
@@ -32,12 +33,19 @@ function updateGui() {
 
 updateGui();
 
-function loadingLabel() {
+function loadingLabel(filePath) {
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
     media_preview.src = 'apps/music/loading.gif';
 
     music_trackname.innerHTML = "loading...";
+    if (filePath != null) {
+        getMediaName(filePath, (name) => {
+            if (loadedMediaName != null) return;
+            loadedMediaName = name;
+            music_trackname.innerHTML = `loading "${name}"...`;
+        });
+    }
 }
 
 function defaultPreview() {
@@ -87,12 +95,22 @@ function getPreviousAndNextFile(filePath, callback) {
 
 let showRealContent
 
+function showTrackName(filePath) {
+    if (loadedMediaName != null) {
+        music_trackname.innerHTML = loadedMediaName;
+    } else {
+        getMediaName(filePath, (name) => {
+            loadedMediaName = name;
+            music_trackname.innerHTML = name;
+        });
+    }
+}
+
 function openAudio(filePath) {
     lastMediaPath = filePath;
 
     showRealContent = () => {
-        music_trackname.innerHTML = getMediaName(filePath);
-    
+        showTrackName(filePath);
         defaultPreview();
         setTrackCover(media_preview, filePath).then(() => {});
     };
@@ -106,8 +124,7 @@ function openVideo(filePath) {
     lastMediaPath = filePath;
 
     showRealContent = () => {
-        music_trackname.innerHTML = getMediaName(filePath);
-
+        showTrackName(filePath);
         media_player.style.display = 'inline';
         media_preview.style.display = 'none';
     };
@@ -118,7 +135,8 @@ function openVideo(filePath) {
 }
 
 window.openMedia = function(filePath, callback) {
-    loadingLabel();
+    loadedMediaName = null;
+    loadingLabel(filePath);
     lastMediaPath = filePath;
     detectMediaType(filePath).then(result => {
         switch (result) {
