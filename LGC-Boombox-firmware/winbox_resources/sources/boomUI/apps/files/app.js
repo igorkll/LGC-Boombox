@@ -28,6 +28,7 @@ function addFolderUi(tab, name, defaultPath) {
     let namelabel = document.createElement('div');
     namelabel.classList.add("panel");
     namelabel.classList.add("mini-info");
+    namelabel.classList.add("text-cropping");
     namelabel.style.textAlign = 'left';
     namelabel.innerHTML = name;
     infocontainer.appendChild(namelabel);
@@ -35,6 +36,7 @@ function addFolderUi(tab, name, defaultPath) {
     let pathlabel = document.createElement('div');
     pathlabel.classList.add("panel");
     pathlabel.classList.add("mini-info");
+    pathlabel.classList.add("text-cropping");
     pathlabel.style.textAlign = 'left';
     pathlabel.style.flex = '1';
     infocontainer.appendChild(pathlabel);
@@ -96,6 +98,7 @@ function addFolderUi(tab, name, defaultPath) {
                 let element = document.createElement('div');
                 element.classList.add("panel");
                 element.classList.add("mini-info");
+                element.classList.add("text-cropping");
                 element.style.textAlign = 'left';
                 element.style.alignSelf = 'stretch';
                 element.style.backgroundColor = 'rgba(35, 35, 35, 0.1)';

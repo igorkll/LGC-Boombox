@@ -32,6 +32,12 @@ function updateGui() {
 updateGui();
 
 function openNone() {
+    media_player.pause();
+    media_player.currentTime = 0;
+    media_player.removeAttribute("src");
+    media_player.load();
+    updateGui();
+
     lastMediaPath = null;
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
@@ -138,11 +144,20 @@ music_playPause.addEventListener("custom_click", () => {
     }
 });
 
-media_player.addEventListener('ended', () => {
-    updateGui();
-    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
-        openMedia(nextPath);
+function nextMedia(previous=false) {
+    let oldLastMediaPath = lastMediaPath
+    openNone(true);
+    getPreviousAndNextFile(oldLastMediaPath, (currentPath, previousPath, nextPath) => {
+        if (previous) {
+            openMedia(previousPath);
+        } else {
+            openMedia(nextPath);
+        }
     });
+}
+
+media_player.addEventListener('ended', () => {
+    nextMedia();
 });
 
 function updateProgressBar() {
@@ -163,16 +178,12 @@ music_progress.addEventListener("change", (event) => {
 
 music_previous.addEventListener("custom_click", () => {
     if (lastMediaPath == null) return;
-    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
-        openMedia(previousPath);
-    });
+    nextMedia(true);
 });
 
 music_next.addEventListener("custom_click", () => {
     if (lastMediaPath == null) return;
-    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
-        openMedia(nextPath);
-    });
+    nextMedia();
 });
 
 }

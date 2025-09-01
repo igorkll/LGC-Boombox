@@ -88,7 +88,9 @@ body {
 .mini-info {
     text-shadow: 0px 0px 2vh black;
     font-size: 4vh;
+}
 
+.text-cropping {
     flex-shrink: 0;
     overflow: hidden;
     text-overflow: ellipsis;
