@@ -119,5 +119,10 @@
   "cds_bitDepth_use": false,
   "cds_refreshRate_use": false,
   "cds_orientation_use": false,
-  "firstBootAction": 2
+  "firstBootAction": 2,
+  "img_size": 15000,
+  "img_install_ram": 2048,
+  "img_install_cpu": 2,
+  "img_shutdownAfterInstall": true,
+  "img_runningPostinstallOnFirstRealStartup": true
 }
