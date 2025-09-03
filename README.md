@@ -49,6 +49,7 @@
 * self-tapping screws that fit the holes in the printed case
 
 ## assembly process
+
 ### building a modified version of windows 10
 * open the "LGC-Boombox-firmware" project in winbox maker
 * in the "base" tab, select the path to the origin of the downloaded windows 10 image. if your image is not windows 10 enterprise or windows 10 iot enterprise, make sure that the "force make iot enterprise" checkbox is checked, otherwise the "login" window will be visible
@@ -60,8 +61,13 @@
 * export the iso installer of the resulting system
 * burn the iso to a 16 GB flash drive using rufus in MBR mode AND DO NOT USE ANY IMAGE MODIFICATIONS USING RUFUS! as this may lead to a conflict with the modifications that winbox maker uses
 * next, install it on your motherboard like a regular Windows and BE SURE to wait for the speaker interface to appear and do not turn off the board until it appears. it may take a couple of hours since the board is quite weak (subsequent power-ups will take ~ 30 seconds). After the interface appears, wait for about 10 more minutes and then turn off the board by clicking the off button in the speaker interface
+
 ### esp32c3 firmware
 * open the led_strip_esp32c3_firmware directory in vs code
 * make sure that the extension for esp-IDF recognizes the open project
 * select the esp32c3 chip and the COM port it is on
-* 
+* open the main/config.h file and configure config to suit your case (first of all, the number of LEDs, and remove the comment from the "#define USE_UART" line if your board has a USB>UART bridge in a separate chip)
+* flash the ESP32C3 by clicking on the fire symbol at the bottom
+* if you have a question about choosing a firmware tool, choose UART
+* if the board does not flash, try connecting it to computers with the boot button pressed
+
