@@ -163,3 +163,10 @@
 * make sure that the AUX input and the charging input are well insulated and in place, that their nuts are well tightened and the AUX input wire is connected to the microphone slot of the motherboard
 * put the rear wall of the case in its place and make sure that everything fits
 * tighten all the screws on the back wall
+
+### check
+#### despite the fact that the first check was still with the case open, it is better to keep the window open in case of fire
+* first turn on the hardware power button
+* next, turn on the speaker using the software power button
+* check the operation of all speaker functions. all USB ports, reading flash drives, AUX (that both AUX channels work and they are not mixed up), bluetooth, backlight, touch diplay
+* 
