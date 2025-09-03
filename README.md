@@ -138,8 +138,11 @@
 * first, insert and screw the speakers (at this point, the wires should already be securely soldered to them)
 * tape the speaker screws and the speakers themselves with hot glue on the back
 * then install the screen (it is advisable that the screen controller and its touchscreen are glued to the display itself with hot glue in advance to avoid damage to the cables, alternatively you can glue the controller boards to the case, the main thing is to make sure that you have a place to connect all the cables)
-* place the speaker on a flat surface with a sniz screen and then glue the screen to the hot glue from the inside around the perimeter
+* place the speaker on a flat surface with a down screen and then glue the screen to the hot glue from the inside around the perimeter
 * after the hot glue has solidified, glue the slots between the screen and the cases on the front panel with hot glue
+* unsolder the power button from the motherboard
+* solder the wires to the two side contacts of the motherboard button so that when they are closed, the motherboard turns on
+* solder these wires to the software power button
 
 ### completing the build
 #### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
