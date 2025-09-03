@@ -152,4 +152,5 @@
 * make sure that the touchscreen is fully functional
 * make sure that the speakers are working and the channels are not mixed up
 * Make sure that the volume is adjusted and that the amplifier is not overloaded at maximum volume
+* if an overload occurs, then you should hardware reduce the volume of the amplifier with a hardware turntable so that the amplifier does not overload at maximum program volume. then fix the volume control knob of the amplifier with hot glue to avoid changing the settings
 * 
