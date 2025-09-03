@@ -158,5 +158,8 @@
 * then turn off the speaker using first the software power off button or the button in the menu, and then the hardware button, completely turning it off
 * place a folded A4 sheet of paper on top of the left speaker in the case so that it covers the USB hub board and the metal speaker magnet from the place where you put the motherboard but does not protrude from the case
 * place the fully connected motherboard on a piece of paper on top and make sure that there is no short circuit
+* put a paralon or sponge on top of the motherboard radiator so that the radiator does not knock on the back wall of the case on the bass, but make sure that the paralon or sponge does not occupy the entire radiator area so that the motherboard can cool down
 * make sure that the wires do not stick out of the housing
-* 
+* make sure that the AUX input and the charging input are well insulated and in place, that their nuts are well tightened and the AUX input wire is connected to the microphone slot of the motherboard
+* put the rear wall of the case in its place and make sure that everything fits
+* tighten all the screws on the back wall
