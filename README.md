@@ -169,4 +169,5 @@
 * first turn on the hardware power button
 * next, turn on the speaker using the software power button
 * check the operation of all speaker functions. all USB ports, reading flash drives, AUX (that both AUX channels work and they are not mixed up), bluetooth, backlight, touch diplay
+* make sure that the backlight flashes to the beat of the music
 * 
