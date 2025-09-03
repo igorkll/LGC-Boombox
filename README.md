@@ -17,12 +17,21 @@
 * windows 10 enterprise / windows 10 iot enterprise - iso image
 * ESP-IDF 5.3 for ESP32C3 firmware and firmware compilation
 * visual studia code with the esp-idf extension
+* a slicer configured for your 3d printer (I use cura, but you can use any other one)
 
 ## tools required for assembly
 * a computer with 64-bit windows 10/11
 * 3d printer with a print area of >=20 centimeters
 * a screwdriver that fits your screws
 * hot glue gun or lighter
+
+## the skills needed to build
+* be able to follow instructions
+* be able to find solutions to problems on Google or ask the neural network
+* computer and windows proficiency is at a good level
+* windows installation skill
+* soldering skill
+* be able to use a 3D printer (this also includes configuring the slicer)
 
 ## components required for assembly
 * kilogram coil PLA plate (you can use other plastic at your discretion)
@@ -71,3 +80,9 @@
 * if you have a question about choosing a firmware tool, choose UART
 * if the board does not flash, try connecting it to computers with the boot button pressed
 
+### preparing files for case printing
+#### the stl files are already in the repository, but if you need to change any settings, you will need OpenSCAD
+#### you will need to open each file in OpenSCAD, then enter the necessary parameters, make a render using the F6 key, and then export it in a format that suits you and upload it to a slicer
+* 
+
+### case printing
