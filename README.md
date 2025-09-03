@@ -90,6 +90,7 @@
 * logo.scad - you need 5 pieces. you can also replace the text with your own
 
 ### case printing
+#### (for PLA) all details except the pen are printed at 20% filling, the pen at 40% (60% is better)
 * back.scad - print two details but from different stl files with different bool status of the "right" flag
 * body.scad - print two details but from different stl files with different bool status of the "right" flag
 * handle.scad - it must be printed with at least 40 percent infill, otherwise the handle will break and fall off
@@ -101,4 +102,5 @@
 * 3 screws must be screwed into the protruding fasteners from above / below and on the front wall, one in one direction, the next in the other and the third in the same direction as the first
 * it is better not to unscrew or tighten the screws once again so as not to disturb the plastic, PLA does not like this
 * if any screw has started to slip, insert a slightly melted similar plastic into the hole and then cut it off
-* 
+* fasten 5 logos/ties. 2 on the front wall and 3 on the back
+* the case should be tightened with all the screws and additionally glued with hot glue, loose assembly may degrade the sound quality
