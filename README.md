@@ -56,6 +56,10 @@
 * USB cable for connecting ESP32C3
 * USB bluetooth adapter
 * self-tapping screws that fit the holes in the printed case
+* balancing board for three lithium-ion batteries
+* three lithium-ion batteries with a capacity of at least 4000 milliamps per piece (18650 cannot provide such a capacity! you need a wider battery)
+* two compartments for fuse
+* two 3 amp fuses
 
 ## assembly process
 
@@ -99,6 +103,9 @@
 
 ### the case assembly process
 * pay special attention to the handle, it must be tightly screwed onto 4 screws on each side. if it is printed with less than 40 percent filling and/or screwed on one side with less than 4 screws, it is likely to break and fall off
+* first of all, screw on the handle and legs, as it may be inconvenient to do this after installing the electronics
+* the legs can be screwed both externally and internally. this is done because I added the legs to the project late when I had already assembled everything
+* if you screw on the outside, make sure that the screws of the legs inside do not touch the electronics, if from the inside, make sure that the screws do not protrude from the legs (otherwise they will scratch the surface)
 * 3 screws must be screwed into the protruding fasteners from above / below and on the front wall, one in one direction, the next in the other and the third in the same direction as the first
 * it is better not to unscrew or tighten the screws once again so as not to disturb the plastic, PLA does not like this
 * if any screw has started to slip, insert a slightly melted similar plastic into the hole and then cut it off
@@ -110,8 +117,9 @@
 * you must have 3 IDENTICAL ONES! batteries with a capacity of 4000 or more milliamps each
 * take the compartment for your type of batteries for 3 batteries
 * solder with the batteries removed
-* install the battery and the removed bodyguards
-* only after the device is fully assembled, insert the 3 amp bodyguard into the batteries AND DO NOT REMOVE YOUR HAND FROM THE FUSE FOR A COUPLE OF SECONDS! make sure that nothing starts to burn/smoke/stink. if something goes wrong, immediately pull out the fuse. in case of ignition of the accumulator, throw the ENTIRE battery assembly out the window
+* make a serial battery connection diagram and solder the balancing board
+* Make sure that there are no short circuits
+* output the wires from the output of the balancing board, the positive wire through the fuse compartment
 
 ### installing electronics in the case
 * first, insert and screw the speakers (at this point, the wires should already be securely soldered to them)
