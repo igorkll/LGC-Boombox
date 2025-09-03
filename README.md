@@ -110,4 +110,5 @@
 * tape the speaker screws and the speakers themselves with hot glue on the back
 * then install the screen (it is advisable that the screen controller and its touchscreen are glued to the display itself with hot glue in advance to avoid damage to the cables, alternatively you can glue the controller boards to the case, the main thing is to make sure that you have a place to connect all the cables)
 * place the speaker on a flat surface with a sniz screen and then glue the screen to the hot glue from the inside around the perimeter
+* after the hot glue has solidified, glue the slots between the screen and the cases on the front panel with hot glue
 * 
