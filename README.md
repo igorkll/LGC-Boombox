@@ -77,7 +77,7 @@
 * open the "LGC-Boombox-firmware" project in winbox maker
 * in the "base" tab, select the path to the origin of the downloaded windows 10 image. if your image is not windows 10 enterprise or windows 10 iot enterprise, make sure that the "force make iot enterprise" checkbox is checked, otherwise the "login" window will be visible
 * go to the settings>activation tab and enter the license key from your windows edition, and make sure that the "Activate windows with this product key" checkmark is set 😅
-* please note that if you used the "force make iot enterprise" option, then you need to use the iot enterprise key
+* please note that if you used the "force make iot enterprise" option, then you need to use the iot enterprise key 🤣
 * go to the project directory or just click on the "Open Project Folder" button
 * download the driver for your processor's video core. if it is the intel installer, then put it in the winbox_resources/intel_drivers directory, and if the driver is in its raw form, then put it in the winbox_resources/drivers directory
 * download the driver for your Bluetooth adapter (if it requires a driver) and if it is an installer, then put it in the winbox_resources>driver_installers directory (perhaps winbox maker will be able to extract the contents) and if the driver is in its raw form, then put it in winbox_resources/drivers
@@ -155,6 +155,10 @@
 * you have two wires that have a voltage of 12 volts only when the hardware switch is on, as well as a charging port that always has a voltage
 * make sure that the pin (middle positive pin) in the power connector has not shifted or closed to the negative pin (housing) during soldering. as this can lead to fire
 * connect the power supply to the amplifier and the motherboard from two wires that have voltage only when the hardware power button is turned on
+* glue the two addressable LED strips around the housing on all sides except the bottom one as shown in the photos of the speaker
+* the beginning of the tape should be on the RIGHT wall of the speaker where there is a hole at the bottom for connecting the tape wires
+* both tapes should have the same number of LEDs. the same as indicated in the esp32c3 firmware (the firmware does not specify the total number of LEDs, but the number of LEDs of one strip)
+* 
 
 ### completing the build
 #### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
