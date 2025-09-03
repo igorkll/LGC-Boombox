@@ -104,3 +104,10 @@
 * if any screw has started to slip, insert a slightly melted similar plastic into the hole and then cut it off
 * fasten 5 logos/ties. 2 on the front wall and 3 on the back
 * the case should be tightened with all the screws and additionally glued with hot glue, loose assembly may degrade the sound quality
+
+### installing electronics in the case
+* first, insert and screw the speakers (at this point, the wires should already be securely soldered to them)
+* tape the speaker screws and the speakers themselves with hot glue on the back
+* then install the screen (it is advisable that the screen controller and its touchscreen are glued to the display itself with hot glue in advance to avoid damage to the cables, alternatively you can glue the controller boards to the case, the main thing is to make sure that you have a place to connect all the cables)
+* place the speaker on a flat surface with a sniz screen and then glue the screen to the hot glue from the inside around the perimeter
+* 
