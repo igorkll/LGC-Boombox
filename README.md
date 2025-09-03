@@ -158,7 +158,10 @@
 * glue the two addressable LED strips around the housing on all sides except the bottom one as shown in the photos of the speaker
 * the beginning of the tape should be on the RIGHT wall of the speaker where there is a hole at the bottom for connecting the tape wires
 * both tapes should have the same number of LEDs. the same as indicated in the esp32c3 firmware (the firmware does not specify the total number of LEDs, but the number of LEDs of one strip)
-* 
+* connect the tape segments completely in parallel, connect the power wires to the 5 volt supply of the esp32c3 itself, and connect the data pin to pin 9 on the esp32c3
+* put the wires from the strip inside the case through a circular opening between the screwdrivers for the screws of the legs and solder them inside to the esp32c3
+* connect the ESP32C3 to one of the USB inputs on the motherboard
+* insulate all the wires and glue the amplifier and esp32c3 to the case with hot glue.
 
 ### completing the build
 #### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
