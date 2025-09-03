@@ -24,6 +24,7 @@
 * 3d printer with a print area of >=20 centimeters (i am using anycubic kobra 2 pro)
 * a screwdriver that fits your screws
 * hot glue gun or lighter
+* multimeter
 
 ## the skills needed to build
 * be able to follow instructions
@@ -32,6 +33,7 @@
 * windows installation skill
 * soldering skill
 * be able to use a 3D printer (this also includes configuring the slicer)
+* multimeter skills
 
 ## components required for assembly
 * kilogram coil PLA plate (you can use other plastic at your discretion)
@@ -120,6 +122,10 @@
 * make a serial battery connection diagram and solder the balancing board
 * Make sure that there are no short circuits
 * output the wires from the output of the balancing board, the positive wire through the fuse compartment
+* first, insert the batteries (WITH THE FUSE REMOVED), one at a time (CHECKING THE PALARITY OF EACH!), starting from the first one (which is connected to the balancer on the GND-3.7 pins)
+* after installing each one, wait about 10 seconds, listening and sniffing that nothing starts to burn/smoke. if there is a fire, throw the battery out the window
+* then make sure that the output wires are not touching, and only then insert the fuse and measure the voltage on the wires with a multimeter
+* then remove the fuse first and only then all three batteries in reverse order
 
 ### installing electronics in the case
 * first, insert and screw the speakers (at this point, the wires should already be securely soldered to them)
@@ -127,4 +133,10 @@
 * then install the screen (it is advisable that the screen controller and its touchscreen are glued to the display itself with hot glue in advance to avoid damage to the cables, alternatively you can glue the controller boards to the case, the main thing is to make sure that you have a place to connect all the cables)
 * place the speaker on a flat surface with a sniz screen and then glue the screen to the hot glue from the inside around the perimeter
 * after the hot glue has solidified, glue the slots between the screen and the cases on the front panel with hot glue
-* 
+
+### completing the build
+* make sure that the power button is off
+* first, install the fuse of the charging port
+* then install the batteries starting from the first one, sniffing and listening that nothing starts to burn/smoke
+* then install the fuse of the accumulator and make sure that nothing starts to burn/smoke
+* in case of fire, throw the speaker out the window
