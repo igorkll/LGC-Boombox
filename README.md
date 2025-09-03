@@ -135,6 +135,7 @@
 * after the hot glue has solidified, glue the slots between the screen and the cases on the front panel with hot glue
 
 ### completing the build
+#### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
 * make sure that the power button is off
 * first, install the fuse of the charging port
 * then install the batteries starting from the first one, sniffing and listening that nothing starts to burn/smoke
