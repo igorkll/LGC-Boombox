@@ -170,4 +170,7 @@
 * next, turn on the speaker using the software power button
 * check the operation of all speaker functions. all USB ports, reading flash drives, AUX (that both AUX channels work and they are not mixed up), bluetooth, backlight, touch diplay
 * make sure that the backlight flashes to the beat of the music
-* 
+* make sure that the speaker interface does not lag too much (especially on the wallpapers selection screen)
+* in cases where the speaker interface is lagging badly and/or the blur effect in the interface is not blurred at the edges, this indicates that the graphics core driver is not working (this means that the custom windows image was built incorrectly (for example, with an incompatible driver))
+* make sure that the date and time on the speaker are correct. if this is not the case, then change the date and time to the correct one in the settings
+* make sure that the hardware power button is working by pressing it without turning off the speaker programmatically (since it has already been turned on several times before, there should be no damage to windows)
