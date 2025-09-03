@@ -105,6 +105,14 @@
 * fasten 5 logos/ties. 2 on the front wall and 3 on the back
 * the case should be tightened with all the screws and additionally glued with hot glue, loose assembly may degrade the sound quality
 
+### battery assembly
+#### battery assembly should be carried out in a row with an open window without an anti-mosquito net! In case of fire, you should be able to throw the battery out the window
+* you must have 3 IDENTICAL ONES! batteries with a capacity of 4000 or more milliamps each
+* take the compartment for your type of batteries for 3 batteries
+* solder with the batteries removed
+* install the battery and the removed bodyguards
+* only after the device is fully assembled, insert the 3 amp bodyguard into the batteries AND DO NOT REMOVE YOUR HAND FROM THE FUSE FOR A COUPLE OF SECONDS! make sure that nothing starts to burn/smoke/stink. if something goes wrong, immediately pull out the fuse. in case of ignition of the accumulator, throw the ENTIRE battery assembly out the window
+
 ### installing electronics in the case
 * first, insert and screw the speakers (at this point, the wires should already be securely soldered to them)
 * tape the speaker screws and the speakers themselves with hot glue on the back
