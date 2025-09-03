@@ -37,7 +37,7 @@
 
 ## components required for assembly
 * kilogram coil PLA plate (you can use other plastic at your discretion)
-* the motherboard of a thin client is a tonk TN1700/TN1200 thin client or another of the same size (a new one costs ~400-500 dollars, it sells for ~4-7 dollars on the used market in Russia)
+* the motherboard of a thin client is a tonk TN1700/TN1200 thin client or another of the same size and the power supply is 12 volts (a new one costs ~400-500 dollars, it sells for ~4-7 dollars on the used market in Russia)
 * A 5-inch HDMI touchscreen display with a resolution of 800x480. The touchscreen is usually connected via USB
 * two USB cables for powering the matrix and touchscreen
 * DVI>HDMI adapter
@@ -64,6 +64,7 @@
 * two 3 amp fuses
 * cut AUX wire for soldering to AUX connector
 * a whole AUX wire (if the amplifier has an AUX input) or a cut-off one (if there is none)
+* a cut-off power cord that fits under the motherboard
 
 ## the conditions required for the assembly
 * the ability to produce 3D printing lasting up to 10 hours (usually printing the largest parts takes about 6-7 hours, the time is taken with a margin and it differs for different printers)
