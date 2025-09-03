@@ -154,6 +154,7 @@
 * pull the wire away from the negative terminal and from the positive terminal. Run the wire of the positive terminal through the hardware power button, and pull the power cable for electronics away from the power button
 * you have two wires that have a voltage of 12 volts only when the hardware switch is on, as well as a charging port that always has a voltage
 * make sure that the pin (middle positive pin) in the power connector has not shifted or closed to the negative pin (housing) during soldering. as this can lead to fire
+* connect the power supply to the amplifier and the motherboard from two wires that have voltage only when the hardware power button is turned on
 
 ### completing the build
 #### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
