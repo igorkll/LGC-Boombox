@@ -21,7 +21,7 @@
 
 ## tools required for assembly
 * a computer with 64-bit windows 10/11
-* 3d printer with a print area of >=20 centimeters
+* 3d printer with a print area of >=20 centimeters (i am using anycubic kobra 2 pro)
 * a screwdriver that fits your screws
 * hot glue gun or lighter
 
@@ -83,6 +83,15 @@
 ### preparing files for case printing
 #### the stl files are already in the repository, but if you need to change any settings, you will need OpenSCAD
 #### you will need to open each file in OpenSCAD, then enter the necessary parameters, make a render using the F6 key, and then export it in a format that suits you and upload it to a slicer
-* 
+* back.scad - you need to export twice with the parameter right - true and false
+* body.scad - you need to export twice with the parameter right - true and false
+* front.scad - the left and right parts are absolutely identical, just export
+* handle.scad - you only need one piece
+* logo.scad - you need 5 pieces. you can also replace the text with your own
 
 ### case printing
+* back.scad - print two details but from different stl files with different bool status of the "right" flag
+* body.scad - print two details but from different stl files with different bool status of the "right" flag
+* handle.scad - it must be printed with at least 40 percent infill, otherwise the handle will break and fall off
+* front.scad - print two identical pieces
+* logo.scad - you can change the text on the logo if you want. It is also not just a logo, but a fastener that helps hold the case. 5 pieces must be printed. in order for the text to be clearly distinguishable, it should be printed with improved quality. It took me about 3 hours to print 5 pieces at once
