@@ -136,6 +136,7 @@
 * then remove the fuse first and only then all three batteries in reverse order
 
 ### installing electronics in the case
+#### produce with batteries and fuse removed
 * first, insert and screw the speakers (at this point, the wires should already be securely soldered to them)
 * tape the speaker screws and the speakers themselves with hot glue on the back
 * then install the screen (it is advisable that the screen controller and its touchscreen are glued to the display itself with hot glue in advance to avoid damage to the cables, alternatively you can glue the controller boards to the case, the main thing is to make sure that you have a place to connect all the cables)
@@ -144,6 +145,15 @@
 * unsolder the power button from the motherboard
 * solder the wires to the two side contacts of the motherboard button so that when they are closed, the motherboard turns on
 * solder these wires to the software power button
+* connect the amplifier to the speakers, the power supply to the amplifier, and the sound output from the motherboard to the amplifier
+* solder two wires to the charging input, the central positive contact may not solder well, make sure it is soldered securely
+* if the positive contact is unsoldered and closes to the negative, a fire will occur, since the charging port is always energized, even when the hardware button is turned off
+* fill the contacts of the charging connector with hot glue to avoid a short circuit
+* the positive wire of the charging port (the middle one) must go through the fuse compartment. this means that when charging, two fuses are connected in series (on the connector and on the batteries) but this will NOT double the current of their combustion, as it is a sequential trend
+* connect the charging port wires to the battery wires
+* pull the wire away from the negative terminal and from the positive terminal. Run the wire of the positive terminal through the hardware power button, and pull the power cable for electronics away from the power button
+* you have two wires that have a voltage of 12 volts only when the hardware switch is on, as well as a charging port that always has a voltage
+* make sure that the pin (middle positive pin) in the power connector has not shifted or closed to the negative pin (housing) during soldering. as this can lead to fire
 
 ### completing the build
 #### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
