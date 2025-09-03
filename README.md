@@ -95,3 +95,10 @@
 * handle.scad - it must be printed with at least 40 percent infill, otherwise the handle will break and fall off
 * front.scad - print two identical pieces
 * logo.scad - you can change the text on the logo if you want. It is also not just a logo, but a fastener that helps hold the case. 5 pieces must be printed. in order for the text to be clearly distinguishable, it should be printed with improved quality. It took me about 3 hours to print 5 pieces at once
+
+### the case assembly process
+* pay special attention to the handle, it must be tightly screwed onto 4 screws on each side. if it is printed with less than 40 percent filling and/or screwed on one side with less than 4 screws, it is likely to break and fall off
+* 3 screws must be screwed into the protruding fasteners from above / below and on the front wall, one in one direction, the next in the other and the third in the same direction as the first
+* it is better not to unscrew or tighten the screws once again so as not to disturb the plastic, PLA does not like this
+* if any screw has started to slip, insert a slightly melted similar plastic into the hole and then cut it off
+* 
