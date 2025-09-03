@@ -65,6 +65,7 @@
 * cut AUX wire for soldering to AUX connector
 * a whole AUX wire (if the amplifier has an AUX input) or a cut-off one (if there is none)
 * a cut-off power cord that fits under the motherboard
+* various kinds of capacitors to smooth out power interference
 
 ## the conditions required for the assembly
 * the ability to produce 3D printing lasting up to 10 hours (usually printing the largest parts takes about 6-7 hours, the time is taken with a margin and it differs for different printers)
@@ -161,7 +162,10 @@
 * connect the tape segments completely in parallel, connect the power wires to the 5 volt supply of the esp32c3 itself, and connect the data pin to pin 9 on the esp32c3
 * put the wires from the strip inside the case through a circular opening between the screwdrivers for the screws of the legs and solder them inside to the esp32c3
 * connect the ESP32C3 to one of the USB inputs on the motherboard
-* insulate all the wires and glue the amplifier and esp32c3 to the case with hot glue.
+* solder the ceramic and film capacitors (in parallel) to: the power input of the motherboard and amplifier, powered by 5 and 3.3 volts ESP32C3
+* install a large electrolytic capacitor at a minimum of 16 volts, observing the polarity to the wires that have 12 volt power only when the hardware power button is turned on
+* solder the kyromic and film capacitor parallel to it
+* insulate all the wires and glue the amplifier and esp32c3 to the case with hot glue
 
 ### completing the build
 #### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
@@ -191,6 +195,8 @@
 * first turn on the hardware power button
 * next, turn on the speaker using the software power button
 * check the operation of all speaker functions. all USB ports, reading flash drives, AUX (that both AUX channels work and they are not mixed up), bluetooth, backlight, touch diplay
+* make sure that when you connect the charger, the LED on it glows red (charging is underway)
+* make sure that there are no extraneous sounds coming from the speakers
 * make sure that the backlight flashes to the beat of the music
 * make sure that the speaker interface does not lag too much (especially on the wallpapers selection screen)
 * in cases where the speaker interface is lagging badly and/or the blur effect in the interface is not blurred at the edges, this indicates that the graphics core driver is not working (this means that the custom windows image was built incorrectly (for example, with an incompatible driver))
