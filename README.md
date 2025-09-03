@@ -146,3 +146,10 @@
 * then install the batteries starting from the first one, sniffing and listening that nothing starts to burn/smoke
 * then install the fuse of the accumulator and make sure that nothing starts to burn/smoke
 * in case of fire, throw the speaker out the window
+* first, press the hardware power button and make sure that nothing is burning/smoking
+* then press the software power button and make sure that nothing is burning/smoking (this is unlikely at this stage, but it's worth playing it safe)
+* wait until the speaker is fully loaded
+* make sure that the touchscreen is fully functional
+* make sure that the speakers are working and the channels are not mixed up
+* Make sure that the volume is adjusted and that the amplifier is not overloaded at maximum volume
+* 
