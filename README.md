@@ -11,15 +11,18 @@
 ## software required for assembly
 * winbox maker (my tool for creating an embedded version of windows): https://github.com/igorkll/WinBox-Maker/releases
 * visual studio with tools for building C++ and C#
-* nodeJS
+* nodeJS (don't forget to check the box in the NodeJS installer so that it downloads all dependencies)
 * openSCAD
+* rufus
 * windows 10 enterprise / windows 10 iot enterprise - iso image
 * ESP-IDF 5.3 for ESP32C3 firmware and firmware compilation
+* visual studia code with the esp-idf extension
 
 ## tools required for assembly
 * a computer with 64-bit windows 10/11
 * 3d printer with a print area of >=20 centimeters
 * a screwdriver that fits your screws
+* hot glue gun or lighter
 
 ## components required for assembly
 * kilogram coil PLA plate (you can use other plastic at your discretion)
@@ -52,3 +55,13 @@
 * go to the settings>activation tab and enter the license key from your windows edition, and make sure that the "Activate windows with this product key" checkmark is set 😅
 * please note that if you used the "force make iot enterprise" option, then you need to use the iot enterprise key
 * go to the project directory or just click on the "Open Project Folder" button
+* download the driver for your processor's video core. if it is the intel installer, then put it in the winbox_resources/intel_drivers directory, and if the driver is in its raw form, then put it in the winbox_resources/drivers directory
+* download the driver for your Bluetooth adapter (if it requires a driver) and if it is an installer, then put it in the winbox_resources>driver_installers directory (perhaps winbox maker will be able to extract the contents) and if the driver is in its raw form, then put it in winbox_resources/drivers
+* export the iso installer of the resulting system
+* burn the iso to a 16 GB flash drive using rufus in MBR mode AND DO NOT USE ANY IMAGE MODIFICATIONS USING RUFUS! as this may lead to a conflict with the modifications that winbox maker uses
+* next, install it on your motherboard like a regular Windows and BE SURE to wait for the speaker interface to appear and do not turn off the board until it appears. it may take a couple of hours since the board is quite weak (subsequent power-ups will take ~ 30 seconds). After the interface appears, wait for about 10 more minutes and then turn off the board by clicking the off button in the speaker interface
+### esp32c3 firmware
+* open the led_strip_esp32c3_firmware directory in vs code
+* make sure that the extension for esp-IDF recognizes the open project
+* select the esp32c3 chip and the COM port it is on
+* 
