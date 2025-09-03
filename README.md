@@ -62,6 +62,8 @@
 * three lithium-ion batteries with a capacity of at least 4000 milliamps per piece (18650 cannot provide such a capacity! you need a wider battery)
 * two compartments for fuse
 * two 3 amp fuses
+* cut AUX wire for soldering to AUX connector
+* a whole AUX wire (if the amplifier has an AUX input) or a cut-off one (if there is none)
 
 ## the conditions required for the assembly
 * the ability to produce 3D printing lasting up to 10 hours (usually printing the largest parts takes about 6-7 hours, the time is taken with a margin and it differs for different printers)
@@ -153,4 +155,8 @@
 * make sure that the speakers are working and the channels are not mixed up
 * Make sure that the volume is adjusted and that the amplifier is not overloaded at maximum volume
 * if an overload occurs, then you should hardware reduce the volume of the amplifier with a hardware turntable so that the amplifier does not overload at maximum program volume. then fix the volume control knob of the amplifier with hot glue to avoid changing the settings
+* then turn off the speaker using first the software power off button or the button in the menu, and then the hardware button, completely turning it off
+* place a folded A4 sheet of paper on top of the left speaker in the case so that it covers the USB hub board and the metal speaker magnet from the place where you put the motherboard but does not protrude from the case
+* place the fully connected motherboard on a piece of paper on top and make sure that there is no short circuit
+* make sure that the wires do not stick out of the housing
 * 
