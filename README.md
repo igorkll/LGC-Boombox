@@ -103,6 +103,7 @@
 * front.scad - the left and right parts are absolutely identical, just export
 * handle.scad - you only need one piece
 * logo.scad - you need 5 pieces. you can also replace the text with your own
+* legs.scad - you need 4 pieces
 
 ### case printing
 #### (for PLA) all details except the pen are printed at 20% filling, the pen at 40% (60% is better)
@@ -111,6 +112,7 @@
 * handle.scad - it must be printed with at least 40 percent infill, otherwise the handle will break and fall off
 * front.scad - print two identical pieces
 * logo.scad - you can change the text on the logo if you want. It is also not just a logo, but a fastener that helps hold the case. 5 pieces must be printed. in order for the text to be clearly distinguishable, it should be printed with improved quality. It took me about 3 hours to print 5 pieces at once
+* legs.scad - just print 4 identical pieces
 
 ### the case assembly process
 * pay special attention to the handle, it must be tightly screwed onto 4 screws on each side. if it is printed with less than 40 percent filling and/or screwed on one side with less than 4 screws, it is likely to break and fall off
