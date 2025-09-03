@@ -63,6 +63,11 @@
 * two compartments for fuse
 * two 3 amp fuses
 
+## the conditions required for the assembly
+* the ability to produce 3D printing lasting up to 10 hours (usually printing the largest parts takes about 6-7 hours, the time is taken with a margin and it differs for different printers)
+* a clean table on which to solder
+* an open window without an anti-mosquito net where you can throw the speaker and/or battery in case of fire (the window should be FULLY open, not for ventilation)
+
 ## assembly process
 
 ### building a modified version of windows 10
