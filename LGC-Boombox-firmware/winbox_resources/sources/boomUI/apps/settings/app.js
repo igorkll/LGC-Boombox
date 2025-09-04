@@ -19,6 +19,7 @@ const sudo = require('sudo-prompt');
     addSettingsTab("wallpaper");
     addSettingsTab("clock");
     addSettingsTab("light");
+    addSettingsTab("aux");
     addSettingsTab("debug");
 }
 
@@ -216,6 +217,38 @@ const sudo = require('sudo-prompt');
         updateValues();
         storage_save();
     });
+}
+
+{ // aux
+    let setting_aux_enabled = document.getElementById('setting_aux_enabled');
+    let setting_aux_echoCancellation = document.getElementById('setting_aux_echoCancellation');
+    let setting_aux_noiseSuppression = document.getElementById('setting_aux_noiseSuppression');
+    let setting_aux_autoGainControl = document.getElementById('setting_aux_autoGainControl');
+
+    setting_aux_enabled.addEventListener('switch_change', async (event) => {
+        await aux_setEnabled(event.detail);
+        storage_save();
+    });
+
+    setting_aux_echoCancellation.addEventListener('switch_change', async (event) => {
+        await aux_setEchoCancellation(event.detail);
+        storage_save();
+    });
+
+    setting_aux_noiseSuppression.addEventListener('switch_change', async (event) => {
+        await aux_setNoiseSuppression(event.detail);
+        storage_save();
+    });
+
+    setting_aux_autoGainControl.addEventListener('switch_change', async (event) => {
+        await aux_setAutoGainControl(event.detail);
+        storage_save();
+    });
+
+    setting_aux_enabled.setState(storage_table.aux_enabled);
+    setting_aux_echoCancellation.setState(storage_table.aux_audioSettings.echoCancellation);
+    setting_aux_noiseSuppression.setState(storage_table.aux_audioSettings.noiseSuppression);
+    setting_aux_autoGainControl.setState(storage_table.aux_audioSettings.autoGainControl);
 }
 
 { // debug

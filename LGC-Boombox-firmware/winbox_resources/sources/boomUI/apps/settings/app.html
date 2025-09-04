@@ -5,6 +5,7 @@
         <div class="tablink" id="setting_wallpaper_button">wallpaper</div>
         <div class="tablink" id="setting_clock_button">date & time</div>
         <div class="tablink" id="setting_light_button">light</div>
+        <div class="tablink" id="setting_aux_button">aux</div>
         <div class="tablink" id="setting_debug_button">debug</div>
     </div>
     <div class="tabhost" id="settings_tabhost">
@@ -64,6 +65,33 @@
             <div class="settings-line">
                 <custom-slider id="setting_light_bassLevel" class="settings-slider"></custom-slider>
                 <div class="info">bass level</div>
+            </div>
+
+            <div class="settings-line">
+                <custom-button id="setting_light_reset" style="width: 40%;">
+                    reset
+                </custom-button>
+            </div>
+        </div>
+        <div class="tab settings-tab scrollable" id="setting_aux_panel" style="flex-direction: column;">
+            <div class="settings-line">
+                <custom-switch id="setting_aux_enabled" class="settings-switch"></custom-switch>
+                <div class="info">enabled</div>
+            </div>
+
+            <div class="settings-line">
+                <custom-switch id="setting_aux_echoCancellation" class="settings-switch"></custom-switch>
+                <div class="info">echoCancellation</div>
+            </div>
+
+            <div class="settings-line">
+                <custom-switch id="setting_aux_noiseSuppression" class="settings-switch"></custom-switch>
+                <div class="info">noiseSuppression</div>
+            </div>
+
+            <div class="settings-line">
+                <custom-switch id="setting_aux_autoGainControl" class="settings-switch"></custom-switch>
+                <div class="info">autoGainControl</div>
             </div>
 
             <div class="settings-line">

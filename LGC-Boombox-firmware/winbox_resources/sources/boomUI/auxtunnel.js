@@ -1,6 +1,4 @@
 {
-let autoSaveSettings = false;
-
 let audioContext;
 let source;
 let stream;
@@ -24,12 +22,13 @@ function stopAudio() {
 }
 
 window.aux_setEnabled = async function (state) {
+    storage_table.aux_enabled = state;
     if (state) {
-        startAudio();
+        await startAudio();
     } else {
         stopAudio();
     }
-    if (autoSaveSettings) storage_save();
+    if (window.aux_inited) storage_save();
 }
 
 window.aux_setEchoCancellation = async function (state) {
@@ -38,7 +37,7 @@ window.aux_setEchoCancellation = async function (state) {
         stopAudio();
         await startAudio();
     }
-    if (autoSaveSettings) storage_save();
+    if (window.aux_inited) storage_save();
 }
 
 window.aux_setNoiseSuppression = async function (state) {
@@ -47,7 +46,7 @@ window.aux_setNoiseSuppression = async function (state) {
         stopAudio();
         await startAudio();
     }
-    if (autoSaveSettings) storage_save();
+    if (window.aux_inited) storage_save();
 }
 
 window.aux_setAutoGainControl = async function (state) {
@@ -56,13 +55,17 @@ window.aux_setAutoGainControl = async function (state) {
         stopAudio();
         await startAudio();
     }
-    if (autoSaveSettings) storage_save();
+    if (window.aux_inited) storage_save();
 }
 
-aux_setEnabled(storage_table.aux_enabled);
-aux_setEchoCancellation(storage_table.echoCancellation);
-aux_setNoiseSuppression(storage_table.noiseSuppression);
-aux_setAutoGainControl(storage_table.autoGainControl);
+let aux_init = async () => {
+    await aux_setEnabled(storage_table.aux_enabled);
+    await aux_setEchoCancellation(storage_table.aux_audioSettings.echoCancellation);
+    await aux_setNoiseSuppression(storage_table.aux_audioSettings.noiseSuppression);
+    await aux_setAutoGainControl(storage_table.aux_audioSettings.autoGainControl);
+    window.aux_inited = true;
+};
 
-autoSaveSettings = true;
+aux_init();
+
 }

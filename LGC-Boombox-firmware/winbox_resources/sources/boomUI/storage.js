@@ -23,7 +23,7 @@ let storage_defaultsAux = {
     aux_audioSettings: {
         echoCancellation: false,
         noiseSuppression: false,
-        autoGainControl: true
+        autoGainControl: false
     }
 };
 
