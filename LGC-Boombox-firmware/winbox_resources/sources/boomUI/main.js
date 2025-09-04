@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, session } = require('electron');
 const { exec } = require('child_process');
 const net = require('net');
 const path = require('path');
@@ -27,6 +27,11 @@ app.whenReady().then(() => {
     if (process.defaultApp) {
         win.webContents.openDevTools();
     }
+
+    // ------------------------- permission
+    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+        callback(true);
+    });
 
     // ------------------------- AudioCapture
     const server = net.createServer((client) => {
