@@ -52,7 +52,7 @@ function loadingLabel(filePath) {
     }
 }
 
-function showError(errorMessage) {
+function showError(filePath, errorMessage) {
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
     media_preview.src = 'apps/music/error.png';
@@ -64,6 +64,8 @@ function showError(errorMessage) {
 
         if (lastMediaPath != null) {
             getMediaName(lastMediaPath, (name) => {
+                if (lastMediaPath != filePath) return;
+                loadedMediaName = name;
                 music_trackname.innerHTML = `${errorMessage} (${name}))`;
             });
         }
@@ -300,7 +302,7 @@ media_player.addEventListener("error", (e) => {
         }
 
         //messagebox(message, 'error');
-        showError(message);
+        showError(lastMediaPath, message);
     } else {
         nextMedia();
     }
