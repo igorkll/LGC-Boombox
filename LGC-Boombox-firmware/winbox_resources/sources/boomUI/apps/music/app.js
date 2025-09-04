@@ -16,7 +16,7 @@ let music_fullscreen_img = document.getElementById('music_fullscreen_img');
 let music_duration = document.getElementById('music_duration');
 let music_currentTime = document.getElementById('music_currentTime');
 
-let restoreState = null;
+let restoreFullscreenState = null;
 let lastMediaPath = null;
 let loadedMediaName = null;
 let manualOpen = false;
@@ -32,7 +32,7 @@ function updateGui() {
     } else {
         music_playPause_img.src = 'apps/music/play.png';
     }
-    music_fullscreen_img.src = restoreState == null ? 'apps/music/fullscreen.png' : 'apps/music/unfullscreen.png';
+    music_fullscreen_img.src = restoreFullscreenState == null ? 'apps/music/fullscreen.png' : 'apps/music/unfullscreen.png';
 }
 
 updateGui();
@@ -45,7 +45,7 @@ function loadingLabel(filePath) {
     music_trackname.innerHTML = "loading...";
     if (filePath != null) {
         getMediaName(filePath, (name) => {
-            if (loadedMediaName != null) return;
+            if (lastMediaPath != filePath) return;
             loadedMediaName = name;
             music_trackname.innerHTML = `loading "${name}"...`;
         });
@@ -122,6 +122,7 @@ function showTrackName(filePath) {
         music_trackname.innerHTML = loadedMediaName;
     } else {
         getMediaName(filePath, (name) => {
+            if (lastMediaPath != filePath) return;
             loadedMediaName = name;
             music_trackname.innerHTML = name;
         });
@@ -129,9 +130,8 @@ function showTrackName(filePath) {
 }
 
 function openAudio(filePath) {
-    lastMediaPath = filePath;
-
     showRealContent = () => {
+        if (lastMediaPath != filePath) return;
         showTrackName(filePath);
         defaultPreview();
         setTrackCover(media_preview, filePath).then(() => {});
@@ -143,9 +143,8 @@ function openAudio(filePath) {
 }
 
 function openVideo(filePath) {
-    lastMediaPath = filePath;
-
     showRealContent = () => {
+        if (lastMediaPath != filePath) return;
         showTrackName(filePath);
         media_player.style.display = 'inline';
         media_preview.style.display = 'none';
@@ -159,12 +158,13 @@ function openVideo(filePath) {
 window.openMedia = function(filePath, callback, _manualOpen=true) {
     manualOpen = _manualOpen;
     loadedMediaName = null;
-    playingFlag = false;
-    loadingLabel(filePath);
     lastMediaPath = filePath;
+    playingFlag = false;
+
     detectMediaType(filePath).then(result => {
         switch (result) {
             case 'audio':
+                loadingLabel(filePath);
                 openAudio(filePath);
                 if (callback != null) {
                     callback(true);
@@ -172,6 +172,7 @@ window.openMedia = function(filePath, callback, _manualOpen=true) {
                 break;
 
             case 'video':
+                loadingLabel(filePath);
                 openVideo(filePath);
                 if (callback != null) {
                     callback(true);
@@ -189,21 +190,21 @@ window.openMedia = function(filePath, callback, _manualOpen=true) {
 }
 
 function exitFromFullscreen() {
-    if (restoreState != null) {
+    if (restoreFullscreenState != null) {
         media_panel.style.borderRadius = null;
-        restoreState();
-        restoreState = null;
+        restoreFullscreenState();
+        restoreFullscreenState = null;
         updateGui();
     }
 }
 
 music_fullscreen.addEventListener("custom_click", () => {
-    if (restoreState != null) {
+    if (restoreFullscreenState != null) {
         exitFromFullscreen();
         return;
     }
     media_panel.style.borderRadius = '0px';
-    restoreState = fullscreenize(media_panel);
+    restoreFullscreenState = fullscreenize(media_panel);
     updateGui();
 });
 
