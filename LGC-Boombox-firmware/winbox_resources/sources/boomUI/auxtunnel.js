@@ -58,14 +58,13 @@ window.aux_setAutoGainControl = async function (state) {
     if (window.aux_inited) storage_save();
 }
 
-let aux_init = async () => {
+window.aux_update = async () => {
     await aux_setEnabled(storage_table.aux_enabled);
     await aux_setEchoCancellation(storage_table.aux_audioSettings.echoCancellation);
     await aux_setNoiseSuppression(storage_table.aux_audioSettings.noiseSuppression);
     await aux_setAutoGainControl(storage_table.aux_audioSettings.autoGainControl);
-    window.aux_inited = true;
 };
 
-aux_init();
+aux_update();
 
 }

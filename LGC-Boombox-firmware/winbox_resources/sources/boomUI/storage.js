@@ -32,7 +32,7 @@ let storage_table = {};
 function storage_loadDefaults(defaults, force=false) {
     for (let key in defaults) {
         if (force || !storage_table.hasOwnProperty(key)) {
-            storage_table[key] = defaults[key];
+            storage_table[key] = structuredClone(defaults[key]);
         }
     }
 }

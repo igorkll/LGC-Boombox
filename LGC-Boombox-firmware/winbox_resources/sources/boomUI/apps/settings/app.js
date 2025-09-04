@@ -244,11 +244,24 @@ const sudo = require('sudo-prompt');
         await aux_setAutoGainControl(event.detail);
         storage_save();
     });
+    
+    let updateValues = async () => {
+        setting_aux_enabled.setState(storage_table.aux_enabled);
+        setting_aux_echoCancellation.setState(storage_table.aux_audioSettings.echoCancellation);
+        setting_aux_noiseSuppression.setState(storage_table.aux_audioSettings.noiseSuppression);
+        setting_aux_autoGainControl.setState(storage_table.aux_audioSettings.autoGainControl);
+        
+    };
 
-    setting_aux_enabled.setState(storage_table.aux_enabled);
-    setting_aux_echoCancellation.setState(storage_table.aux_audioSettings.echoCancellation);
-    setting_aux_noiseSuppression.setState(storage_table.aux_audioSettings.noiseSuppression);
-    setting_aux_autoGainControl.setState(storage_table.aux_audioSettings.autoGainControl);
+    updateValues()
+
+    let setting_aux_reset = document.getElementById('setting_aux_reset');
+    setting_aux_reset.addEventListener('custom_click', async () => {
+        storage_loadDefaults(storage_defaultsAux, true);
+        storage_save();
+        updateValues();
+        await aux_update();
+    });
 }
 
 { // debug
