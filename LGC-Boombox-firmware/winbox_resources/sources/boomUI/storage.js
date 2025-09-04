@@ -2,7 +2,7 @@ let storage_version = 0;
 
 let storage_defaults = {
     wallpaper: 'wallpapers/1.jpg',
-    volume: 0.5
+    volume: 0.5,
 };
 
 let storage_defaultsLight = {
@@ -16,6 +16,10 @@ let storage_defaultsLight = {
     light_max: 1,
     light_mul: 1.2,
     light_bassLevel: 0.2
+};
+
+let storage_defaultsAux = {
+    aux_enabled: true
 };
 
 let storage_table = {};
@@ -41,6 +45,7 @@ function storage_load() {
 
     storage_loadDefaults(storage_defaults);
     storage_loadDefaults(storage_defaultsLight);
+    storage_loadDefaults(storage_defaultsAux);
 }
 
 function storage_save() {
