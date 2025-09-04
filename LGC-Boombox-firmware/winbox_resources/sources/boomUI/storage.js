@@ -19,7 +19,12 @@ let storage_defaultsLight = {
 };
 
 let storage_defaultsAux = {
-    aux_enabled: true
+    aux_enabled: true,
+    aux_audioSettings: {
+        echoCancellation: false,
+        noiseSuppression: false,
+        autoGainControl: true
+    }
 };
 
 let storage_table = {};
