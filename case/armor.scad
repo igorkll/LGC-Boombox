@@ -13,7 +13,7 @@ speakerbox_height = 10;
 speakerbox_thickness = 3;
 speakerbox_offset = 5;
 speakerbox_cellOffset = 10;
-speakerbox_cellSize = 10;
+speakerbox_cellSize = 4;
 
 screen_marginWidth = -3;
 screen_marginHeight = -2;
