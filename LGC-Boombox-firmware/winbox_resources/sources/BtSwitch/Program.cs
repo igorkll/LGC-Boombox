@@ -11,18 +11,13 @@ class Program
         {
             if (radio.Kind == RadioKind.Bluetooth)
             {
-                Console.WriteLine($"Bluetooth найден: {radio.Name}, статус: {radio.State}");
+                Console.WriteLine($"Bluetooth найден: {radio.Name}, текущий статус: {radio.State}");
 
-                if (radio.State == RadioState.Off)
-                {
-                    await radio.SetStateAsync(RadioState.On);
-                    Console.WriteLine("Bluetooth включён.");
-                }
-                else
-                {
-                    await radio.SetStateAsync(RadioState.Off);
-                    Console.WriteLine("Bluetooth выключен.");
-                }
+                RadioState newState = radio.State == RadioState.On ? RadioState.Off : RadioState.On;
+                var result = await radio.SetStateAsync(newState);
+
+                // Выводим результат в консоль
+                Console.WriteLine($"Попытка переключить на {newState} вернула: {result}");
             }
         }
     }
