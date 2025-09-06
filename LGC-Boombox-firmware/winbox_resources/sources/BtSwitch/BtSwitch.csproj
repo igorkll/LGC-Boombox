@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EnableCsWinRT>true</EnableCsWinRT>
+    <Platforms>AnyCPU;ARM64;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
