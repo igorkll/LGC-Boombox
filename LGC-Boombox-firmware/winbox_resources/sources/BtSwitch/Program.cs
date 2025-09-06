@@ -16,8 +16,11 @@ class Program
             {
                 if (radio.Kind == RadioKind.Bluetooth)
                 {
-                    Console.WriteLine($"bluetooth: {radio.Name}");
+                    Console.WriteLine($"name: {radio.Name}");
+                    Console.WriteLine($"state: {radio.State}");
+                    Console.WriteLine($"target: {state}");
                     Console.WriteLine($"result: {await radio.SetStateAsync(state ? RadioState.On : RadioState.Off)}");
+                    Console.WriteLine($"new state: {radio.State}");
                 }
             }
         }
@@ -33,7 +36,9 @@ class Program
 
     static bool getFlagState(string[] args, string name)
     {
-        return bool.TryParse(GetArgValue(args, name), out bool enableValue);
+        bool enableValue = false;
+        bool parsed = bool.TryParse(GetArgValue(args, name), out enableValue);
+        return parsed ? enableValue : false;
     }
 
     static bool isFlagExists(string[] args, string name)
