@@ -38,7 +38,8 @@
     "Integrate nircmd",
     "Integrate vc redist",
     "Disable boot logo",
-    "Hide Touchscreen Visualization"
+    "Hide Touchscreen Visualization",
+    "Integrate PSTools"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
@@ -93,6 +94,21 @@
       "subdirectory": "AudioCapture",
       "subdirectory_enabled": true,
       "msbuild_path": "AudioCapture\\AudioCapture.sln",
+      "msbuild_configuration": "Release",
+      "cmake_path": "",
+      "cmake_configuration": "Release",
+      "cargo_path": "",
+      "custom_path": "",
+      "custom_command": "",
+      "electron_packager_path": "",
+      "electron_packager_name": "electron_app"
+    },
+    {
+      "name": "BtSwitch",
+      "type": 0,
+      "subdirectory": "BtSwitch",
+      "subdirectory_enabled": true,
+      "msbuild_path": "BtSwitch\\BtSwitch.sln",
       "msbuild_configuration": "Release",
       "cmake_path": "",
       "cmake_configuration": "Release",
