@@ -140,5 +140,7 @@
   "img_install_ram": 2048,
   "img_install_cpu": 2,
   "img_shutdownAfterInstall": true,
-  "img_runningPostinstallOnFirstRealStartup": true
+  "img_runningPostinstallOnFirstRealStartup": true,
+  "computername_use": true,
+  "computername": "LGC-Boombox"
 }

@@ -56,7 +56,7 @@
 * hot glue for fixing parts inside
 * A 12.6 Volt charger (NOT A 12 VOLT POWER SUPPLY!! OTHERWISE, IGNITION IS POSSIBLE)
 * USB cable for connecting ESP32C3
-* USB bluetooth adapter
+* USB bluetooth adapter (if there is no built-in in your motherboard)
 * self-tapping screws that fit the holes in the printed case
 * balancing board for three lithium-ion batteries
 * three lithium-ion batteries with a capacity of at least 4000 milliamps per piece (18650 cannot provide such a capacity! you need a wider battery)
@@ -141,6 +141,9 @@
 ### installing electronics in the case
 #### produce with batteries and fuse removed
 * first, insert and screw the speakers (at this point, the wires should already be securely soldered to them)
+* screw the charging slot into the right rear part of the case and fix it with a nut and hot glue (carefully insulate the contacts after soldering the wires)
+* place the AUX input in the left side of the housing and fix it with hot glue, carefully sealing the contacts with hot glue. an AUX cable cut off on one side must go to the contacts, observing the left and right channels and the ground
+* please note that the AUX signal contacts must be connected via low-capacity cyramic capacitors to suppress the current that the motherboard supplies to the microphone power outlet. if there are no capacitors, the connected device may not see the AUX connection and at least the sound will continue to come from the device's speaker, in addition to the speakers, or the speaker will not play AUX at all (since the audio input on the motherboard is not linear)
 * tape the speaker screws and the speakers themselves with hot glue on the back
 * then install the screen (it is advisable that the screen controller and its touchscreen are glued to the display itself with hot glue in advance to avoid damage to the cables, alternatively you can glue the controller boards to the case, the main thing is to make sure that you have a place to connect all the cables)
 * place the speaker on a flat surface with a down screen and then glue the screen to the hot glue from the inside around the perimeter
@@ -168,6 +171,7 @@
 * install a large electrolytic capacitor at a minimum of 16 volts, observing the polarity to the wires that have 12 volt power only when the hardware power button is turned on
 * solder the kyromic and film capacitor parallel to it
 * insulate all the wires and glue the amplifier and esp32c3 to the case with hot glue
+* if your motherboard does not have built-in Bluetooth, then insert the USB Bluetooth adapter into the free USB slot
 
 ### completing the build
 #### produce with a strictly open window without an anti-mosquito net, in case of fire it should be possible to throw the column out the window
