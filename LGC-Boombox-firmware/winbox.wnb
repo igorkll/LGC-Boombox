@@ -1,6 +1,6 @@
 {
-  "winboxMakerVersion": 10600,
-  "winboxMakerVersionStr": "1.6.0",
+  "winboxMakerVersion": 10700,
+  "winboxMakerVersionStr": "1.7.0",
   "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x64_22h2.iso",
   "BaseWindowsVersion": "Windows 10 Enterprise Evaluation",
   "WinboxName": "LGC-Boombox-firmware",
@@ -32,14 +32,13 @@
   "ProgramType": 0,
   "LaunchMode": 0,
   "TweakList": [
-    "Disable boot circle",
-    "Disable boot messages",
     "Integrate net 8.0.17",
     "Integrate nircmd",
     "Integrate vc redist",
-    "Disable boot logo",
     "Hide Touchscreen Visualization",
-    "Integrate PSTools"
+    "Integrate PSTools",
+    "Hide bootmgr errors",
+    "Disable all boot UI"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
@@ -47,6 +46,7 @@
   "VirtualDisplayHeight": 640,
   "UseEmbeddedDisplay": false,
   "CustomBootLogo_centering": true,
+  "CustomBootLogo_UseLogoBeforeApp": true,
   "prebuildEnabled": false,
   "prebuildEvent": "",
   "postbuildEnabled": false,
@@ -144,6 +144,13 @@
   "img_generalizeAfterInstall": false,
   "computername_use": true,
   "computername": "LGC-Boombox",
-  "actionAtEndOfApplication": 3,
-  "actionAtEndOfApplication_command": ""
+  "actionAtEndOfApplication": 2,
+  "actionAtEndOfApplication_command": "",
+  "appdelay_time": false,
+  "appdelay_time_value": 0,
+  "appdelay_internet": false,
+  "appdelay_internet_checkurl": "google.com",
+  "appdelay_internet_requestdelay": 1,
+  "logoBeforeApp": null,
+  "logoBeforeApp_stretch": 0
 }

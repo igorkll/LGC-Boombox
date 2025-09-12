@@ -11,7 +11,8 @@ app.whenReady().then(() => {
         fullscreen: true,
         webPreferences: {
             nodeIntegration: true,
-            contextIsolation: false
+            contextIsolation: false,
+            webviewTag: true
         }
     });
 
