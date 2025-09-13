@@ -38,7 +38,8 @@
     "Hide Touchscreen Visualization",
     "Integrate PSTools",
     "Hide bootmgr errors",
-    "Disable all boot UI"
+    "Disable all boot UI",
+    "Disable security mitigations (performance boost)"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
@@ -135,7 +136,7 @@
   "cds_bitDepth_use": false,
   "cds_refreshRate_use": false,
   "cds_orientation_use": false,
-  "firstBootAction": 0,
+  "firstBootAction": 2,
   "img_size": 15000,
   "img_install_ram": 2048,
   "img_install_cpu": 2,
