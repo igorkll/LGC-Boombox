@@ -24,11 +24,18 @@ class Program
 
         var writer = new StreamWriter(client) { AutoFlush = true };
 
-        capture.DataAvailable += (s, data) =>
+        capture.DataAvailable += async (s, data) =>
         {
-            float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 40, 3000, 6);
-            string json = JsonSerializer.Serialize(normalizeWaves(waves, 16, 2));
-            writer.WriteLineAsync(json);
+            try
+            {
+                float[] waves = getWaves(data.Buffer, data.BytesRecorded, capture.WaveFormat, 40, 3000, 6);
+                string json = JsonSerializer.Serialize(normalizeWaves(waves, 16, 2));
+                await writer.WriteLineAsync(json);
+                await writer.FlushAsync();
+            }
+            catch (IOException)
+            {
+            }
         };
 
         capture.RecordingStopped += (s, a) => { };
