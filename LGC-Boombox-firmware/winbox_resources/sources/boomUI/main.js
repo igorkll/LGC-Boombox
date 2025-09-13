@@ -25,6 +25,16 @@ app.whenReady().then(() => {
         }
     });
 
+    win.on('close', (e) => {
+        e.preventDefault();
+
+        ipcMain.once('on-shutdown-done', () => {
+            win.destroy();
+        });
+
+        win.webContents.send('on-shutdown');
+    });
+
     if (process.defaultApp) {
         win.webContents.openDevTools();
     }
@@ -57,7 +67,6 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     app.quit();
 });
-
 
 ipcMain.on('quit-app', () => {
     app.quit();

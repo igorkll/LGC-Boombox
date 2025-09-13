@@ -2,17 +2,7 @@
 const { exec } = require('child_process');
 
 document.getElementById('poweroff_button').addEventListener('custom_click', () => {
-    shutdown_flag = true;
-
-    removeTemp();
-
-    let ledsCount = leds_getCount();
-    for (let i = 0; i < ledsCount; i++) {
-        leds_set(i, [0, 0, 0]);
-    }
-    leds_flush();
-
-    exec('shutdown /s /t 0');
+    shutdown();
 })
 
 let volumeSlider = null;
