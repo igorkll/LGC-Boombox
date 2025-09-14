@@ -289,6 +289,7 @@ window.shutdown = function() {
 
 ipcRenderer.on('on-shutdown', (event) => {
     shutdown_flag = true;
+    
     let ledsCount = leds_getCount();
     for (let i = 0; i < ledsCount; i++) {
         leds_set(i, [0, 0, 0]);

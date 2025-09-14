@@ -25,6 +25,10 @@ app.whenReady().then(() => {
         }
     });
 
+    app.on('session-end', () => {
+        win.webContents.send('on-shutdown');
+    });
+
     win.on('close', (e) => {
         e.preventDefault();
 
