@@ -131,6 +131,7 @@ let messageboxTypes = {
 
 // other
 window.getActualTimeDate = function (callback) {
+    /*
     exec('powershell -Command "Get-Date -Format \'yyyy-MM-dd HH:mm:ss\'"', (err, stdout) => {
         if (err) {
             console.error("Error getting system time:", err);
@@ -143,6 +144,9 @@ window.getActualTimeDate = function (callback) {
 
         callback(dateObj);
     });
+    */
+
+    callback(new Date());
 }
 
 window.formatTime = function (seconds) {
@@ -289,7 +293,7 @@ window.shutdown = function() {
 
 ipcRenderer.on('on-shutdown', (event) => {
     shutdown_flag = true;
-    
+
     let ledsCount = leds_getCount();
     for (let i = 0; i < ledsCount; i++) {
         leds_set(i, [0, 0, 0]);
