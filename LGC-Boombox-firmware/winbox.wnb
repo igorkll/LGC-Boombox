@@ -19,12 +19,14 @@
   "ScreenTimeout": 0,
   "StandbyTimeout": 0,
   "HibernateTimeout": 0,
+  "DiskTimeout": 0,
   "action_powerButton": 3,
   "action_sleepButton": 0,
   "action_closingLaptop": 0,
   "ScreenTimeout_dc": 0,
   "StandbyTimeout_dc": 0,
   "HibernateTimeout_dc": 0,
+  "DiskTimeout_dc": 0,
   "action_powerButton_dc": 3,
   "action_sleepButton_dc": 1,
   "action_closingLaptop_dc": 4,
@@ -153,5 +155,6 @@
   "appdelay_internet_checkurl": "google.com",
   "appdelay_internet_requestdelay": 1,
   "logoBeforeApp": null,
-  "logoBeforeApp_stretch": 0
+  "logoBeforeApp_stretch": 0,
+  "wait_before_app_logo": true
 }
