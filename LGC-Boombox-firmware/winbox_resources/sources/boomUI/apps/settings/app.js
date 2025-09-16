@@ -69,32 +69,20 @@ const sudo = require('sudo-prompt');
 
 { //date & time
     let clockTab = document.getElementById(`setting_clock_panel`);
-    let fp;
+    let fp = flatpickr("#setting_clock_calendar", {
+        enableTime: true,
+        inline: true,
+        time_24hr: true,
+        defaultDate: new Date(),
+        dateFormat: "Y-m-d H:i",
+    });
+
 
     clockTab.addEventListener("tab-activate", (e) => {
         getActualTimeDate((dateObj) => {
-            if (fp != null) {
-                fp.destroy();
-                fp = null;
-            }
-            
-            fp = flatpickr("#setting_clock_calendar", {
-                enableTime: true,
-                inline: true,
-                time_24hr: true,
-                defaultDate: dateObj,
-                dateFormat: "Y-m-d H:i",
-            });
-
             document.documentElement.style.setProperty('--calendar-scale', (window.innerHeight / 480) * 0.8);
+            fp.setDate(dateObj, true);
         });
-    });
-
-    clockTab.addEventListener("tab-deactivate", (e) => {
-        if (fp != null) {
-            fp.destroy();
-            fp = null;
-        }
     });
 
     document.getElementById('setting_clock_apply').addEventListener('custom_click', (event) => {
@@ -108,7 +96,6 @@ const sudo = require('sudo-prompt');
         const minutes = String(dateObj.getMinutes()).padStart(2, '0');
         const seconds = String(dateObj.getSeconds()).padStart(2, '0');
 
-        // Оборачиваем дату во внутренние одинарные кавычки
         const psCmd = `Set-Date -Date '${year}-${month}-${day} ${hours}:${minutes}:${seconds}'`;
 
         sudo.exec(`powershell -Command "${psCmd}"`, { name: 'ElectronApp' }, (err, stdout, stderr) => {
@@ -118,7 +105,8 @@ const sudo = require('sudo-prompt');
             }
             console.log("Date and time successfully set:", stdout);
 
-            updateDateTime();
+            //updateDateTime();
+            ipcRenderer.send('quit-app');
         });
     });
 }
