@@ -10,12 +10,13 @@
 .dock-item {
     height: 100%;
     cursor: pointer;
-    transition: transform 0.15s ease-in;
+    transition: transform 0.15s ease-in, filter 0.15s ease-in;
 }
 
 
 .dock-item-active {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.13);
+    filter: brightness(1.6);
 }
 
 .dock-item-hover {
