@@ -1,7 +1,8 @@
+let lightOffset = 0;
+
 {
 const { ipcRenderer } = require('electron');
 
-let lightOffset = 0;
 let oldTime;
 let bassDetected = false;
 let oldDeltaValue = 0;

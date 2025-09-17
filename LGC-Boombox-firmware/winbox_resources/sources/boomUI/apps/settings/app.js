@@ -199,8 +199,19 @@ const sudo = require('sudo-prompt');
 
     updateValues();
 
-    let setting_light_reset = document.getElementById('setting_light_reset');
-    setting_light_reset.addEventListener('custom_click', () => {
+    document.getElementById('setting_light_subOffset').addEventListener('custom_click', () => {
+        lightOffset--;
+    });
+    
+    document.getElementById('setting_light_resetOffset').addEventListener('custom_click', () => {
+        lightOffset = 0;
+    });
+
+    document.getElementById('setting_light_addOffset').addEventListener('custom_click', () => {
+        lightOffset++;
+    });
+
+    document.getElementById('setting_light_reset').addEventListener('custom_click', () => {
         storage_loadDefaults(storage_defaultsLight, true);
         updateValues();
         storage_save();

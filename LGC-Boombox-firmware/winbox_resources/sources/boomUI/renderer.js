@@ -316,8 +316,12 @@ window.getVolume = function() {
 setVolume(storage_table.volume);
 
 // shutdown
-window.shutdown = function() {
-    exec('shutdown /s /t 0');
+window.shutdown = function(reboot) {
+    if (reboot) {
+        exec('shutdown /r /t 0');
+    } else {
+        exec('shutdown /s /t 0');
+    }
 }
 
 ipcRenderer.on('on-shutdown', (event) => {

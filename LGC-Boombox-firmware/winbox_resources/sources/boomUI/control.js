@@ -6,7 +6,7 @@ document.getElementById('poweroff_button').addEventListener('custom_click', () =
         if (index == 0) {
             shutdown();
         } else if (index == 1) {
-            shutdown();
+            shutdown(true);
         }
     }, ["shutdown", "reboot", "cancel"], "power options");
 })
