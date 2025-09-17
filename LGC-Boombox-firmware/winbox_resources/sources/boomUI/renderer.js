@@ -129,6 +129,8 @@ let messageboxTypes = {
     }
 };
 
+let messageboxDefaultButtons = ["okay"];
+
 // other
 window.getActualTimeDate = function (callback) {
     /*
@@ -197,7 +199,7 @@ window.setTrackCover = async function (imgElement, filePath) {
 }
 
 // messagebox
-window.messagebox = function (message, type, callback) {
+window.messagebox = function (message, type, callback, buttons, title) {
     let msgboxBackground = document.createElement('div');
     msgboxBackground.style.position = 'absolute';
     msgboxBackground.style.zIndex = '20';
@@ -220,46 +222,73 @@ window.messagebox = function (message, type, callback) {
     msgboxBody.style.justifyContent = 'flex-start';
     msgboxBody.style.alignItems = 'center';
     msgboxBody.style.flexDirection = 'column';
-    msgboxBody.style.gap = '2vh';
-    msgboxBody.style.padding = '2vh 2vh';
+    msgboxBody.style.padding = '1vh 1vh';
     msgboxBody.style.boxSizing = 'border-box';
     document.body.appendChild(msgboxBody);
 
+    if (title != null) {
+        let titleObject = document.createElement('div');
+        titleObject.classList.add("info");
+        titleObject.innerHTML = title;
+        msgboxBody.appendChild(titleObject);
+    }
+
     if (type != null) {
         let typeData = messageboxTypes[type];
+
         if (typeData.hasOwnProperty('icon')) {
             let img = document.createElement('img');
             img.src = `icons/${typeData.icon}.png`;
             img.style.width = '100%';
             img.style.height = '30%';
+            img.style.margin = '1vh 1vh';
             img.style.objectFit = 'contain';
             msgboxBody.appendChild(img);
         }
+
+        if (buttons == null && typeData.hasOwnProperty('buttons')) {
+            buttons = typeData.buttons;
+        }
     }
 
-    let text = document.createElement('div');
-    text.classList.add("info");
-    text.classList.add("soap");
-    text.style.width = '100%';
-    text.style.padding = '2vh';
-    text.style.boxSizing = 'border-box';
-    text.style.flex = '1';
-    text.style.overflow = 'hidden';
-    text.style.wordBreak = 'break-word';
-    text.innerHTML = message;
-    msgboxBody.appendChild(text);
+    if (message != null) {
+        let text = document.createElement('div');
+        text.classList.add("info");
+        text.classList.add("soap");
+        text.style.padding = '1vh 1vh';
+        text.style.margin = '1vh 1vh';
+        text.style.boxSizing = 'border-box';
+        text.style.flex = '1';
+        text.style.overflow = 'hidden';
+        text.style.wordBreak = 'break-word';
+        text.innerHTML = message;
+        msgboxBody.appendChild(text);
+    }
 
-    let button = document.createElement('custom-button');
-    button.style.marginTop = 'auto';
-    button.style.minWidth = '50%';
-    button.innerHTML = 'okay';
-    msgboxBody.appendChild(button);
+    if (buttons == null) {
+        buttons = messageboxDefaultButtons;
+    }
 
-    button.addEventListener("custom_click", () => {
-        if (callback != null) callback(0);
-        msgboxBackground.remove();
-        msgboxBody.remove();
-    })
+    let buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'center';
+    buttonContainer.style.alignItems = 'center';
+    buttonContainer.style.flexDirection = 'row';
+    msgboxBody.appendChild(buttonContainer);
+
+    for (let i = 0; i < buttons.length; i++) {
+        let button = document.createElement('custom-button');
+        button.style.margin = '1vh 1vh';
+        button.style.minWidth = '50%';
+        button.innerHTML = buttons[i];
+        buttonContainer.appendChild(button);
+
+        button.addEventListener("custom_click", () => {
+            if (callback != null) callback(i);
+            msgboxBackground.remove();
+            msgboxBody.remove();
+        })
+    }
 }
 
 // wallpaper

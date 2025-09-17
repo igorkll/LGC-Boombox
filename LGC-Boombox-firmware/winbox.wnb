@@ -40,8 +40,8 @@
     "Hide Touchscreen Visualization",
     "Integrate PSTools",
     "Hide bootmgr errors",
-    "Disable all boot UI",
-    "Disable security mitigations (performance boost)"
+    "Disable security mitigations (performance boost)",
+    "Disable all boot UI"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,

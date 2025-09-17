@@ -2,7 +2,13 @@
 const { exec } = require('child_process');
 
 document.getElementById('poweroff_button').addEventListener('custom_click', () => {
-    shutdown();
+    messagebox(null, null, (index) => {
+        if (index == 0) {
+            shutdown();
+        } else if (index == 1) {
+            shutdown();
+        }
+    }, ["shutdown", "reboot", "cancel"], "power options");
 })
 
 let volumeSlider = null;
