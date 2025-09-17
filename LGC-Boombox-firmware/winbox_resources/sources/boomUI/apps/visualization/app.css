@@ -15,13 +15,15 @@
     align-items: space-between;
     flex-direction: row;
 
-    margin: 2vh;
+    padding: 1vh;
+    box-sizing: border-box;
 }
 
 .visualization_container_part {
     position: relative;
-    width: 15%;
-    height: 100%;
+    margin: 1vh;
+    align-self: stretch;
+    flex: 1;
 }
 
 .visualization_indicator_container {
@@ -30,7 +32,7 @@
     justify-content: center;
     align-items: end;
 
-    border-radius: 2vh;
+    border-radius: 2.5vh;
 }
 
 .visualization_indicator {
