@@ -239,7 +239,7 @@ window.messagebox = function (message, type, callback, buttons, title) {
         if (typeData.hasOwnProperty('icon')) {
             let img = document.createElement('img');
             img.src = `icons/${typeData.icon}.png`;
-            img.style.height = '30vh';
+            img.style.height = '20vh';
             img.style.margin = '1vh 1vh';
             img.style.objectFit = 'cover';
             msgboxBody.appendChild(img);
