@@ -241,7 +241,7 @@ window.messagebox = function (message, type, callback, buttons, title) {
             img.src = `icons/${typeData.icon}.png`;
             img.style.height = '20vh';
             img.style.margin = '1vh 1vh';
-            img.style.objectFit = 'cover';
+            img.style.objectFit = 'contain';
             msgboxBody.appendChild(img);
         }
 
