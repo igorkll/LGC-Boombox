@@ -217,7 +217,6 @@ window.messagebox = function (message, type, callback, buttons, title) {
     msgboxBody.style.position = 'absolute';
     msgboxBody.style.zIndex = '21';
     msgboxBody.style.width = '80%';
-    msgboxBody.style.height = '80%';
     msgboxBody.style.display = 'flex';
     msgboxBody.style.justifyContent = 'flex-start';
     msgboxBody.style.alignItems = 'center';
@@ -230,6 +229,7 @@ window.messagebox = function (message, type, callback, buttons, title) {
         let titleObject = document.createElement('div');
         titleObject.classList.add("info");
         titleObject.innerHTML = title;
+        titleObject.style.margin = '1vh 1vh';
         msgboxBody.appendChild(titleObject);
     }
 
@@ -239,10 +239,9 @@ window.messagebox = function (message, type, callback, buttons, title) {
         if (typeData.hasOwnProperty('icon')) {
             let img = document.createElement('img');
             img.src = `icons/${typeData.icon}.png`;
-            img.style.width = '100%';
-            img.style.height = '30%';
+            img.style.height = '30vh';
             img.style.margin = '1vh 1vh';
-            img.style.objectFit = 'contain';
+            img.style.objectFit = 'cover';
             msgboxBody.appendChild(img);
         }
 
@@ -255,7 +254,7 @@ window.messagebox = function (message, type, callback, buttons, title) {
         let text = document.createElement('div');
         text.classList.add("info");
         text.classList.add("soap");
-        text.style.padding = '1vh 1vh';
+        text.style.padding = '2vh 2vh';
         text.style.margin = '1vh 1vh';
         text.style.boxSizing = 'border-box';
         text.style.flex = '1';
@@ -271,15 +270,16 @@ window.messagebox = function (message, type, callback, buttons, title) {
 
     let buttonContainer = document.createElement('div');
     buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'center';
+    buttonContainer.style.justifyContent = 'space-between';
     buttonContainer.style.alignItems = 'center';
     buttonContainer.style.flexDirection = 'row';
+    buttonContainer.style.width = '100%';
     msgboxBody.appendChild(buttonContainer);
 
     for (let i = 0; i < buttons.length; i++) {
         let button = document.createElement('custom-button');
         button.style.margin = '1vh 1vh';
-        button.style.minWidth = '50%';
+        button.style.flex = '1';
         button.innerHTML = buttons[i];
         buttonContainer.appendChild(button);
 
