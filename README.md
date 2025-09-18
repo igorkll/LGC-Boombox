@@ -1,7 +1,9 @@
 # LGC Boombox
 ![Preview](preview.jpg)
+* WORK IN PROCESS! wait for the release
 * this speaker has a touchscreen display and runs on a redesigned Windows 10
-* WARNING! download the release, not the master branch. I'm doing a project in this branch, and there will probably be an unstable version, possibly completely broken
+* i used winbox maker (my program) to create a custom Windows build: https://github.com/igorkll/WinBox-Maker/releases
+* WARNING! download the release (wait for the release), not the master branch. I'm doing a project in this branch, and there will probably be an unstable version, possibly completely broken
 * don't expect outstanding sound quality from this speaker. Also, an old motherboard from a tonk thin client will drain the battery quickly. my speaker runs for ~2 hours on a single charge
 
 ## size
