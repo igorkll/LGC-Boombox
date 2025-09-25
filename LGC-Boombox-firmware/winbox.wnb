@@ -1,8 +1,8 @@
 {
   "winboxMakerVersion": 10700,
   "winboxMakerVersionStr": "1.7.0",
-  "BaseWindowsImage": "D:\\OSImages\\en_windows_10_enterprise_x64_22h2.iso",
-  "BaseWindowsVersion": "Windows 10 Enterprise Evaluation",
+  "BaseWindowsImage": "D:\\OSImages\\en_windows_10_iot_enterprise_ltsc_2021_x64.iso",
+  "BaseWindowsVersion": "Windows 10 Enterprise LTSC 2021",
   "WinboxName": "LGC-Boombox-firmware",
   "WinboxDescription": "",
   "OemKey": "",
@@ -41,7 +41,8 @@
     "Integrate PSTools",
     "Hide bootmgr errors",
     "Disable security mitigations (performance boost)",
-    "Disable all boot UI"
+    "Disable all boot UI",
+    "removing UWP apps"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
@@ -125,7 +126,7 @@
   "forceIot": false,
   "dc_use": false,
   "enable_hibernation": false,
-  "UseCustomDisplaySettings": false,
+  "UseCustomDisplaySettings": true,
   "UseCustomDisplaySettings_scale": false,
   "cds_width": 800,
   "cds_height": 600,
