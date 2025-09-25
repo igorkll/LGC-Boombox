@@ -42,7 +42,8 @@
     "Hide bootmgr errors",
     "Disable security mitigations (performance boost)",
     "Disable all boot UI",
-    "removing UWP apps"
+    "removing UWP apps",
+    "remove windows defender files"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
