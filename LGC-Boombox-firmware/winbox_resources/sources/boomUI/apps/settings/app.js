@@ -116,7 +116,7 @@ const sudo = require('sudo-prompt');
     let setting_light_mirror = document.getElementById('setting_light_mirror');
     let setting_light_reverse = document.getElementById('setting_light_reverse');
     let setting_light_deltaBassLevel = document.getElementById('setting_light_deltaBassLevel');
-    let setting_light_bassBlick = document.getElementById('setting_light_bassBlick');
+    let setting_light_bassBlink = document.getElementById('setting_light_bassBlink');
     let setting_light_dynamicSpeed = document.getElementById('setting_light_dynamicSpeed');
 
     setting_light_enabled.addEventListener('switch_change', (event) => {
@@ -139,8 +139,8 @@ const sudo = require('sudo-prompt');
         storage_save();
     });
 
-    setting_light_bassBlick.addEventListener('switch_change', (event) => {
-        storage_table.light_bassBlick = event.detail;
+    setting_light_bassBlink.addEventListener('switch_change', (event) => {
+        storage_table.light_bassBlink = event.detail;
         storage_save();
     });
 
