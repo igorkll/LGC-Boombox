@@ -185,6 +185,7 @@ window.detectMediaType = async function (filePath) {
 
     if (type.mime.startsWith('audio/')) return 'audio';
     if (type.mime.startsWith('video/')) return 'video';
+    if (type.mime.startsWith('image/')) return 'image';
     return 'other';
 }
 

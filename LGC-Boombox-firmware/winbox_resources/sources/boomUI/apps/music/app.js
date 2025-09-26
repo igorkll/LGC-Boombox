@@ -80,9 +80,15 @@ function defaultPreview() {
     media_preview.src = 'apps/music/none.png';
 }
 
-function openNone() {
-    defaultPreview();
+function playerUnload() {
+    media_player.pause();
+    media_player.removeAttribute("src");
+    media_player.load();
+}
 
+function openNone() {
+    playerUnload();
+    defaultPreview();
     music_trackname.innerHTML = "nothing is selected";
 }
 
@@ -128,6 +134,17 @@ function openVideo(filePath) {
     updateGui();
 }
 
+function openImage(filePath) {
+    playerUnload();
+
+    showTrackName(filePath);
+
+    media_player.style.display = 'none';
+    media_preview.style.display = 'inline';
+    media_preview.src = `file://${filePath}`;
+    updateGui();
+}
+
 window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) {
     manualOpen = _manualOpen;
     loadedMediaName = null;
@@ -147,6 +164,14 @@ window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) 
             case 'video':
                 loadingLabel(filePath);
                 openVideo(filePath);
+                if (callback != null) {
+                    callback(true);
+                }
+                break;
+
+            case 'image':
+                loadingLabel(filePath);
+                openImage(filePath);
                 if (callback != null) {
                     callback(true);
                 }
