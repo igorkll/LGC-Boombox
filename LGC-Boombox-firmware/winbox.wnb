@@ -149,7 +149,7 @@
   "img_generalizeAfterInstall": false,
   "computername_use": true,
   "computername": "LGC-Boombox",
-  "actionAtEndOfApplication": 2,
+  "actionAtEndOfApplication": 1,
   "actionAtEndOfApplication_command": "",
   "appdelay_time": true,
   "appdelay_time_value": 3,
