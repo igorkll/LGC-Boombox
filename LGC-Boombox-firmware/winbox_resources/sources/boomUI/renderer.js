@@ -302,11 +302,32 @@ setWallpaper(storage_table.wallpaper);
 
 // volume
 let max_volume = 65535 * volume_multiplier;
+let volumeCmdTimer = null;
 
-window.setVolume = function(volume) {
-    storage_table.volume = volume;
+function _setVolume(volume) {
     exec(`nircmd setsysvolume ${Math.round(volume * max_volume)}`);
-    if (autoSaveSettings) storage_save();
+}
+
+window.setVolume = function(volume, force) {
+    if (volume != null) {
+        storage_table.volume = volume;
+        if (autoSaveSettings) storage_save();
+    }
+
+    if (force) {
+        if (volumeCmdTimer) {
+            clearTimeout(volumeCmdTimer);
+            volumeCmdTimer = null;
+            _setVolume(storage_table.volume);
+        }
+        return;
+    }
+
+    if (volumeCmdTimer) return;
+    volumeCmdTimer = setTimeout(() => {
+        _setVolume(storage_table.volume);
+        volumeCmdTimer = null;
+    }, 100);
 }
 
 window.getVolume = function() {

@@ -8,6 +8,8 @@ let bassDetected = false;
 let oldDeltaValue = 0;
 let deltaValue = 0;
 let deltaCounter = 0;
+let dynamicSpeed = 0;
+let dynamicSpeedAdd = 0;
 
 ipcRenderer.on('waves', (event, waves) => {
     if (shutdown_flag) return;
@@ -36,6 +38,15 @@ ipcRenderer.on('waves', (event, waves) => {
         bassDetected = waves[0] > storage_table.light_bassLevel;
     }
 
+    if (storage_table.light_dynamicSpeed) {
+        if (bassDetected) {
+            dynamicSpeedAdd += 1;
+        }
+    } else {
+        dynamicSpeed = 0;
+        dynamicSpeedAdd = 0;
+    }
+
     let realLedsCount = leds_getCount();
     let ledsCount = realLedsCount;
     if (storage_table.light_enabled && storage_table.light_mirror) {
@@ -44,10 +55,10 @@ ipcRenderer.on('waves', (event, waves) => {
     for (let i = 0; i < ledsCount; i++) {
         if (storage_table.light_enabled) {
             let color;
-            if (bassDetected) {
+            if (bassDetected && storage_table.light_bassBlink) {
                 color = [255, 255, 255];
             } else {
-                let waveIndex = wrapInt(Math.round((i / storage_table.light_leds) - lightOffset), 6);
+                let waveIndex = wrapInt(Math.round((i - lightOffset) / storage_table.light_leds), 6);
                 let element = document.getElementById(`visualization_${waveIndex}`);
                 let val = waves[waveIndex];
                 if (val < storage_table.light_min) {
@@ -72,7 +83,14 @@ ipcRenderer.on('waves', (event, waves) => {
     }
     leds_flush();
 
-    lightOffset += storage_table.light_moveSpeed * (deltaTime / 1000);
+    let dt = deltaTime / 1000;
+    dynamicSpeed += dynamicSpeedAdd;
+    lightOffset += (storage_table.light_moveSpeed + dynamicSpeed) * dt;
+    dynamicSpeed *= Math.pow(0.05, dt);
+    dynamicSpeedAdd *= Math.pow(0.005, dt);
+
+    if (dynamicSpeed < 0.001) dynamicSpeed = 0.001;
+    if (dynamicSpeedAdd < 0.001) dynamicSpeedAdd = 0.001;
 
     oldTime = performance.now();
 });

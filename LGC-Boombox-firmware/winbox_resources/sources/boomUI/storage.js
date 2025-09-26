@@ -1,4 +1,4 @@
-let storage_version = 0;
+let storage_version = "0";
 
 let storage_defaults = {
     wallpaper: 'wallpapers/1.jpg',
@@ -15,7 +15,9 @@ let storage_defaultsLight = {
     light_min: 0.05,
     light_max: 1,
     light_mul: 1.2,
-    light_bassLevel: 0.2
+    light_bassLevel: 0.2,
+    light_bassBlink: true,
+    light_dynamicSpeed: true
 };
 
 let storage_defaultsAux = {

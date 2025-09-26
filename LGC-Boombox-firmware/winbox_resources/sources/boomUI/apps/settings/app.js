@@ -116,6 +116,8 @@ const sudo = require('sudo-prompt');
     let setting_light_mirror = document.getElementById('setting_light_mirror');
     let setting_light_reverse = document.getElementById('setting_light_reverse');
     let setting_light_deltaBassLevel = document.getElementById('setting_light_deltaBassLevel');
+    let setting_light_bassBlick = document.getElementById('setting_light_bassBlick');
+    let setting_light_dynamicSpeed = document.getElementById('setting_light_dynamicSpeed');
 
     setting_light_enabled.addEventListener('switch_change', (event) => {
         storage_table.light_enabled = event.detail;
@@ -134,6 +136,16 @@ const sudo = require('sudo-prompt');
 
     setting_light_deltaBassLevel.addEventListener('switch_change', (event) => {
         storage_table.light_deltaBassLevel = event.detail;
+        storage_save();
+    });
+
+    setting_light_bassBlick.addEventListener('switch_change', (event) => {
+        storage_table.light_bassBlick = event.detail;
+        storage_save();
+    });
+
+    setting_light_dynamicSpeed.addEventListener('switch_change', (event) => {
+        storage_table.light_dynamicSpeed = event.detail;
         storage_save();
     });
 
@@ -188,6 +200,8 @@ const sudo = require('sudo-prompt');
         setting_light_mirror.setState(storage_table.light_mirror);
         setting_light_reverse.setState(storage_table.light_reverse);
         setting_light_deltaBassLevel.setState(storage_table.light_deltaBassLevel);
+        setting_light_bassBlick.setState(storage_table.light_bassBlick);
+        setting_light_dynamicSpeed.setState(storage_table.light_dynamicSpeed);
         
         setting_light_moveSpeed.value = storage_table.light_moveSpeed;
         setting_light_leds.value = storage_table.light_leds;

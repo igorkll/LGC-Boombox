@@ -58,6 +58,10 @@ document.getElementById('volume_button').addEventListener('custom_click', () => 
     volumeSlider.addEventListener('click_outside', () => {
         deleteVolumeSlider();
     });
+
+    volumeSlider.addEventListener('custom_drop', () => {
+        setVolume(null, true);
+    })
 })
 
 }
