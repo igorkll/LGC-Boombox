@@ -21,6 +21,8 @@ let lastMediaPath = null;
 let loadedMediaName = null;
 let manualOpen = false;
 let playingFlag = false;
+let playlist = null;
+let playlistIndex = null;
 
 function isMediaLoaded() {
     return media_player.src && media_player.src.trim() !== "";
@@ -86,37 +88,6 @@ function openNone() {
 
 openNone();
 
-let oldDirPath = null;
-let cachedFullPaths = null;
-
-async function _getPreviousAndNextFile(filePath, callback) {
-    for (let index = 0; index < cachedFullPaths.length; index++) {
-        let lpath = cachedFullPaths[index];
-        if (path.normalize(lpath) == path.normalize(filePath)) {
-            callback(lpath, cachedFullPaths[wrapInt(index - 1, cachedFullPaths.length)], cachedFullPaths[wrapInt(index + 1, cachedFullPaths.length)]);
-            return;
-        }
-    }
-    callback(filePath, filePath, filePath);
-}
-
-function getPreviousAndNextFile(filePath, callback) {
-    let dir = path.dirname(filePath);
-
-    if (cachedFullPaths != null && oldDirPath == dir) {
-        _getPreviousAndNextFile(filePath, callback);
-        return;
-    }
-
-    fs.readdir(dir, (err, files) => {
-        if (err) files = [];
-        const sortedFiles = files.sort();
-        cachedFullPaths = sortedFiles.map(file => path.join(dir, file));
-        oldDirPath = dir;
-        _getPreviousAndNextFile(filePath, callback);
-    });
-}
-
 let showRealContent
 
 function showTrackName(filePath) {
@@ -157,7 +128,7 @@ function openVideo(filePath) {
     updateGui();
 }
 
-window.openMedia = function(filePath, callback, _manualOpen=true) {
+window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) {
     manualOpen = _manualOpen;
     loadedMediaName = null;
     lastMediaPath = filePath;
@@ -189,6 +160,28 @@ window.openMedia = function(filePath, callback, _manualOpen=true) {
                 break;
         }
     });
+
+    if (reindex) {
+        let dir = path.dirname(filePath);
+        fs.readdir(dir, (err, files) => {
+            if (err) files = [];
+            let sortedFiles = files.sort();
+            playlist = sortedFiles.map(file => path.join(dir, file));
+            playlistIndex = null;
+
+            for (let index = 0; index < playlist.length; index++) {
+                let lpath = playlist[index];
+                if (path.normalize(lpath) == path.normalize(filePath)) {
+                    playlistIndex = index;
+                    break;
+                }
+            }
+
+            if (playlistIndex == null) {
+                playlist = null;
+            }
+        });
+    }
 }
 
 function exitFromFullscreen() {
@@ -225,14 +218,17 @@ music_playPause.addEventListener("custom_click", () => {
 });
 
 function nextMedia(previous=false, _manualOpen=false) {
-    loadingLabel();
-    getPreviousAndNextFile(lastMediaPath, (currentPath, previousPath, nextPath) => {
+    if (playlist != null) {
+        loadingLabel();
         if (previous) {
-            openMedia(previousPath, null, _manualOpen);
+            playlistIndex = wrapInt(playlistIndex - 1, playlist.length);
         } else {
-            openMedia(nextPath, null, _manualOpen);
+            playlistIndex = wrapInt(playlistIndex + 1, playlist.length);
         }
-    });
+        openMedia(playlist[playlistIndex], null, _manualOpen, false);
+    } else if (_manualOpen) {
+        messagebox('playlist is not loaded', 'error');
+    }
 }
 
 function updateProgressBar() {
@@ -258,12 +254,10 @@ music_progress.addEventListener("change", (event) => {
 });
 
 music_previous.addEventListener("custom_click", () => {
-    if (lastMediaPath == null) return;
     nextMedia(true, true);
 });
 
 music_next.addEventListener("custom_click", () => {
-    if (lastMediaPath == null) return;
     nextMedia(false, true);
 });
 
