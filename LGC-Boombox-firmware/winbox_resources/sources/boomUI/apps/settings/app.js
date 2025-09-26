@@ -200,7 +200,7 @@ const sudo = require('sudo-prompt');
         setting_light_mirror.setState(storage_table.light_mirror);
         setting_light_reverse.setState(storage_table.light_reverse);
         setting_light_deltaBassLevel.setState(storage_table.light_deltaBassLevel);
-        setting_light_bassBlick.setState(storage_table.light_bassBlick);
+        setting_light_bassBlink.setState(storage_table.light_bassBlink);
         setting_light_dynamicSpeed.setState(storage_table.light_dynamicSpeed);
         
         setting_light_moveSpeed.value = storage_table.light_moveSpeed;
