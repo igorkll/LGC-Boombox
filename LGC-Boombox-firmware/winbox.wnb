@@ -127,7 +127,7 @@
   "forceIot": false,
   "dc_use": false,
   "enable_hibernation": false,
-  "UseCustomDisplaySettings": true,
+  "UseCustomDisplaySettings": false,
   "UseCustomDisplaySettings_scale": false,
   "cds_width": 800,
   "cds_height": 600,
