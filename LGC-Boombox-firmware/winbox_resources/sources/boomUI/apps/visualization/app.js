@@ -40,7 +40,7 @@ ipcRenderer.on('waves', (event, waves) => {
 
     if (storage_table.light_dynamicSpeed) {
         if (bassDetected) {
-            dynamicSpeedAdd += 1;
+            dynamicSpeedAdd += 3;
         }
     } else {
         dynamicSpeed = 0;
@@ -85,8 +85,8 @@ ipcRenderer.on('waves', (event, waves) => {
 
     let dt = deltaTime / 1000;
     dynamicSpeed += dynamicSpeedAdd;
-    lightOffset += (storage_table.light_moveSpeed + dynamicSpeed) * dt;
-    dynamicSpeed *= Math.pow(0.05, dt);
+    lightOffset += (storage_table.light_moveSpeed * (1 + dynamicSpeed)) * dt;
+    dynamicSpeed *= Math.pow(0.02, dt);
     dynamicSpeedAdd *= Math.pow(0.005, dt);
 
     if (dynamicSpeed < 0.001) dynamicSpeed = 0.001;
