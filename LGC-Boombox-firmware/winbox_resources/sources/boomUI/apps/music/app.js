@@ -157,7 +157,7 @@ window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) 
                 loadingLabel(filePath);
                 openAudio(filePath);
                 if (callback != null) {
-                    callback(true);
+                    callback(true, result);
                 }
                 break;
 
@@ -165,7 +165,7 @@ window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) 
                 loadingLabel(filePath);
                 openVideo(filePath);
                 if (callback != null) {
-                    callback(true);
+                    callback(true, result);
                 }
                 break;
 
@@ -173,14 +173,16 @@ window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) 
                 loadingLabel(filePath);
                 openImage(filePath);
                 if (callback != null) {
-                    callback(true);
+                    callback(true, result);
                 }
                 break;
 
             default:
-                messagebox('unsupported file type', 'error');
+                if (_manualOpen) {
+                    messagebox('unsupported file type', 'error');
+                }
                 if (callback != null) {
-                    callback(false);
+                    callback(false, result);
                 }
                 break;
         }
@@ -250,7 +252,11 @@ function nextMedia(previous=false, _manualOpen=false) {
         } else {
             playlistIndex = wrapInt(playlistIndex + 1, playlist.length);
         }
-        openMedia(playlist[playlistIndex], null, _manualOpen, false);
+        openMedia(playlist[playlistIndex], (result, fileType) => {
+            if (!result || (fileType == "image" && !_manualOpen)) {
+                nextMedia(false, _manualOpen)
+            }
+        }, _manualOpen, false);
     } else if (_manualOpen) {
         messagebox('playlist is not loaded', 'error');
     }
