@@ -254,9 +254,10 @@ function nextMedia(previous=false, _manualOpen=false) {
         }
         openMedia(playlist[playlistIndex], (result, fileType) => {
             if (!result || (fileType == "image" && !_manualOpen)) {
-                nextMedia(false, _manualOpen)
+                nextMedia(previous, _manualOpen)
             }
-        }, _manualOpen, false);
+        }, false, false);
+        manualOpen = _manualOpen;
     } else if (_manualOpen) {
         messagebox('playlist is not loaded', 'error');
     }
