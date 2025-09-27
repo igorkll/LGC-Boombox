@@ -244,7 +244,12 @@ music_playPause.addEventListener("custom_click", () => {
     }
 });
 
-function nextMedia(previous=false, _manualOpen=false) {
+function nextMedia(previous=false, _manualOpen=false, recursionLimit=null) {
+    if (recursionLimit != null && recursionLimit <= 0) {
+        messagebox('failed to load any playlist item', 'error');
+        return;
+    }
+
     if (playlist != null) {
         loadingLabel();
         if (previous) {
@@ -252,9 +257,12 @@ function nextMedia(previous=false, _manualOpen=false) {
         } else {
             playlistIndex = wrapInt(playlistIndex + 1, playlist.length);
         }
+        if (recursionLimit == null) {
+            recursionLimit = playlist.length;
+        }
         openMedia(playlist[playlistIndex], (result, fileType) => {
             if (!result || (fileType == "image" && !_manualOpen)) {
-                nextMedia(previous, _manualOpen)
+                nextMedia(previous, _manualOpen, recursionLimit - 1);
             }
         }, false, false);
         manualOpen = _manualOpen;

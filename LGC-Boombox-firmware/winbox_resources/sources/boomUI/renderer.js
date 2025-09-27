@@ -120,6 +120,7 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { stat } = require("fs/promises");
 const { fileTypeFromFile } = require('file-type');
 const { ipcRenderer } = require('electron');
 
@@ -180,14 +181,19 @@ window.getMediaName = function (filePath, callback) {
 
 // media
 window.detectMediaType = async function (filePath) {
-    const type = await fileTypeFromFile(filePath);
-    if (!type) return 'unknown';
+    const stats = await stat(filePath);
+    if (stats.isDirectory()) {
+        return "directory";
+    }
 
-    if (type.mime.startsWith('audio/')) return 'audio';
-    if (type.mime.startsWith('video/')) return 'video';
-    if (type.mime.startsWith('image/')) return 'image';
-    return 'other';
-}
+    const type = await fileTypeFromFile(filePath);
+    if (!type) return "unknown";
+
+    if (type.mime.startsWith("audio/")) return "audio";
+    if (type.mime.startsWith("video/")) return "video";
+    if (type.mime.startsWith("image/")) return "image";
+    return "other";
+};
 
 window.setTrackCover = async function (imgElement, filePath) {
     const tempPath = await ipcRenderer.invoke('get-track-cover', filePath);
