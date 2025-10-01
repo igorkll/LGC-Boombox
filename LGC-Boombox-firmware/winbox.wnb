@@ -158,5 +158,14 @@
   "appdelay_internet_requestdelay": 1,
   "logoBeforeApp": null,
   "logoBeforeApp_stretch": 0,
-  "wait_before_app_logo": true
+  "wait_before_app_logo": true,
+  "delete_paths": "",
+  "delete_dism": "",
+  "delete_dism_universal": "",
+  "delete_dism_remove_package": "",
+  "delete_dism_remove_appx_package": "",
+  "manual_setup": false,
+  "manual_setup_complete": null,
+  "manual_setup_error": null,
+  "manual_setup_autounattend": null
 }
