@@ -167,5 +167,11 @@
   "manual_setup": false,
   "manual_setup_complete": null,
   "manual_setup_error": null,
-  "manual_setup_autounattend": null
+  "manual_setup_autounattend": null,
+  "aaf_readme_iso": true,
+  "aaf_readme_system": true,
+  "aaf_readme_boot": true,
+  "aaf_info_iso": true,
+  "aaf_info_system": true,
+  "aaf_info_boot": true
 }
