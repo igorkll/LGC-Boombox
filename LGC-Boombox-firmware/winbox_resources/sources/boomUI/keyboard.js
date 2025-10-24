@@ -1,8 +1,4 @@
 function inputWindow(inputText, callback, title, placeholder) {
-    if (inputText == null) {
-        inputText = "";
-    }
-
     let msgboxBackground = document.createElement('div');
     msgboxBackground.style.position = 'absolute';
     msgboxBackground.style.zIndex = '20';
@@ -42,6 +38,7 @@ function inputWindow(inputText, callback, title, placeholder) {
     inputBlock.style.alignItems = 'center';
     inputBlock.style.flexDirection = 'row';
     inputBlock.style.width = '100%';
+    inputBlock.value = inputText ?? "";
     msgboxBody.appendChild(inputBlock);
 
     let buttonContainer = document.createElement('div');
@@ -62,7 +59,7 @@ function inputWindow(inputText, callback, title, placeholder) {
     }
 
     addButton("done", () => {
-        if (callback != null) callback(inputText);
+        if (callback != null) callback(inputBlock.value);
         msgboxBackground.remove();
         msgboxBody.remove();
     })
