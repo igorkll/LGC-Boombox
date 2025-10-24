@@ -8,6 +8,7 @@ let tabhost = document.getElementById('files_tabhost');
 
 let tabs = [];
 let existsTabs = {};
+let searchFilter = "";
 
 function addFolderUi(tab, name, defaultPath) {
     let currentPath = defaultPath;
@@ -53,7 +54,7 @@ function addFolderUi(tab, name, defaultPath) {
         let button = document.createElement('custom-button');
         button.style.aspectRatio = '1 / 1';
         button.style.height = '10vh';
-        button.setAttribute('_style', 'border-radius: 0vh;');
+        button.setAttribute('_style', 'border-radius: 0vh; border: 0.5vh solid #4b4b4b43;');
         toolcontainer.appendChild(button);
 
         let imageContainer = document.createElement('div');
@@ -66,7 +67,7 @@ function addFolderUi(tab, name, defaultPath) {
         imageContainer.appendChild(image);
 
         button.addEventListener('custom_click', () => {
-            callback();
+            callback(button);
         });
     };
 
@@ -137,6 +138,12 @@ function addFolderUi(tab, name, defaultPath) {
         if (path.normalize(currentPath) != path.normalize(oldPath)) {
             refresh();
         }
+    });
+
+    addToolButton('apps/files/search.png', () => {
+        inputWindow(searchFilter, (_search) => {
+            searchFilter = _search;
+        }, "search", "search...")
     });
 }
 
