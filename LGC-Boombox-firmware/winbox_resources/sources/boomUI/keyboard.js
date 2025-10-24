@@ -43,7 +43,7 @@ function inputWindow(inputText, callback, title, placeholder) {
     let inputBlock
     let clearButton = document.createElement('custom-button');
     clearButton.style.margin = '1vh 1vh';
-    clearButton.style.flex = '1';
+    // clearButton.style.aspectRatio = '1 / 1';
     clearButton.style.height = '100%';
     clearButton.innerHTML = "X";
     inputContainer.appendChild(clearButton);
@@ -52,6 +52,8 @@ function inputWindow(inputText, callback, title, placeholder) {
     })
 
     inputBlock = document.createElement('input');
+    inputBlock.classList.add("round-input");
+    inputBlock.style.margin = '1vh 1vh';
     inputBlock.style.type = 'text';
     inputBlock.style.placeholder = placeholder ?? "";
     inputBlock.style.flex = '1';
