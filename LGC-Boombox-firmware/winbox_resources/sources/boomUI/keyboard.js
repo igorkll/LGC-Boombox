@@ -41,6 +41,19 @@ function inputWindow(inputText, callback, title, placeholder) {
     inputBlock.value = inputText ?? "";
     msgboxBody.appendChild(inputBlock);
 
+    let done = () => {
+        if (callback != null) callback(inputBlock.value);
+        msgboxBackground.remove();
+        msgboxBody.remove();
+    }
+
+    inputBlock.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            done()
+            event.preventDefault();
+        }
+    });
+
     let buttonContainer = document.createElement('div');
     buttonContainer.style.display = 'flex';
     buttonContainer.style.justifyContent = 'space-between';
@@ -58,9 +71,5 @@ function inputWindow(inputText, callback, title, placeholder) {
         button.addEventListener("custom_click", callback)
     }
 
-    addButton("done", () => {
-        if (callback != null) callback(inputBlock.value);
-        msgboxBackground.remove();
-        msgboxBody.remove();
-    })
+    addButton("done", done)
 }

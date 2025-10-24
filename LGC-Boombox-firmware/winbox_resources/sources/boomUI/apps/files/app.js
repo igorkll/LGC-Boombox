@@ -89,34 +89,36 @@ function addFolderUi(tab, name, defaultPath) {
         fs.readdir(currentPath, (err, files) => {
             if (err) files = [];
             const sortedFiles = files.sort();
-            for (let obj of sortedFiles) {
-                let fullPath = path.join(currentPath, obj);
+            for (let fileName of sortedFiles) {
+                if (fileName.includes(searchFilter)) {
+                    let fullPath = path.join(currentPath, fileName);
 
-                let element = document.createElement('div');
-                element.classList.add("panel");
-                element.classList.add("mini-info");
-                element.classList.add("text-cropping");
-                element.style.textAlign = 'left';
-                element.style.alignSelf = 'stretch';
-                element.style.backgroundColor = 'rgba(35, 35, 35, 0.1)';
-                element.innerHTML = getFileName(obj);
-                filescontainer.appendChild(element);
+                    let element = document.createElement('div');
+                    element.classList.add("panel");
+                    element.classList.add("mini-info");
+                    element.classList.add("text-cropping");
+                    element.style.textAlign = 'left';
+                    element.style.alignSelf = 'stretch';
+                    element.style.backgroundColor = 'rgba(35, 35, 35, 0.1)';
+                    element.innerHTML = getFileName(fileName);
+                    filescontainer.appendChild(element);
 
-                element.addEventListener('pointerup', async () => {
-                    fs.stat(fullPath, (err, stats) => {
-                        if (err) return;
-                        if (stats.isFile()) {
-                            openMedia(fullPath, (successfully) => {
-                                if (successfully) {
-                                    openApp('music');
-                                }
-                            });
-                        } else if (stats.isDirectory()) {
-                            currentPath = path.join(currentPath, obj);
-                            refresh();
-                        }
-                    });
-                })
+                    element.addEventListener('pointerup', async () => {
+                        fs.stat(fullPath, (err, stats) => {
+                            if (err) return;
+                            if (stats.isFile()) {
+                                openMedia(fullPath, (successfully) => {
+                                    if (successfully) {
+                                        openApp('music');
+                                    }
+                                });
+                            } else if (stats.isDirectory()) {
+                                currentPath = path.join(currentPath, fileName);
+                                refresh();
+                            }
+                        });
+                    })
+                }
             }
         });
     };
@@ -143,6 +145,7 @@ function addFolderUi(tab, name, defaultPath) {
     addToolButton('apps/files/search.png', () => {
         inputWindow(searchFilter, (_search) => {
             searchFilter = _search;
+            refresh()
         }, "search", "search...")
     });
 }
