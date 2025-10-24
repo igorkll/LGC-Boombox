@@ -34,18 +34,33 @@ function inputWindow(inputText, callback, title, placeholder) {
 
     let inputContainer = document.createElement('div');
     inputContainer.style.display = 'flex';
-    inputContainer.style.justifyContent = 'space-between';
+    inputContainer.style.justifyContent = 'space-evenly';
     inputContainer.style.alignItems = 'center';
     inputContainer.style.flexDirection = 'row';
     inputContainer.style.width = '100%';
     msgboxBody.appendChild(inputContainer);
 
-    let inputBlock = document.createElement('input');
+    let inputBlock
+    let clearButton = document.createElement('custom-button');
+    clearButton.style.margin = '1vh 1vh';
+    clearButton.style.flex = '1';
+    clearButton.style.height = '100%';
+    clearButton.innerHTML = "X";
+    inputContainer.appendChild(clearButton);
+    clearButton.addEventListener("custom_click", () => {
+        inputBlock.value = "";
+    })
+
+    inputBlock = document.createElement('input');
     inputBlock.style.type = 'text';
     inputBlock.style.placeholder = placeholder ?? "";
     inputBlock.style.flex = '1';
     inputBlock.value = inputText ?? "";
+    inputBlock.addEventListener("blur", () => {
+        inputBlock.focus();
+    });
     inputContainer.appendChild(inputBlock);
+    inputBlock.focus();
 
     let done = () => {
         if (callback != null) callback(inputBlock.value);
