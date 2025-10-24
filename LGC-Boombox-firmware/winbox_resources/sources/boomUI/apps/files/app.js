@@ -146,7 +146,7 @@ function addFolderUi(tab, name, defaultPath) {
         inputWindow(searchFilter, (_search) => {
             searchFilter = _search;
             refresh()
-        }, "search", "search...")
+        }, "search")
     });
 }
 

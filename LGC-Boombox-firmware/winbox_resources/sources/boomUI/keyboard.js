@@ -1,4 +1,4 @@
-function inputWindow(inputText, callback, title, placeholder) {
+function inputWindow(inputText, callback, title) {
     let msgboxBackground = document.createElement('div');
     msgboxBackground.style.position = 'absolute';
     msgboxBackground.style.zIndex = '20';
@@ -55,7 +55,6 @@ function inputWindow(inputText, callback, title, placeholder) {
     inputBlock.classList.add("round-input");
     inputBlock.style.margin = '1vh 1vh';
     inputBlock.style.type = 'text';
-    inputBlock.style.placeholder = placeholder ?? "";
     inputBlock.style.flex = '1';
     inputBlock.value = inputText ?? "";
     inputBlock.addEventListener("blur", () => {
