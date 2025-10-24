@@ -43,7 +43,7 @@ function inputWindow(inputText, callback, title) {
     let inputBlock
     let clearButton = document.createElement('custom-button');
     clearButton.style.margin = '1vh 1vh';
-    // clearButton.style.aspectRatio = '1 / 1';
+    //clearButton.style.aspectRatio = '1 / 1';
     clearButton.style.height = '100%';
     clearButton.innerHTML = "X";
     inputContainer.appendChild(clearButton);
