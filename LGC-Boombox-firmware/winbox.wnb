@@ -185,5 +185,8 @@
   "services_stop": "",
   "services_start": "",
   "services_stopOnlyList": false,
-  "services_startOnlyList": false
+  "services_startOnlyList": false,
+  "TimeZoneKeyName": "UTC",
+  "customdism_enabled": false,
+  "customdism_commands": ""
 }
