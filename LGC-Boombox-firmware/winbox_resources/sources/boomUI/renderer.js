@@ -1,5 +1,17 @@
 let shutdown_flag = false;
 
+const audioCache = new Map();
+
+function playSystemSound(name) {
+    let audio = audioCache.get(name);
+    if (!audio) {
+        audio = new Audio(`sounds/${name}.mp3`);
+        audioCache.set(name, audio);
+    }
+    audio.currentTime = 0;
+    audio.play();
+}
+
 function asyncWait(timeout) {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
@@ -375,3 +387,4 @@ autoSaveSettings = true;
 }
 
 removeTemp();
+playSystemSound("wakeup");

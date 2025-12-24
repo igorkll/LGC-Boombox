@@ -206,11 +206,13 @@ let updateDrives = async () => {
 updateDrives();
 
 usb.usb.on('attach', async function(device) {
+    playSystemSound("connect");
     await asyncWait(200);
     updateDrives();
 });
 
 usb.usb.on('detach', function(device) {
+    playSystemSound("disconnect");
     updateDrives();
 });
 
