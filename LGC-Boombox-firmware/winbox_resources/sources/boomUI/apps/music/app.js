@@ -388,15 +388,19 @@ let visualization_container = document.getElementById("visualization_container")
 
 function toogleVisualizerState(state) {
     if (state) {
+        media_panel.classList.add("music-visualizer-self");
+        media_panel.classList.remove("soap");
         visualization_container.classList.add("music-visualizer");
     } else {
+        media_panel.classList.remove("music-visualizer-self");
+        media_panel.classList.add("soap");
         visualization_container.classList.remove("music-visualizer");
     }
 }
 
 document.addEventListener("open_app", (event) => {
-    if (event.detail.name == "music" && storage_table.music_visualizer) {
-        toogleVisualizerState(true);
+    if (storage_table.music_visualizer) {
+        toogleVisualizerState(event.detail.name == "music");
     }
 })
 
