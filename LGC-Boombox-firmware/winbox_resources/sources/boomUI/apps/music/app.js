@@ -23,7 +23,7 @@ let music_visualizer = document.getElementById('music_visualizer');
 let visualization_container = document.getElementById("visualization_container");
 let visualization_main = document.getElementById("visualization_main");
 
-let blackeningTimeout = 3000;
+let blackeningTimeout = 5000;
 
 let restoreFullscreenState = null;
 let fullscreenBlackeningTimer = null;
