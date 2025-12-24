@@ -385,16 +385,19 @@ music_loopmode.addEventListener("custom_click", () => {
 });
 
 let visualization_container = document.getElementById("visualization_container");
+let visualization_main = document.getElementById("visualization_main");
 
 function toogleVisualizerState(state) {
     if (state) {
         media_panel.classList.add("music-visualizer-self");
         media_panel.classList.remove("soap");
         visualization_container.classList.add("music-visualizer");
+        visualization_main.classList.remove("soap");
     } else {
         media_panel.classList.remove("music-visualizer-self");
         media_panel.classList.add("soap");
         visualization_container.classList.remove("music-visualizer");
+        visualization_main.classList.add("soap");
     }
 }
 
