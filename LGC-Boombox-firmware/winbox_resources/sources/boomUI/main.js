@@ -77,6 +77,8 @@ ipcMain.on('quit-app', () => {
     app.quit();
 });
 
+// -------------- ipc
+
 ipcMain.handle('get-track-cover', async (event, filePath) => {
     try {
         const metadata = await mm.parseFile(filePath, { native: true });

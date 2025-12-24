@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const drivelist = require('drivelist');
+const usb = require('usb');
 
 let tablist = document.getElementById('files_tablist');
 let tabhost = document.getElementById('files_tabhost');
@@ -203,7 +204,15 @@ let updateDrives = async () => {
 };
 
 updateDrives();
-setInterval(updateDrives, 1000);
+
+usb.usb.on('attach', async function(device) {
+    await asyncWait(200);
+    updateDrives();
+});
+
+usb.usb.on('detach', function(device) {
+    updateDrives();
+});
 
 // -------------------------
 

@@ -1,5 +1,9 @@
 let shutdown_flag = false;
 
+function asyncWait(timeout) {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 function wrapInt(value, max) {
     return ((value % max) + max) % max;
 }
