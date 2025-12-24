@@ -33,25 +33,18 @@ app.whenReady().then(() => {
         win.show();
     });
 
-    win.loadFile('main.html');
-
     app.on('before-quit', async (event) => {
         event.preventDefault();
-        console.log("AAA11");
         await handleShutdown(win.webContents);
-        console.log("AAA");
-        app.quit();
-    });
-
-    win.webContents.on("before-input-event", (event, input) => {
-        if (input.key === "F11") {
-            event.preventDefault();
-        }
+        app.exit(0);
     });
 
     win.on('close', async (e) => {
         e.preventDefault();
+        app.quit();
     });
+
+    win.loadFile('main.html');
 
     if (process.defaultApp) {
         win.webContents.openDevTools();
