@@ -8,6 +8,8 @@ const fs = require('fs');
 
 app.whenReady().then(() => {
     const win = new BrowserWindow({
+        show: false,
+        backgroundColor: '#000000',
         fullscreen: true,
         webPreferences: {
             nodeIntegration: true,
@@ -17,8 +19,14 @@ app.whenReady().then(() => {
         }
     });
 
-    win.loadFile('main.html');
     win.setMenu(null);
+
+    win.once('ready-to-show', () => {
+        win.webContents.setZoomFactor(1);
+        win.show();
+    });
+
+    win.loadFile('main.html');
 
     win.webContents.on("before-input-event", (event, input) => {
         if (input.key === "F11") {
