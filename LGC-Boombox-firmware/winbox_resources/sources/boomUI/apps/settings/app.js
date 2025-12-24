@@ -23,6 +23,37 @@ const sudo = require('sudo-prompt');
     addSettingsTab("debug");
 }
 
+function linkSwitch(updateFunctions, name) {
+    let switchElement = document.getElementById(`setting_${name}`);
+
+    switchElement.addEventListener('switch_change', (event) => {
+        storage_table[name] = event.detail;
+        storage_save();
+    });
+
+    let updateState = () => {
+        switchElement.setState(storage_table[name]);
+    }
+
+    updateState();
+    updateFunctions.push(updateState);
+}
+
+function linkSlider(updateFunctions, name, min, max) {
+    let switchElement = document.getElementById(`setting_${name}`);
+
+    switchElement.addEventListener('switch_change', (event) => {
+        storage_table[name] = event.detail;
+        storage_save();
+    });
+
+    let updateState = () => {
+        switchElement.setState(storage_table[name]);
+    }
+
+    updateState();
+    updateFunctions.push(updateState);
+}
 
 { // wallpaper
     let panel = document.getElementById('setting_wallpaper_panel');
@@ -112,42 +143,15 @@ const sudo = require('sudo-prompt');
 }
 
 { // light
-    let setting_light_enabled = document.getElementById('setting_light_enabled');
-    let setting_light_mirror = document.getElementById('setting_light_mirror');
-    let setting_light_reverse = document.getElementById('setting_light_reverse');
-    let setting_light_deltaBassLevel = document.getElementById('setting_light_deltaBassLevel');
-    let setting_light_bassBlink = document.getElementById('setting_light_bassBlink');
-    let setting_light_dynamicSpeed = document.getElementById('setting_light_dynamicSpeed');
+    let updateFunctions = []
 
-    setting_light_enabled.addEventListener('switch_change', (event) => {
-        storage_table.light_enabled = event.detail;
-        storage_save();
-    });
-
-    setting_light_mirror.addEventListener('switch_change', (event) => {
-        storage_table.light_mirror = event.detail;
-        storage_save();
-    });
-
-    setting_light_reverse.addEventListener('switch_change', (event) => {
-        storage_table.light_reverse = event.detail;
-        storage_save();
-    });
-
-    setting_light_deltaBassLevel.addEventListener('switch_change', (event) => {
-        storage_table.light_deltaBassLevel = event.detail;
-        storage_save();
-    });
-
-    setting_light_bassBlink.addEventListener('switch_change', (event) => {
-        storage_table.light_bassBlink = event.detail;
-        storage_save();
-    });
-
-    setting_light_dynamicSpeed.addEventListener('switch_change', (event) => {
-        storage_table.light_dynamicSpeed = event.detail;
-        storage_save();
-    });
+    linkSwitch(updateFunctions, "light_enabled");
+    linkSwitch(updateFunctions, "light_mirror");
+    linkSwitch(updateFunctions, "light_reverse");
+    linkSwitch(updateFunctions, "light_deltaBassLevel");
+    linkSwitch(updateFunctions, "light_bassBlink");
+    linkSwitch(updateFunctions, "light_dynamicSpeed");
+    linkSwitch(updateFunctions, "light_idleLight");
 
     let setting_light_moveSpeed = document.getElementById('setting_light_moveSpeed');
     let setting_light_leds = document.getElementById('setting_light_leds');
@@ -196,12 +200,9 @@ const sudo = require('sudo-prompt');
     });
 
     let updateValues = () => {
-        setting_light_enabled.setState(storage_table.light_enabled);
-        setting_light_mirror.setState(storage_table.light_mirror);
-        setting_light_reverse.setState(storage_table.light_reverse);
-        setting_light_deltaBassLevel.setState(storage_table.light_deltaBassLevel);
-        setting_light_bassBlink.setState(storage_table.light_bassBlink);
-        setting_light_dynamicSpeed.setState(storage_table.light_dynamicSpeed);
+        updateFunctions.forEach(updateState => {
+            updateState();
+        })
         
         setting_light_moveSpeed.value = storage_table.light_moveSpeed;
         setting_light_leds.value = storage_table.light_leds;
@@ -264,6 +265,50 @@ const sudo = require('sudo-prompt');
         setting_aux_noiseSuppression.setState(storage_table.aux_audioSettings.noiseSuppression);
         setting_aux_autoGainControl.setState(storage_table.aux_audioSettings.autoGainControl);
         
+    };
+
+    updateValues()
+
+    let setting_aux_reset = document.getElementById('setting_aux_reset');
+    setting_aux_reset.addEventListener('custom_click', async () => {
+        storage_loadDefaults(storage_defaultsAux, true);
+        storage_save();
+        updateValues();
+        await aux_update();
+    });
+}
+
+{ // syssounds
+    let setting_aux_enabled = document.getElementById('setting_aux_enabled');
+    let setting_aux_echoCancellation = document.getElementById('setting_aux_echoCancellation');
+    let setting_aux_noiseSuppression = document.getElementById('setting_aux_noiseSuppression');
+    let setting_aux_autoGainControl = document.getElementById('setting_aux_autoGainControl');
+
+    setting_aux_enabled.addEventListener('switch_change', async (event) => {
+        await aux_setEnabled(event.detail);
+        storage_save();
+    });
+
+    setting_aux_echoCancellation.addEventListener('switch_change', async (event) => {
+        await aux_setEchoCancellation(event.detail);
+        storage_save();
+    });
+
+    setting_aux_noiseSuppression.addEventListener('switch_change', async (event) => {
+        await aux_setNoiseSuppression(event.detail);
+        storage_save();
+    });
+
+    setting_aux_autoGainControl.addEventListener('switch_change', async (event) => {
+        await aux_setAutoGainControl(event.detail);
+        storage_save();
+    });
+    
+    let updateValues = async () => {
+        setting_aux_enabled.setState(storage_table.aux_enabled);
+        setting_aux_echoCancellation.setState(storage_table.aux_audioSettings.echoCancellation);
+        setting_aux_noiseSuppression.setState(storage_table.aux_audioSettings.noiseSuppression);
+        setting_aux_autoGainControl.setState(storage_table.aux_audioSettings.autoGainControl);
     };
 
     updateValues()

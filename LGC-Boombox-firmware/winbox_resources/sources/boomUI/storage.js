@@ -18,7 +18,8 @@ let storage_defaultsLight = {
     light_mul: 1.2,
     light_bassLevel: 0.2,
     light_bassBlink: true,
-    light_dynamicSpeed: true
+    light_dynamicSpeed: true,
+    light_idleLight: true
 };
 
 let storage_defaultsAux = {
