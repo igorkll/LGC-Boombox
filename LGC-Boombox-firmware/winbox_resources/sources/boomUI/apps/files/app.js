@@ -91,7 +91,7 @@ function addFolderUi(tab, name, defaultPath) {
             if (err) files = [];
             const sortedFiles = files.sort();
             for (let fileName of sortedFiles) {
-                if (fileName.includes(searchFilter)) {
+                if (fileName.toLowerCase().includes(searchFilter.toLowerCase())) {
                     let fullPath = path.join(currentPath, fileName);
 
                     let element = document.createElement('div');
