@@ -17,10 +17,18 @@ const sudo = require('sudo-prompt');
     }
 
     addSettingsTab("wallpaper");
+    addSettingsTab("syssounds");
     addSettingsTab("clock");
     addSettingsTab("light");
     addSettingsTab("aux");
     addSettingsTab("debug");
+}
+
+function addSwitch(panel, name, title=null) {
+    if (title == null) title = name;
+    
+    let panel = document.getElementById(panel + "_panel")
+    panel.
 }
 
 function linkSwitch(updateFunctions, name) {
@@ -40,20 +48,28 @@ function linkSwitch(updateFunctions, name) {
 }
 
 function linkSlider(updateFunctions, name, min, max) {
-    let switchElement = document.getElementById(`setting_${name}`);
+    let sliderElement = document.getElementById(`setting_${name}`);
+    sliderElement.min = min;
+    sliderElement.max = max;
 
-    switchElement.addEventListener('switch_change', (event) => {
+    sliderElement.addEventListener('change', (event) => {
         storage_table[name] = event.detail;
         storage_save();
     });
 
     let updateState = () => {
-        switchElement.setState(storage_table[name]);
+        sliderElement.value = storage_table[name];
     }
 
     updateState();
     updateFunctions.push(updateState);
 }
+
+function updateAllFunctions(updateFunctions) {
+    updateFunctions.forEach(updateState => {
+        updateState();
+    });
+};
 
 { // wallpaper
     let panel = document.getElementById('setting_wallpaper_panel');
@@ -153,66 +169,12 @@ function linkSlider(updateFunctions, name, min, max) {
     linkSwitch(updateFunctions, "light_dynamicSpeed");
     linkSwitch(updateFunctions, "light_idleLight");
 
-    let setting_light_moveSpeed = document.getElementById('setting_light_moveSpeed');
-    let setting_light_leds = document.getElementById('setting_light_leds');
-    let setting_light_min = document.getElementById('setting_light_min');
-    let setting_light_max = document.getElementById('setting_light_max');
-    let setting_light_mul = document.getElementById('setting_light_mul');
-    let setting_light_bassLevel = document.getElementById('setting_light_bassLevel');
-
-    setting_light_moveSpeed.max = 5;
-    setting_light_moveSpeed.addEventListener('change', (event) => {
-        storage_table.light_moveSpeed = event.detail;
-        storage_save();
-    });
-
-    setting_light_leds.min = 1;
-    setting_light_leds.max = 10;
-    setting_light_leds.addEventListener('change', (event) => {
-        storage_table.light_leds = Math.round(event.detail);
-        storage_save();
-    });
-    setting_light_leds.addEventListener('custom_drop', (event) => {
-        setting_light_leds.value = storage_table.light_leds;
-    });
-
-    
-    setting_light_min.addEventListener('change', (event) => {
-        storage_table.light_min = event.detail;
-        storage_save();
-    });
-
-    setting_light_max.addEventListener('change', (event) => {
-        storage_table.light_max = event.detail;
-        storage_save();
-    });
-
-    setting_light_mul.min = 0.5;
-    setting_light_mul.max = 2;
-    setting_light_mul.addEventListener('change', (event) => {
-        storage_table.light_mul = event.detail;
-        storage_save();
-    });
-
-    setting_light_bassLevel.addEventListener('change', (event) => {
-        storage_table.light_bassLevel = event.detail;
-        storage_save();
-    });
-
-    let updateValues = () => {
-        updateFunctions.forEach(updateState => {
-            updateState();
-        })
-        
-        setting_light_moveSpeed.value = storage_table.light_moveSpeed;
-        setting_light_leds.value = storage_table.light_leds;
-        setting_light_min.value = storage_table.light_min;
-        setting_light_max.value = storage_table.light_max;
-        setting_light_mul.value = storage_table.light_mul;
-        setting_light_bassLevel.value = storage_table.light_bassLevel;
-    };
-
-    updateValues();
+    linkSlider(updateFunctions, "light_moveSpeed", 0, 5);
+    linkSlider(updateFunctions, "light_leds", 1, 10);
+    linkSlider(updateFunctions, "light_min", 0, 1);
+    linkSlider(updateFunctions, "light_max", 0, 1);
+    linkSlider(updateFunctions, "light_mul", 0.5, 2);
+    linkSlider(updateFunctions, "light_bassLevel", 0, 1);
 
     document.getElementById('setting_light_subOffset').addEventListener('custom_click', () => {
         lightOffset--;
@@ -228,7 +190,7 @@ function linkSlider(updateFunctions, name, min, max) {
 
     document.getElementById('setting_light_reset').addEventListener('custom_click', () => {
         storage_loadDefaults(storage_defaultsLight, true);
-        updateValues();
+        updateAllFunctions(updateFunctions);
         storage_save();
     });
 }
@@ -264,7 +226,6 @@ function linkSlider(updateFunctions, name, min, max) {
         setting_aux_echoCancellation.setState(storage_table.aux_audioSettings.echoCancellation);
         setting_aux_noiseSuppression.setState(storage_table.aux_audioSettings.noiseSuppression);
         setting_aux_autoGainControl.setState(storage_table.aux_audioSettings.autoGainControl);
-        
     };
 
     updateValues()
@@ -279,45 +240,29 @@ function linkSlider(updateFunctions, name, min, max) {
 }
 
 { // syssounds
-    let setting_aux_enabled = document.getElementById('setting_aux_enabled');
-    let setting_aux_echoCancellation = document.getElementById('setting_aux_echoCancellation');
-    let setting_aux_noiseSuppression = document.getElementById('setting_aux_noiseSuppression');
-    let setting_aux_autoGainControl = document.getElementById('setting_aux_autoGainControl');
+    let updateFunctions = []
 
-    setting_aux_enabled.addEventListener('switch_change', async (event) => {
-        await aux_setEnabled(event.detail);
-        storage_save();
-    });
+    addSwitch("setting_syssounds", "wakeup");
+    addSwitch("setting_syssounds", "shutdown");
+    addSwitch("setting_syssounds", "usbDeviceConnected", "usb device connected");
+    addSwitch("setting_syssounds", "usbDeviceDisconnected", "usb device disconnected");
+    addSwitch("setting_syssounds", "bluetoothFinding", "bluetooth finding");
+    addSwitch("setting_syssounds", "bluetoothConnected", "bluetooth connected");
+    addSwitch("setting_syssounds", "bluetoothDisconnected", "bluetooth disconnected");
 
-    setting_aux_echoCancellation.addEventListener('switch_change', async (event) => {
-        await aux_setEchoCancellation(event.detail);
-        storage_save();
-    });
-
-    setting_aux_noiseSuppression.addEventListener('switch_change', async (event) => {
-        await aux_setNoiseSuppression(event.detail);
-        storage_save();
-    });
-
-    setting_aux_autoGainControl.addEventListener('switch_change', async (event) => {
-        await aux_setAutoGainControl(event.detail);
-        storage_save();
-    });
-    
-    let updateValues = async () => {
-        setting_aux_enabled.setState(storage_table.aux_enabled);
-        setting_aux_echoCancellation.setState(storage_table.aux_audioSettings.echoCancellation);
-        setting_aux_noiseSuppression.setState(storage_table.aux_audioSettings.noiseSuppression);
-        setting_aux_autoGainControl.setState(storage_table.aux_audioSettings.autoGainControl);
-    };
-
-    updateValues()
+    linkSwitch(updateFunctions, "syssound_wakeup");
+    linkSwitch(updateFunctions, "syssound_shutdown");
+    linkSwitch(updateFunctions, "syssound_usbDeviceConnected");
+    linkSwitch(updateFunctions, "syssound_usbDeviceDisconnected");
+    linkSwitch(updateFunctions, "syssound_bluetoothFinding");
+    linkSwitch(updateFunctions, "syssound_bluetoothConnected");
+    linkSwitch(updateFunctions, "syssound_bluetoothDisconnected");
 
     let setting_aux_reset = document.getElementById('setting_aux_reset');
     setting_aux_reset.addEventListener('custom_click', async () => {
-        storage_loadDefaults(storage_defaultsAux, true);
+        storage_loadDefaults(storage_defaultsSyssound, true);
         storage_save();
-        updateValues();
+        updateAllFunctions(updateFunctions);
         await aux_update();
     });
 }
