@@ -3,7 +3,7 @@
 #include "ledstrip.h"
 #include "color.h"
 
-static const char* TAG = "led_strip_esp32c3_firmware";
+static const char* TAG = "LGC-Boombox";
 
 #ifdef USE_UART
 static void uart_init() {
