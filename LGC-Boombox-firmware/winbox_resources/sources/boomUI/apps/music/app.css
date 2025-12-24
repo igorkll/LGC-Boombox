@@ -100,6 +100,14 @@
     width: 100%;
 }
 
+.music-visualizer-self {
+    border-radius: 5vh;
+    background-color: rgba(255, 255, 255, 0.281);
+    backdrop-filter: blur(2vh);
+
+    box-shadow: 0 0 1vh 0px rgba(0, 0, 0, 1);
+}
+
 .music-blackening-mode {
     padding: 0;
     background-color: rgba(0, 0, 0, 0.193);
@@ -119,14 +127,6 @@
 
 .music-blackening-mode .music-content-container {
     margin: 0;
-}
-
-.music-visualizer-self {
-    border-radius: 5vh;
-    background-color: rgba(255, 255, 255, 0.281);
-    backdrop-filter: blur(2vh);
-
-    box-shadow: 0 0 1vh 0px rgba(0, 0, 0, 1);
 }
 
 .music-visualizer {
