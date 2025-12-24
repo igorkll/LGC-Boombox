@@ -372,6 +372,11 @@ setVolume(storage_table.volume);
 
 // shutdown
 window.shutdown = function(reboot) {
+    if (shutdown_triggeredFlag) return;
+    shutdown_triggeredFlag = true
+
+    playSystemSound("shutdown");
+
     if (reboot) {
         exec('shutdown /r /t 0');
     } else {
@@ -384,7 +389,10 @@ ipcRenderer.on('on-shutdown', async (event) => {
     shutdown_flag = true;
 
     let shutdownSound = null;
-    if (storage_table.syssound_shutdown) shutdownSound = playSystemSound("shutdown");
+    if (storage_table.syssound_shutdown && !shutdown_triggeredFlag)
+        shutdownSound = playSystemSound("shutdown");
+
+    shutdown_triggeredFlag = true;
     
     let ledsCount = leds_getCount();
     for (let i = 0; i < ledsCount; i++) {
@@ -395,7 +403,6 @@ ipcRenderer.on('on-shutdown', async (event) => {
     removeTemp();
 
     if (shutdownSound) await shutdownSound;
-
     ipcRenderer.send('on-shutdown-done');
 });
 
