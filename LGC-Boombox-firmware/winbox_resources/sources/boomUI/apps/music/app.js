@@ -15,6 +15,8 @@ let music_playPause_img = document.getElementById('music_playPause_img');
 let music_fullscreen_img = document.getElementById('music_fullscreen_img');
 let music_duration = document.getElementById('music_duration');
 let music_currentTime = document.getElementById('music_currentTime');
+let music_loopmode = document.getElementById('music_loopmode');
+let music_loopmode_img = document.getElementById('music_loopmode_img');
 
 let restoreFullscreenState = null;
 let lastMediaPath = null;
@@ -234,8 +236,8 @@ music_playPause.addEventListener("custom_click", () => {
     }
 });
 
-function stopMedia() {
-    if (isMediaLoaded() && !media_player.paused) {
+window.stopMedia = function (force=false) {
+    if ((isMediaLoaded() && !media_player.paused) || force) {
         media_player.pause();
         updateGui();
         return true;
@@ -243,7 +245,7 @@ function stopMedia() {
     return false;
 }
 
-function nextMedia(previous=false, _manualOpen=false, recursionLimit=null, noLoadingLabel=false) {
+function nextMedia(playmode=0, _manualOpen=false, recursionLimit=null, noLoadingLabel=false) {
     if (recursionLimit != null && recursionLimit <= 0) {
         messagebox('failed to load any playlist item', 'error');
         return;
@@ -251,10 +253,18 @@ function nextMedia(previous=false, _manualOpen=false, recursionLimit=null, noLoa
 
     if (playlist != null) {
         if (!noLoadingLabel) loadingLabel();
-        if (previous) {
-            playlistIndex = wrapInt(playlistIndex - 1, playlist.length);
-        } else {
-            playlistIndex = wrapInt(playlistIndex + 1, playlist.length);
+        switch (playmode) {
+            case 0:
+                playlistIndex = wrapInt(playlistIndex + 1, playlist.length);
+                break;
+
+            case 1:
+                playlistIndex = wrapInt(playlistIndex - 1, playlist.length);
+                break;
+
+            case 2:
+                playmode = 0;
+                break;
         }
         if (recursionLimit == null) {
             recursionLimit = playlist.length;
@@ -262,7 +272,7 @@ function nextMedia(previous=false, _manualOpen=false, recursionLimit=null, noLoa
         openMedia(playlist[playlistIndex], (result, fileType) => {
             if (!result || (fileType == "image" && !_manualOpen)) {
                 setTimeout(() => {
-                    nextMedia(previous, _manualOpen, recursionLimit - 1, true);
+                    nextMedia(playmode, _manualOpen, recursionLimit - 1, true);
                 }, 0);
                 return false;
             }
@@ -296,16 +306,64 @@ music_progress.addEventListener("change", (event) => {
     }
 });
 
+function updateLoopmodeImage() {
+    let loopmode = 'next';
+
+    switch (storage_table.loopmode) {
+        case 1:
+            loopmode = 'loop';
+            break;
+        
+        case 2:
+            loopmode = 'previous';
+            break;
+        
+        case 3:
+            loopmode = 'stop';
+            break;
+    }
+
+    music_loopmode_img.src = `apps/music/loopmode_${loopmode}.png`;
+}
+
+updateLoopmodeImage();
+
+music_loopmode.addEventListener("custom_click", () => {
+    storage_table.loopmode = (storage_table.loopmode + 1) % 4
+    storage_save();
+    updateLoopmodeImage();
+});
+
 music_previous.addEventListener("custom_click", () => {
-    nextMedia(true, true);
+    nextMedia(1, true);
 });
 
 music_next.addEventListener("custom_click", () => {
-    nextMedia(false, true);
+    nextMedia(0, true);
 });
 
+function autoPlay() {
+    switch (storage_table.loopmode) {
+        case 1: //loop
+            nextMedia(2);
+            break;
+
+        case 2: //previous
+            nextMedia(1);
+            break;
+
+        case 3: //stop
+            stopMedia(true);
+            break;
+
+        default: //next
+            nextMedia();
+            break;
+    }
+}
+
 media_player.addEventListener('ended', () => {
-    nextMedia();
+    autoPlay();
 });
 
 media_player.addEventListener("playing", () => {
@@ -341,7 +399,7 @@ media_player.addEventListener("error", (e) => {
         //messagebox(message, 'error');
         showError(lastMediaPath, message);
     } else {
-        nextMedia();
+        autoPlay();
     }
 });
 

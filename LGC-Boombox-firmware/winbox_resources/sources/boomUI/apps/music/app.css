@@ -62,8 +62,8 @@
 .music-title {
     height: fit-content;
     text-align: center;
-    margin-left: 16vh;
-    margin-right: 16vh;
+    margin-left: 17vh;
+    margin-right: 17vh;
 }
 
 .music-content {
@@ -76,8 +76,8 @@
 .music-content-container {
     position: relative;
     margin: 1vh;
-    margin-left: 16vh;
-    margin-right: 16vh;
+    margin-left: 17vh;
+    margin-right: 17vh;
     box-sizing: border-box;
     flex: 1;
     align-self: stretch;
