@@ -20,6 +20,8 @@ let music_currentTime = document.getElementById('music_currentTime');
 let music_loopmode = document.getElementById('music_loopmode');
 let music_loopmode_img = document.getElementById('music_loopmode_img');
 let music_visualizer = document.getElementById('music_visualizer');
+let visualization_container = document.getElementById("visualization_container");
+let visualization_main = document.getElementById("visualization_main");
 
 let blackeningTimeout = 3000;
 
@@ -257,7 +259,15 @@ music_fullscreen.addEventListener("custom_click", () => {
     }
 
     media_panel.style.borderRadius = '0px';
-    restoreFullscreenState = fullscreenize(media_panel);
+
+    visualization_main.classList.add("hide-if-not-visualizer-enabled");
+    let fullscreenRestore1 = fullscreenize(visualization_main, true);
+    let fullscreenRestore2 = fullscreenize(media_panel, false);
+    restoreFullscreenState = () => {
+        visualization_main.classList.remove("hide-if-not-visualizer-enabled");
+        fullscreenRestore1();
+        fullscreenRestore2();
+    };
     updateGui();
 
     startBlackeningTimer();
@@ -384,20 +394,19 @@ music_loopmode.addEventListener("custom_click", () => {
     updateLoopmodeImage();
 });
 
-let visualization_container = document.getElementById("visualization_container");
-let visualization_main = document.getElementById("visualization_main");
-
 function toogleVisualizerState(state) {
     if (state) {
         media_panel.classList.add("music-visualizer-self");
         media_panel.classList.remove("soap");
         visualization_container.classList.add("music-visualizer");
         visualization_main.classList.remove("soap");
+        document.body.classList.add("overwrite-hide-if-not-visualizer-enabled");
     } else {
         media_panel.classList.remove("music-visualizer-self");
         media_panel.classList.add("soap");
         visualization_container.classList.remove("music-visualizer");
         visualization_main.classList.add("soap");
+        document.body.classList.remove("overwrite-hide-if-not-visualizer-enabled");
     }
 }
 

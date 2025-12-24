@@ -82,7 +82,7 @@ function toWebPath(filePath) {
     return `file://${filePath.replace(/\\/g, '/')}`;
 }
 
-function fullscreenize(element) {
+function fullscreenize(element, withOverlay=true) {
     // Сохраняем исходный родитель и следующий элемент
     const parent = element.parentNode;
     const nextSibling = element.nextSibling;
@@ -98,20 +98,22 @@ function fullscreenize(element) {
         objectFit: element.style.objectFit || '',
     };
 
-    // Создаем overlay для фона
-    const overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100vw';
-    overlay.style.height = '100vh';
-    overlay.style.zIndex = '9998'; // чуть ниже элемента
-    overlay.style.backgroundImage = getComputedStyle(document.body).backgroundImage;
-    overlay.style.backgroundSize = getComputedStyle(document.body).backgroundSize;
-    overlay.style.backgroundPosition = getComputedStyle(document.body).backgroundPosition;
-    overlay.style.backgroundRepeat = getComputedStyle(document.body).backgroundRepeat;
-
-    document.body.appendChild(overlay);
+    let overlay;
+    if (withOverlay) {
+        // Создаем overlay для фона
+        overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.zIndex = '9998'; // чуть ниже элемента
+        overlay.style.backgroundImage = getComputedStyle(document.body).backgroundImage;
+        overlay.style.backgroundSize = getComputedStyle(document.body).backgroundSize;
+        overlay.style.backgroundPosition = getComputedStyle(document.body).backgroundPosition;
+        overlay.style.backgroundRepeat = getComputedStyle(document.body).backgroundRepeat;
+        document.body.appendChild(overlay);
+    }
 
     // Перемещаем элемент в body
     document.body.appendChild(element);
@@ -130,7 +132,7 @@ function fullscreenize(element) {
     // Возвращаем лямбду для восстановления
     return () => {
         // Убираем overlay
-        overlay.remove();
+        if (withOverlay) overlay.remove();
 
         // Возвращаем элемент на место
         if (nextSibling) parent.insertBefore(element, nextSibling);

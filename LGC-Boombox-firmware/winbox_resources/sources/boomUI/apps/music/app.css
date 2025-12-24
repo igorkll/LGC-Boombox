@@ -133,3 +133,11 @@
     display: flex !important;
     z-index: -1 !important;
 }
+
+.hide-if-not-visualizer-enabled {
+    opacity: 0 !important;
+}
+
+.overwrite-hide-if-not-visualizer-enabled .hide-if-not-visualizer-enabled {
+    opacity: 1 !important;
+}
