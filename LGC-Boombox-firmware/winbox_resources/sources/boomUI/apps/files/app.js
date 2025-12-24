@@ -206,13 +206,13 @@ let updateDrives = async () => {
 updateDrives();
 
 usb.usb.on('attach', async function(device) {
-    playSystemSound("connect");
+    if (storage_table.syssound_usbDeviceConnected) playSystemSound("connect");
     await asyncWait(200);
     updateDrives();
 });
 
 usb.usb.on('detach', function(device) {
-    playSystemSound("disconnect");
+    if (storage_table.syssound_usbDeviceDisconnected) playSystemSound("disconnect");
     updateDrives();
 });
 

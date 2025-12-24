@@ -389,7 +389,7 @@ window.shutdown = function(reboot) {
     shutdown_triggeredFlag = true
 
     stopMediaAndWait().then(_ => {
-        playSystemSound("shutdown");
+        if (storage_table.syssound_shutdown) playSystemSound("shutdown");
 
         if (reboot) {
             exec('shutdown /r /t 0');

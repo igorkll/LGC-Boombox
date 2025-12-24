@@ -275,12 +275,11 @@ function updateAllFunctions(updateFunctions) {
     linkSwitch(updateFunctions, "syssound_bluetoothConnected");
     linkSwitch(updateFunctions, "syssound_bluetoothDisconnected");
 
-    let setting_aux_reset = document.getElementById('setting_aux_reset');
-    setting_aux_reset.addEventListener('custom_click', async () => {
+    let setting_syssound_reset = document.getElementById('setting_syssound_reset');
+    setting_syssound_reset.addEventListener('custom_click', async () => {
         storage_loadDefaults(storage_defaultsSyssound, true);
         storage_save();
         updateAllFunctions(updateFunctions);
-        await aux_update();
     });
 }
 
