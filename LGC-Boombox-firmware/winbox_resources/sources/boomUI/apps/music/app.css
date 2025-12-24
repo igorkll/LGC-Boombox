@@ -91,3 +91,30 @@
     flex-direction: column;
     position: relative;
 }
+
+.music-control-panel {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.music-blackening-mode {
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.193);
+}
+
+.music-blackening-mode .music-relative-container {
+    display: none;
+}
+
+.music-blackening-mode .music-title {
+    display: none;
+}
+
+.music-blackening-mode .music-control-panel {
+    display: none;
+}
+
+.music-blackening-mode .music-content-container {
+    margin: 0;
+}

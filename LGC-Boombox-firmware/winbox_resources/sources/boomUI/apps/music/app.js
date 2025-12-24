@@ -20,7 +20,10 @@ let music_currentTime = document.getElementById('music_currentTime');
 let music_loopmode = document.getElementById('music_loopmode');
 let music_loopmode_img = document.getElementById('music_loopmode_img');
 
+let blackeningTimeout = 3000;
+
 let restoreFullscreenState = null;
+let fullscreenBlackeningTimer = null;
 let lastMediaPath = null;
 let loadedMediaName = null;
 let manualOpen = false;
@@ -205,7 +208,39 @@ window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true, 
     }
 }
 
+function blackeningToggle(state) {
+    if (state) {
+        media_panel.classList.add("music-blackening-mode");
+    } else {
+        media_panel.classList.remove("music-blackening-mode");
+    }
+}
+
+function stopBlackeningTimer() {
+    if (fullscreenBlackeningTimer == null) return;
+    clearTimeout(fullscreenBlackeningTimer);
+    fullscreenBlackeningTimer = null;
+}
+
+function startBlackeningTimer() {
+    if (fullscreenBlackeningTimer != null) return;
+    fullscreenBlackeningTimer = setTimeout(() => {
+        blackeningToggle(true);
+        fullscreenBlackeningTimer = null;
+    }, blackeningTimeout);
+}
+
+document.addEventListener("user_interaction", () => {
+    if (restoreFullscreenState == null) return;
+    stopBlackeningTimer();
+    blackeningToggle(false);
+    startBlackeningTimer();
+})
+
 function exitFromFullscreen() {
+    stopBlackeningTimer();
+    blackeningToggle(false);
+    
     if (restoreFullscreenState != null) {
         media_panel.style.borderRadius = null;
         restoreFullscreenState();
@@ -219,9 +254,12 @@ music_fullscreen.addEventListener("custom_click", () => {
         exitFromFullscreen();
         return;
     }
+
     media_panel.style.borderRadius = '0px';
     restoreFullscreenState = fullscreenize(media_panel);
     updateGui();
+
+    startBlackeningTimer();
 });
 
 music_playPause.addEventListener("custom_click", () => {
