@@ -3,13 +3,26 @@
     width: 14vh;
     height: 14vh;
     flex-shrink: 0;
+    pointer-events: auto;
 }
 
 .music-relative-container {
-    position: absolute;
-    flex: 1;
-    align-self: stretch;
+    pointer-events: none;
 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.music-buttons-container {
     display: flex;
     flex-direction: column;
     justify-content: start;
