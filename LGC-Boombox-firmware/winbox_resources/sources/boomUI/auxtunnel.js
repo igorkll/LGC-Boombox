@@ -1,15 +1,18 @@
 {
+let startingAudio = false;
 let audioContext;
 let source;
 let stream;
 
 async function startAudio() {
-    if (audioContext) return;
+    if (audioContext || startingAudio) return;
 
+    startingAudio = true;
     audioContext = new AudioContext();
     stream = await navigator.mediaDevices.getUserMedia({ audio: storage_table.aux_audioSettings });
     source = audioContext.createMediaStreamSource(stream);
     source.connect(audioContext.destination);
+    startingAudio = false;
 }
 
 function stopAudio() {
@@ -59,10 +62,11 @@ window.aux_setAutoGainControl = async function (state) {
 }
 
 window.aux_update = async () => {
-    await aux_setEnabled(storage_table.aux_enabled);
+    stopAudio();
     await aux_setEchoCancellation(storage_table.aux_audioSettings.echoCancellation);
     await aux_setNoiseSuppression(storage_table.aux_audioSettings.noiseSuppression);
     await aux_setAutoGainControl(storage_table.aux_audioSettings.autoGainControl);
+    await aux_setEnabled(storage_table.aux_enabled);
 };
 
 aux_update();
