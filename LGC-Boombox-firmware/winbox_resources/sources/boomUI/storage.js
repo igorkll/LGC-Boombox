@@ -29,6 +29,18 @@ let storage_defaultsAux = {
     }
 };
 
+let storage_defaultsSyssound = {
+    syssound_wakeup: true,
+    syssound_shutdown: true,
+    
+    syssound_usbDeviceConnected: true,
+    syssound_usbDeviceDisconnected: true,
+
+    syssound_bluetoothFinding: true,
+    syssound_bluetoothConnected: true,
+    syssound_bluetoothDisconnected: true
+};
+
 let storage_table = {};
 
 function storage_loadDefaults(defaults, force=false) {
@@ -53,6 +65,7 @@ function storage_load() {
     storage_loadDefaults(storage_defaults);
     storage_loadDefaults(storage_defaultsLight);
     storage_loadDefaults(storage_defaultsAux);
+    storage_loadDefaults(storage_defaultsSyssound);
 }
 
 function storage_save() {

@@ -6,6 +6,13 @@ const mm = require('music-metadata');
 const os = require('os');
 const fs = require('fs');
 
+function handleShutdown(webContents) {
+    return new Promise(resolve => {
+        ipcMain.once('on-shutdown-done', () => resolve());
+        webContents.send('on-shutdown');
+    });
+}
+
 app.whenReady().then(() => {
     const win = new BrowserWindow({
         show: false,
@@ -28,24 +35,22 @@ app.whenReady().then(() => {
 
     win.loadFile('main.html');
 
+    app.on('before-quit', async (event) => {
+        event.preventDefault();
+        console.log("AAA11");
+        await handleShutdown(win.webContents);
+        console.log("AAA");
+        app.quit();
+    });
+
     win.webContents.on("before-input-event", (event, input) => {
         if (input.key === "F11") {
             event.preventDefault();
         }
     });
 
-    app.on('session-end', () => {
-        win.webContents.send('on-shutdown');
-    });
-
-    win.on('close', (e) => {
+    win.on('close', async (e) => {
         e.preventDefault();
-
-        ipcMain.once('on-shutdown-done', () => {
-            win.destroy();
-        });
-
-        win.webContents.send('on-shutdown');
     });
 
     if (process.defaultApp) {
@@ -75,10 +80,6 @@ app.whenReady().then(() => {
         exec(`"${path.join(__dirname, "../../AudioCapture/AudioCapture.exe")}"`);
         console.log(`pipe created: LGCBoombox_AudioCapture`);
     });
-});
-
-app.on('window-all-closed', () => {
-    app.quit();
 });
 
 ipcMain.on('quit-app', () => {

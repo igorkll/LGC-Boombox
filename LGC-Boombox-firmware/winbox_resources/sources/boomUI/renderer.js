@@ -8,8 +8,19 @@ function playSystemSound(name) {
         audio = new Audio(`sounds/${name}.mp3`);
         audioCache.set(name, audio);
     }
+
     audio.currentTime = 0;
+
+    let resolveDone;
+    const done = new Promise(resolve => {
+        resolveDone = resolve;
+    });
+
+    audio.onended = () => resolveDone();
+    audio.onerror = () => resolveDone();
+
     audio.play();
+    return done;
 }
 
 function asyncWait(timeout) {
@@ -368,9 +379,13 @@ window.shutdown = function(reboot) {
     }
 }
 
-ipcRenderer.on('on-shutdown', (event) => {
+ipcRenderer.on('on-shutdown', async (event) => {
+    if (shutdown_flag) return;
     shutdown_flag = true;
 
+    let shutdownSound = null;
+    if (storage_table.syssound_shutdown) shutdownSound = playSystemSound("shutdown");
+    
     let ledsCount = leds_getCount();
     for (let i = 0; i < ledsCount; i++) {
         leds_set(i, [0, 0, 0]);
@@ -378,6 +393,8 @@ ipcRenderer.on('on-shutdown', (event) => {
     leds_flush();
 
     removeTemp();
+
+    if (shutdownSound) await shutdownSound;
 
     ipcRenderer.send('on-shutdown-done');
 });
@@ -387,4 +404,4 @@ autoSaveSettings = true;
 }
 
 removeTemp();
-playSystemSound("wakeup");
+if (storage_table.syssound_wakeup) playSystemSound("wakeup");
