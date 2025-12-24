@@ -42,8 +42,8 @@
     "Hide bootmgr errors",
     "Disable security mitigations (performance boost)",
     "Disable all boot UI",
-    "removing Windows/System apps (breaks the default shell)",
-    "remove windows defender files"
+    "remove windows defender files",
+    "remove OneDrive"
   ],
   "CustomBootLogo": "logo.png",
   "AddVirtualDisplay": false,
@@ -51,8 +51,8 @@
   "VirtualDisplayHeight": 640,
   "UseEmbeddedDisplay": false,
   "CustomBootLogo_centering": true,
-  "CustomBootLogo_UseLogoBeforeApp": false,
-  "CustomBootLogo_UseOnBootres": false,
+  "CustomBootLogo_UseLogoBeforeApp": true,
+  "CustomBootLogo_UseOnBootres": true,
   "pythonVersion": null,
   "downloadEnabled": false,
   "buildEnabled": true,
@@ -123,13 +123,17 @@
     {
       "string1": "US (00000409)",
       "string2": "00000409"
+    },
+    {
+      "string1": "Russian (00000419)",
+      "string2": "00000419"
     }
   ],
   "keyboard_layouts_firstAdded": true,
   "forceIot": true,
   "dc_use": false,
-  "enable_hibernation": false,
-  "enable_hiberboot": false,
+  "enable_hibernation": true,
+  "enable_hiberboot": true,
   "UseCustomDisplaySettings": false,
   "UseCustomDisplaySettings_scale": false,
   "cds_width": 800,

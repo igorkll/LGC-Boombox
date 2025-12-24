@@ -4,7 +4,7 @@
 * this speaker has a touchscreen display and runs on a redesigned Windows 10
 * i used winbox maker (my program) to create a custom Windows build: https://github.com/igorkll/WinBox-Maker/releases
 * WARNING! download the release (wait for the release), not the master branch. I'm doing a project in this branch, and there will probably be an unstable version, possibly completely broken
-* don't expect outstanding sound quality from this speaker. Also, an old motherboard from a tonk thin client will drain the battery quickly. my speaker runs for ~2 hours on a single charge
+* don't expect outstanding sound quality from this speaker. Also, an old motherboard from a tonk thin client will drain the battery quickly. my speaker runs for ~3 hours on a single charge
 
 ## size
 * height - 17
@@ -75,6 +75,10 @@
 * a clean table on which to solder
 * an open window without an anti-mosquito net where you can throw the speaker and/or battery in case of fire (the window should be FULLY open, not for ventilation)
 
+## recommendations
+* If possible, install more batteries than indicated in the instructions. this way the speaker will work much longer.
+* if you don't have any parts, you can change the design yourself in OpenSCAD. for example, change the diagonal of the screen
+
 ## assembly process
 
 ### building a modified version of windows 10
@@ -90,7 +94,7 @@
 * next, install it on your motherboard like a regular Windows and BE SURE to wait for the speaker interface to appear and do not turn off the board until it appears. it may take a couple of hours since the board is quite weak (subsequent power-ups will take ~30 seconds). After the interface appears, wait for about 10 more minutes and then turn off the board by clicking the off button in the speaker interface
 
 ### esp32c3 firmware
-* open the led_strip_esp32c3_firmware directory in vs code
+* open the esp32c3_firmware directory in vs code
 * make sure that the extension for esp-IDF recognizes the open project
 * select the esp32c3 chip and the COM port it is on
 * open the main/config.h file and configure config to suit your case (first of all, the number of LEDs, and remove the comment from the "#define USE_UART" line if your board has a USB>UART bridge in a separate chip)
