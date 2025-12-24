@@ -244,6 +244,15 @@ music_playPause.addEventListener("custom_click", () => {
     }
 });
 
+function stopMedia() {
+    if (isMediaLoaded() && !media_player.paused) {
+        media_player.pause();
+        updateGui();
+        return true;
+    }
+    return false;
+}
+
 function nextMedia(previous=false, _manualOpen=false, recursionLimit=null) {
     if (recursionLimit != null && recursionLimit <= 0) {
         messagebox('failed to load any playlist item', 'error');

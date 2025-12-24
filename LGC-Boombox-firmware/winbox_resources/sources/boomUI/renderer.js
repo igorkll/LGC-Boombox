@@ -371,23 +371,33 @@ window.getVolume = function() {
 
 setVolume(storage_table.volume);
 
+async function stopMediaAndWait() {
+    if (stopMedia()) {
+        await asyncWait(100);
+    }
+}
+
 // shutdown
 window.shutdown = function(reboot) {
     if (shutdown_triggeredFlag) return;
     shutdown_triggeredFlag = true
 
-    playSystemSound("shutdown");
+    stopMediaAndWait().then(_ => {
+        playSystemSound("shutdown");
 
-    if (reboot) {
-        exec('shutdown /r /t 0');
-    } else {
-        exec('shutdown /s /t 0');
-    }
+        if (reboot) {
+            exec('shutdown /r /t 0');
+        } else {
+            exec('shutdown /s /t 0');
+        }
+    });
 }
 
 ipcRenderer.on('on-shutdown', async (event) => {
     if (shutdown_flag) return;
     shutdown_flag = true;
+
+    await stopMediaAndWait();
 
     let shutdownSound = null;
     if (storage_table.syssound_shutdown && !shutdown_triggeredFlag)
