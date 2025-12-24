@@ -145,7 +145,7 @@ function openImage(filePath) {
     updateGui();
 }
 
-window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) {
+window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true, noLoadingLabel=false, requireContinue=false) {
     manualOpen = _manualOpen;
     loadedMediaName = null;
     lastMediaPath = filePath;
@@ -154,36 +154,26 @@ window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true) 
     detectMediaType(filePath).then(result => {
         switch (result) {
             case 'audio':
-                loadingLabel(filePath);
-                openAudio(filePath);
-                if (callback != null) {
-                    callback(true, result);
-                }
+                if (!noLoadingLabel) loadingLabel(filePath);
+                if (!requireContinue) openAudio(filePath);
+                if (callback != null && callback(true, result) && requireContinue) openAudio(filePath);
                 break;
 
             case 'video':
-                loadingLabel(filePath);
-                openVideo(filePath);
-                if (callback != null) {
-                    callback(true, result);
-                }
+                if (!noLoadingLabel) loadingLabel(filePath);
+                if (!requireContinue) openVideo(filePath);
+                if (callback != null && callback(true, result) && requireContinue) openVideo(filePath);
                 break;
 
             case 'image':
-                loadingLabel(filePath);
-                openImage(filePath);
-                if (callback != null) {
-                    callback(true, result);
-                }
+                if (!noLoadingLabel) loadingLabel(filePath);
+                if (!requireContinue) openImage(filePath);
+                if (callback != null && callback(true, result) && requireContinue) openImage(filePath);
                 break;
 
             default:
-                if (_manualOpen) {
-                    messagebox('unsupported file type', 'error');
-                }
-                if (callback != null) {
-                    callback(false, result);
-                }
+                if (_manualOpen) messagebox('unsupported file type', 'error');
+                if (callback != null) callback(false, result);
                 break;
         }
     });
@@ -253,14 +243,14 @@ function stopMedia() {
     return false;
 }
 
-function nextMedia(previous=false, _manualOpen=false, recursionLimit=null) {
+function nextMedia(previous=false, _manualOpen=false, recursionLimit=null, noLoadingLabel=false) {
     if (recursionLimit != null && recursionLimit <= 0) {
         messagebox('failed to load any playlist item', 'error');
         return;
     }
 
     if (playlist != null) {
-        loadingLabel();
+        if (!noLoadingLabel) loadingLabel();
         if (previous) {
             playlistIndex = wrapInt(playlistIndex - 1, playlist.length);
         } else {
@@ -271,9 +261,13 @@ function nextMedia(previous=false, _manualOpen=false, recursionLimit=null) {
         }
         openMedia(playlist[playlistIndex], (result, fileType) => {
             if (!result || (fileType == "image" && !_manualOpen)) {
-                nextMedia(previous, _manualOpen, recursionLimit - 1);
+                setTimeout(() => {
+                    nextMedia(previous, _manualOpen, recursionLimit - 1, true);
+                }, 0);
+                return false;
             }
-        }, false, false);
+            return true;
+        }, false, false, noLoadingLabel, true);
         manualOpen = _manualOpen;
     } else if (_manualOpen) {
         messagebox('playlist is not loaded', 'error');
