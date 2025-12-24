@@ -1,11 +1,21 @@
 <link rel="stylesheet" href="apps/music/app.css">
 
-<div class="fill soap crop" id="media_panel" style="padding: 1vh; box-sizing: border-box; justify-content: center; align-items: center; flex-direction: column;">
-    <div id="music_trackname" class="mini-info"></div>
+<div class="fill soap crop music-main-container" id="media_panel">
+    <div class="music-relative-container">
+        <custom-button id="music_visualizer" class="music-button">
+            <div class="button-content">
+                <img src="apps/music/visualizer.png" class="button-image"></img>
+            </div>
+        </custom-button>
+    </div>
 
-    <div style="position: relative; margin: 1vh; box-sizing: border-box; width: 100%; height: 100%;">
-        <video id="media_player" style="position: absolute; width: 100%; height: 100%; object-fit: contain;"></video>
-        <img id="media_preview" style="position: absolute; width: 100%; height: 100%; object-fit: contain;"></img>
+    <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
+        <div id="music_trackname" class="mini-info music-title"></div>
+    </div>
+
+    <div class="music-content-container">
+        <video id="media_player" class="music-content"></video>
+        <img id="media_preview" class="music-content"></img>
     </div>
 
     <div style="display: flex; flex-direction: row; width: 100%;">
