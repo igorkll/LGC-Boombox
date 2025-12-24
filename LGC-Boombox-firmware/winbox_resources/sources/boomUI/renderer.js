@@ -1,3 +1,4 @@
+let shutdown_triggeredFlag = false;
 let shutdown_flag = false;
 
 const audioCache = new Map();
@@ -236,7 +237,7 @@ window.setTrackCover = async function (imgElement, filePath) {
 window.messagebox = function (message, type, callback, buttons, title) {
     let msgboxBackground = document.createElement('div');
     msgboxBackground.style.position = 'absolute';
-    msgboxBackground.style.zIndex = '20';
+    msgboxBackground.style.zIndex = '10000';
     msgboxBackground.style.width = '100%';
     msgboxBackground.style.height = '100%';
     msgboxBackground.style.backdropFilter = 'blur(1vh)';
@@ -249,7 +250,7 @@ window.messagebox = function (message, type, callback, buttons, title) {
     let msgboxBody = document.createElement('div');
     msgboxBody.classList.add("soap");
     msgboxBody.style.position = 'absolute';
-    msgboxBody.style.zIndex = '21';
+    msgboxBody.style.zIndex = '10001';
     msgboxBody.style.width = '80%';
     msgboxBody.style.display = 'flex';
     msgboxBody.style.justifyContent = 'flex-start';
