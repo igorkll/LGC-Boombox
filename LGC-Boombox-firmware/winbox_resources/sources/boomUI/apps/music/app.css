@@ -120,3 +120,8 @@
 .music-blackening-mode .music-content-container {
     margin: 0;
 }
+
+.music-visualizer {
+    display: flex !important;
+    z-index: -1 !important;
+}

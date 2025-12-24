@@ -10,6 +10,8 @@ window.openApp = function (name) {
         child.style.display = `${name}_container` === child.id ? 'flex' : 'none';
     }
 
+    document.dispatchEvent(new CustomEvent('open_app', {detail: {name: name}}));
+
     for (let i = 0; i < appslist.children.length; i++) {
         const child = appslist.children[i];
         if (`${name}_icon` === child.id) {

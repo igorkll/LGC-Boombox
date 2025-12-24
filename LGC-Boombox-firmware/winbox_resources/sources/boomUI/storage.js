@@ -3,7 +3,8 @@ let storage_version = "0";
 let storage_defaults = {
     wallpaper: 'wallpapers/1.jpg',
     volume: 0.5,
-    loopmode: 0
+    loopmode: 0,
+    music_visualizer: false
 };
 
 let storage_defaultsLight = {

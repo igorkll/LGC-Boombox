@@ -19,6 +19,7 @@ let music_duration = document.getElementById('music_duration');
 let music_currentTime = document.getElementById('music_currentTime');
 let music_loopmode = document.getElementById('music_loopmode');
 let music_loopmode_img = document.getElementById('music_loopmode_img');
+let music_visualizer = document.getElementById('music_visualizer');
 
 let blackeningTimeout = 3000;
 
@@ -381,6 +382,28 @@ music_loopmode.addEventListener("custom_click", () => {
     storage_table.loopmode = (storage_table.loopmode + 1) % 5;
     storage_save();
     updateLoopmodeImage();
+});
+
+let visualization_container = document.getElementById("visualization_container");
+
+function toogleVisualizerState(state) {
+    if (state) {
+        visualization_container.classList.add("music-visualizer");
+    } else {
+        visualization_container.classList.remove("music-visualizer");
+    }
+}
+
+document.addEventListener("open_app", (event) => {
+    if (event.detail.name == "music" && storage_table.music_visualizer) {
+        toogleVisualizerState(true);
+    }
+})
+
+music_visualizer.addEventListener("custom_click", () => {
+    storage_table.music_visualizer = !storage_table.music_visualizer;
+    storage_save();
+    toogleVisualizerState(storage_table.music_visualizer);
 });
 
 music_previous.addEventListener("custom_click", () => {
