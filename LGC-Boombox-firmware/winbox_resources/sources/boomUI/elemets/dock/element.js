@@ -1,4 +1,5 @@
 {
+
 let capturedElements = []
 let elementsTriggerTime = []
 let elementsDelay = []
@@ -23,11 +24,12 @@ function sendTouchEvent(element) {
     element.dispatchEvent(new CustomEvent('custom_click'));
 }
 
-function checkTouchs(event) {
+function checkTouchs(event, allowCapture=true) {
     capturedElements = []
 
     document.querySelectorAll('.dock-item').forEach(element => {
-        let touch = isTouchOnTouchscreen(event, element)
+        let touch = isTouch(event, element)
+        if (touch && !allowCapture) return; 
         if (touch) {
             capturedElements.push(element);
         }
@@ -35,6 +37,7 @@ function checkTouchs(event) {
     });
 }
 
+/*
 document.addEventListener('touchstart', (event) => {
     checkTouchs(event);
 });
@@ -69,6 +72,47 @@ document.querySelectorAll('.dock-item').forEach(element => {
         }
     });
 });
+*/
+
+document.addEventListener('touchstart', (event) => {
+    checkTouchs(event);
+});
+
+document.addEventListener('touchmove', (event) => {
+    checkTouchs(event, false);
+});
+
+document.addEventListener('touchend', (event) => {
+    for (let i = 0; i < capturedElements.length; i++) {
+        sendTouchEvent(capturedElements[i]);
+    }
+    checkTouchs(event);
+});
+
+
+document.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse') {
+        checkTouchs(event);
+    }
+});
+
+document.addEventListener('pointermove', (event) => {
+    if (event.pointerType === 'mouse') {
+        checkTouchs(event);
+    }
+});
+
+document.querySelectorAll('.dock-item').forEach(element => {
+    element.addEventListener('click', (event) => {
+        if (event.pointerType === 'mouse') {
+            for (let i = 0; i < capturedElements.length; i++) {
+                sendTouchEvent(capturedElements[i]);
+            }
+            checkTouchs(event);
+        }
+    });
+});
+
 
 setInterval(() => {
     let uptime = performance.now();
@@ -81,4 +125,5 @@ setInterval(() => {
         }
     }
 }, 50);
+
 }
