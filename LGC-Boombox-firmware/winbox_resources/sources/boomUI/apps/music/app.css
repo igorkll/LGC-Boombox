@@ -90,6 +90,8 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+
+    transition: background-color 1s ease;
 }
 
 .music-control-panel {
