@@ -12,7 +12,8 @@ app.whenReady().then(() => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            webviewTag: true
+            webviewTag: true,
+            devTools: process.defaultApp
         }
     });
 
