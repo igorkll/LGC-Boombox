@@ -17,7 +17,7 @@ const sudo = require('sudo-prompt');
     }
 
     addSettingsTab("wallpaper");
-    addSettingsTab("syssounds");
+    addSettingsTab("syssound");
     addSettingsTab("clock");
     addSettingsTab("light");
     addSettingsTab("aux");
@@ -25,10 +25,27 @@ const sudo = require('sudo-prompt');
 }
 
 function addSwitch(panel, name, title=null) {
+    panel = "setting_" + panel;
     if (title == null) title = name;
     
-    let panel = document.getElementById(panel + "_panel")
-    panel.
+    let panelElement = document.getElementById(panel + "_panel");
+    let referenceNode = document.getElementById(panel + "_reference");
+
+    const settingsLine = document.createElement('div');
+    settingsLine.className = 'settings-line';
+
+    const slider = document.createElement('custom-switch');
+    slider.id = panel + "_" + name;
+    slider.className = 'settings-switch';
+    slider.style = "";
+    settingsLine.appendChild(slider);
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    info.textContent = title;
+    settingsLine.appendChild(info);
+    
+    panelElement.insertBefore(settingsLine, referenceNode);
 }
 
 function linkSwitch(updateFunctions, name) {
@@ -239,16 +256,16 @@ function updateAllFunctions(updateFunctions) {
     });
 }
 
-{ // syssounds
+{ // syssound
     let updateFunctions = []
 
-    addSwitch("setting_syssounds", "wakeup");
-    addSwitch("setting_syssounds", "shutdown");
-    addSwitch("setting_syssounds", "usbDeviceConnected", "usb device connected");
-    addSwitch("setting_syssounds", "usbDeviceDisconnected", "usb device disconnected");
-    addSwitch("setting_syssounds", "bluetoothFinding", "bluetooth finding");
-    addSwitch("setting_syssounds", "bluetoothConnected", "bluetooth connected");
-    addSwitch("setting_syssounds", "bluetoothDisconnected", "bluetooth disconnected");
+    addSwitch("syssound", "wakeup");
+    addSwitch("syssound", "shutdown");
+    addSwitch("syssound", "usbDeviceConnected", "usb device connected");
+    addSwitch("syssound", "usbDeviceDisconnected", "usb device disconnected");
+    addSwitch("syssound", "bluetoothFinding", "bluetooth finding");
+    addSwitch("syssound", "bluetoothConnected", "bluetooth connected");
+    addSwitch("syssound", "bluetoothDisconnected", "bluetooth disconnected");
 
     linkSwitch(updateFunctions, "syssound_wakeup");
     linkSwitch(updateFunctions, "syssound_shutdown");

@@ -53,17 +53,19 @@ class custom_switch extends HTMLElement {
     }
 
     setState(state) {
-        let switchBody = this.shadow.getElementById("switch-body");
-        let buttonDot = this.shadow.getElementById("switch-dot");
+        htmlPromise.then(_ => {
+            let switchBody = this.shadow.getElementById("switch-body");
+            let buttonDot = this.shadow.getElementById("switch-dot");
 
-        this.state = state;
-        if (state) {
-            buttonDot.style.transform = `translate(${switchBody.clientWidth - buttonDot.clientWidth}px)`;
-            switchBody.classList.add('switch-body-active');
-        } else {
-            buttonDot.style.transform = null;
-            switchBody.classList.remove('switch-body-active');
-        }
+            this.state = state;
+            if (state) {
+                buttonDot.style.transform = `translate(${switchBody.clientWidth - buttonDot.clientWidth}px)`;
+                switchBody.classList.add('switch-body-active');
+            } else {
+                buttonDot.style.transform = null;
+                switchBody.classList.remove('switch-body-active');
+            }
+        });
     }
 }
 

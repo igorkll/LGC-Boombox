@@ -1,3 +1,5 @@
+const { getRandomValues } = require('crypto');
+
 {
 const path = require('path');
 const fs = require('fs');
@@ -262,8 +264,13 @@ function nextMedia(playmode=0, _manualOpen=false, recursionLimit=null, noLoading
                 playlistIndex = wrapInt(playlistIndex - 1, playlist.length);
                 break;
 
-            case 2:
-                playmode = 0;
+            case 2: //current
+                playmode = 0; //перебор в случаи проблемы вперед
+                break;
+
+            case 3: //random
+                playlistIndex = getRandomInt(0, playlist.length - 1);
+                playmode = 0; //перебор в случаи проблемы вперед
                 break;
         }
         if (recursionLimit == null) {
@@ -321,6 +328,10 @@ function updateLoopmodeImage() {
         case 3:
             loopmode = 'stop';
             break;
+
+        case 4:
+            loopmode = 'random';
+            break;
     }
 
     music_loopmode_img.src = `apps/music/loopmode_${loopmode}.png`;
@@ -329,7 +340,7 @@ function updateLoopmodeImage() {
 updateLoopmodeImage();
 
 music_loopmode.addEventListener("custom_click", () => {
-    storage_table.loopmode = (storage_table.loopmode + 1) % 4
+    storage_table.loopmode = (storage_table.loopmode + 1) % 5;
     storage_save();
     updateLoopmodeImage();
 });
@@ -354,6 +365,10 @@ function autoPlay() {
 
         case 3: //stop
             stopMedia(true);
+            break;
+
+        case 4: //random
+            nextMedia(3);
             break;
 
         default: //next
