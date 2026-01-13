@@ -1,5 +1,5 @@
 {
-const { exec } = require('child_process');
+const { exec, spawn } = require('child_process');
 
 document.getElementById('poweroff_button').addEventListener('custom_click', () => {
     messagebox(null, null, (index) => {
