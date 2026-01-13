@@ -168,7 +168,7 @@
   "computername": "LGC-Boombox",
   "actionAtEndOfApplication": 2,
   "actionAtEndOfApplication_command": "",
-  "appdelay_time": false,
+  "appdelay_time": true,
   "appdelay_time_value": 3,
   "appdelay_internet": false,
   "appdelay_internet_checkurl": "google.com",
