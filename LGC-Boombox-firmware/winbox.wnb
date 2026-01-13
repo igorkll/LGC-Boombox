@@ -49,7 +49,7 @@
     "Disable HyperV / VSM / ELAM"
   ],
   "TweakListLevel": 3,
-  "CustomBootLogo": "logo.png",
+  "CustomBootLogo": "logo_boot.png",
   "AddVirtualDisplay": false,
   "VirtualDisplayWidth": 960,
   "VirtualDisplayHeight": 640,
@@ -255,7 +255,7 @@
     "app_override_type": 0,
     "app_custom_cmdline": "my_app_example.exe --argument",
     "winboxRecoveryLogoType": 1,
-    "customRecoveryLogoPath": "logo.png",
+    "customRecoveryLogoPath": "logo_recovery.png",
     "recovery_title": "LGC-Boombox recovery",
     "recovery_dataPaths": "Users\\winbox\\AppData\\Roaming\\boomui\npagefile.sys",
     "recovery_allowFactoryReset": true,
