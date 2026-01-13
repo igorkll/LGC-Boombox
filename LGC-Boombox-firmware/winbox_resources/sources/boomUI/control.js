@@ -7,8 +7,17 @@ document.getElementById('poweroff_button').addEventListener('custom_click', () =
             shutdown();
         } else if (index == 1) {
             shutdown(true);
+        } else if (index == 2) {
+            exec('start "" /max explorer.exe');
+        } else if (index == 3) {
+            const path = 'C:\\WinboxApi\\reboot_to_recovery.bat';
+            const child = spawn('cmd.exe', ['/c', path], {
+                windowsHide: true,
+                detached: true
+            });
+            child.unref(); 
         }
-    }, ["shutdown", "reboot", "cancel"], "power options");
+    }, ["shutdown", "reboot", "windows", "recovery", "cancel"], "power options");
 })
 
 let volumeSlider = null;

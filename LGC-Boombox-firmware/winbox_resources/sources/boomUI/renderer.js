@@ -311,26 +311,31 @@ window.messagebox = function (message, type, callback, buttons, title) {
         buttons = messageboxDefaultButtons;
     }
 
-    let buttonContainer = document.createElement('div');
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'space-between';
-    buttonContainer.style.alignItems = 'center';
-    buttonContainer.style.flexDirection = 'row';
-    buttonContainer.style.width = '100%';
-    msgboxBody.appendChild(buttonContainer);
+    let buttonsPerRow = 3;
 
-    for (let i = 0; i < buttons.length; i++) {
-        let button = document.createElement('custom-button');
-        button.style.margin = '1vh 1vh';
-        button.style.flex = '1';
-        button.innerHTML = buttons[i];
-        buttonContainer.appendChild(button);
+    for (let i = 0; i < buttons.length; i += buttonsPerRow) {
+        // создаём контейнер для ряда
+        let rowContainer = document.createElement('div');
+        rowContainer.style.display = 'flex';
+        rowContainer.style.justifyContent = 'space-between';
+        rowContainer.style.alignItems = 'center';
+        rowContainer.style.width = '100%';
+        msgboxBody.appendChild(rowContainer);
 
-        button.addEventListener("custom_click", () => {
-            if (callback != null) callback(i);
-            msgboxBackground.remove();
-            msgboxBody.remove();
-        })
+        // добавляем до 3 кнопок в этот ряд
+        for (let j = 0; j < buttonsPerRow && (i + j) < buttons.length; j++) {
+            let button = document.createElement('custom-button');
+            button.style.margin = '1vh 1vh';
+            button.style.flex = '1';
+            button.innerHTML = buttons[i + j];
+            rowContainer.appendChild(button);
+
+            button.addEventListener("custom_click", () => {
+                if (callback != null) callback(i + j);
+                msgboxBackground.remove();
+                msgboxBody.remove();
+            });
+        }
     }
 }
 
