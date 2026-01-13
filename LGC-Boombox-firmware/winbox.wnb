@@ -259,7 +259,7 @@
     "winboxRecoveryLogoType": 1,
     "customRecoveryLogoPath": "logo_recovery.png",
     "recovery_title": "LGC-Boombox recovery",
-    "recovery_dataPaths": "Users\\winbox\\AppData\\Roaming\\boomui\npagefile.sys",
+    "recovery_dataPaths": "Users\\winbox\\AppData\\Roaming\\boomui\nLGCBoombox_storage\npagefile.sys",
     "recovery_allowFactoryReset": true,
     "recovery_allowFlashWim": true,
     "recovery_wimName": "firmware.wim",
