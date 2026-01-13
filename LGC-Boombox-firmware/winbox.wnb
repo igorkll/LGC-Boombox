@@ -46,7 +46,9 @@
     "remove windows defender files",
     "remove OneDrive",
     "Disable system integrity checks",
-    "Disable HyperV / VSM / ELAM"
+    "Disable HyperV / VSM / ELAM",
+    "Disable boot circle",
+    "Disable boot messages"
   ],
   "TweakListLevel": 3,
   "CustomBootLogo": "logo_boot.png",
