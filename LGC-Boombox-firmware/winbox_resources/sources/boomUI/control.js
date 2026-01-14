@@ -10,8 +10,7 @@ document.getElementById('poweroff_button').addEventListener('custom_click', () =
         } else if (index == 2) {
             exec('start "" /max explorer.exe');
         } else if (index == 3) {
-            const path = 'C:\\WinboxApi\\reboot_to_recovery.bat';
-            const child = spawn('cmd.exe', ['/c', path], {
+            const child = spawn('wscript.exe', ['C:\\WinboxApi\\reboot_to_recovery.vbs'], {
                 windowsHide: true,
                 detached: true
             });
