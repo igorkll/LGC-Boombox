@@ -49,10 +49,15 @@ function updateGui() {
 
 updateGui();
 
-let alwaysMediaPreviewMargin=false
+let alwaysMediaPreviewMargin = false;
+let mediaPreviewMarginOptional = false;
 
 function updateMediaPreviewMargin() {
-
+    if (alwaysMediaPreviewMargin || !mediaPreviewMarginOptional) {
+        media_preview.style.transform = 'scale(0.9)';
+    } else {
+        media_preview.style.transform = '';
+    }
 }
 
 function enableMediaPreview(name, alwaysMargin=false) {
