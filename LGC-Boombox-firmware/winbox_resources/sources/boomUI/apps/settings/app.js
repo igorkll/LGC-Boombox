@@ -126,7 +126,8 @@ function updateAllFunctions(updateFunctions) {
         updateSelector();
     }
 
-    for (let i = 1; i <= 37; i++) {
+    let wallpapersCount = 46;
+    for (let i = 1; i <= wallpapersCount; i++) {
         addWallpaperSelector(i);
     }
 }
