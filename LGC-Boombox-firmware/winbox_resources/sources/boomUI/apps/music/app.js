@@ -49,10 +49,22 @@ function updateGui() {
 
 updateGui();
 
-function loadingLabel(filePath) {
+let alwaysMediaPreviewMargin=false
+
+function updateMediaPreviewMargin() {
+
+}
+
+function enableMediaPreview(name, alwaysMargin=false) {
+    alwaysMediaPreviewMargin = alwaysMargin;
     media_player.style.display = 'none';
     media_preview.style.display = 'inline';
-    media_preview.src = 'apps/music/loading.gif';
+    media_preview.src = name;
+    updateMediaPreviewMargin();
+}
+
+function loadingLabel(filePath) {
+    enableMediaPreview('apps/music/loading.gif', true);
 
     music_trackname.innerHTML = "loading...";
     if (filePath != null) {
@@ -65,9 +77,7 @@ function loadingLabel(filePath) {
 }
 
 function showError(filePath, errorMessage) {
-    media_player.style.display = 'none';
-    media_preview.style.display = 'inline';
-    media_preview.src = 'apps/music/error.png';
+    enableMediaPreview('apps/music/error.png', true);
 
     if (loadedMediaName != null) {
         music_trackname.innerHTML = `${errorMessage} (${loadedMediaName}))`;
@@ -85,9 +95,7 @@ function showError(filePath, errorMessage) {
 }
 
 function defaultPreview() {
-    media_player.style.display = 'none';
-    media_preview.style.display = 'inline';
-    media_preview.src = 'apps/music/none.png';
+    enableMediaPreview('apps/music/none.png', true);
 }
 
 function playerUnload() {
@@ -123,7 +131,7 @@ function openAudio(filePath) {
         if (lastMediaPath != filePath) return;
         showTrackName(filePath);
         defaultPreview();
-        setTrackCover(media_preview, filePath).then(() => {});
+        setTrackCover(enableMediaPreview, filePath).then(() => {});
     };
 
     media_player.src = toWebPath(filePath);
@@ -146,12 +154,8 @@ function openVideo(filePath) {
 
 function openImage(filePath) {
     playerUnload();
-
     showTrackName(filePath);
-
-    media_player.style.display = 'none';
-    media_preview.style.display = 'inline';
-    media_preview.src = `file://${filePath}`;
+    enableMediaPreview(`file://${filePath}`);
     updateGui();
 }
 

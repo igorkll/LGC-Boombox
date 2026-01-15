@@ -231,10 +231,10 @@ window.detectMediaType = async function (filePath) {
     return "other";
 };
 
-window.setTrackCover = async function (imgElement, filePath) {
+window.setTrackCover = async function (callback, filePath) {
     const tempPath = await ipcRenderer.invoke('get-track-cover', filePath);
     if (tempPath) {
-        imgElement.src = `file://${tempPath}`;
+        callback(`file://${tempPath}`);
         console.log('Cover image set successfully.');
     } else {
         console.log('No cover found.');
