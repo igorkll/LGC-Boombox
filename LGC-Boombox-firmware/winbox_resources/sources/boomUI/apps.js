@@ -58,7 +58,7 @@ window.addApp = function (name) {
         .catch(err => console.error(err));
 }
 
-//addApp("browser");
+addApp("browser");
 addApp("files");
 addApp("music");
 addApp("visualization");
