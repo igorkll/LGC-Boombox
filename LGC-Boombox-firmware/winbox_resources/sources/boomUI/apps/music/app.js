@@ -395,7 +395,9 @@ function updateLoopmodeImage() {
             break;
     }
 
-    music_loopmode_img.src = `apps/music/loopmode_${loopmode}.png`;
+    let imgPath = `apps/music/loopmode_${loopmode}.png`;
+    music_loopmode_img.src = imgPath;
+    music_real_next_img.src = imgPath;
 }
 
 updateLoopmodeImage();
