@@ -221,6 +221,9 @@ window.openMedia = function(filePath, callback, _manualOpen=true, reindex=true, 
 }
 
 function blackeningToggle(state) {
+    mediaPreviewMarginOptional = state;
+    updateMediaPreviewMargin();
+
     if (state) {
         media_panel.classList.add("music-blackening-mode");
     } else {
