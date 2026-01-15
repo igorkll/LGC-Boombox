@@ -48,7 +48,8 @@
     "Disable system integrity checks",
     "Disable HyperV / VSM / ELAM",
     "Disable boot circle",
-    "Disable boot messages"
+    "Disable boot messages",
+    "Do not disable hotkeys by changing the layout"
   ],
   "TweakListLevel": 3,
   "CustomBootLogo": "logo_boot.png",
