@@ -35,7 +35,7 @@ function inputWindow(inputText, callback, title) {
     let inputContainer = document.createElement('div');
     inputContainer.style.display = 'flex';
     inputContainer.style.justifyContent = 'space-evenly';
-    inputContainer.style.alignItems = 'center';
+    inputContainer.style.alignItems = 'stretch';
     inputContainer.style.flexDirection = 'row';
     inputContainer.style.width = '100%';
     msgboxBody.appendChild(inputContainer);
@@ -43,7 +43,7 @@ function inputWindow(inputText, callback, title) {
     let inputBlock
     let clearButton = document.createElement('custom-button');
     clearButton.style.margin = '1vh 1vh';
-    //clearButton.style.aspectRatio = '1 / 1';
+    clearButton.style.width = '13vh';
     clearButton.style.height = '100%';
     clearButton.innerHTML = "X";
     inputContainer.appendChild(clearButton);
