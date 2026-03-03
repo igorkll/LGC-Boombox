@@ -1,6 +1,6 @@
 $fn = 100;
 
-width = 140;
+width = 260 / 2;
 length = 170;
 height = 30;
 
