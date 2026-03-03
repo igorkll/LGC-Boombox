@@ -14,7 +14,13 @@ bracing_length = 4;
 bracing_height = 10;
 bracing_holo_offset = 10;
 
-right = true;
+logo_hole_offset = 20;
+logo_hole_center_offset = 30;
+
+right = false;
+
+wire_diameter = 3;
+wire_offset = 20;
 
 difference() {
     cube([width, length, height]);
@@ -26,6 +32,7 @@ difference() {
     holes_height_pos = (height - hole_depth) + 1;
     holes_h = hole_depth + 1;
 
+    // back holes
     translate([thickness / 2, thickness / 2, holes_height_pos]) {
         cylinder(holes_h, d = hole_diameter);
     }
@@ -52,5 +59,24 @@ difference() {
     
     translate([thickness / 2, length / 2, holes_height_pos]) {
         cylinder(holes_h, d = hole_diameter);
+    }
+    
+    // logo hole
+    translate([width - logo_hole_center_offset, logo_hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width - logo_hole_center_offset, length - logo_hole_offset, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    translate([width - logo_hole_center_offset, length / 2, height / 2]) {
+        cylinder(h = height + 1, d = hole_diameter, center = true);
+    }
+    
+    if (!right) {
+        translate([-1, wire_offset, height / 2]) {
+            rotate([0, 90, 0]) {
+                cylinder(h = thickness + 2, d = wire_diameter);
+            }
+        }
     }
 }
